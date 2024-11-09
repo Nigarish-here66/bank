@@ -1,17 +1,80 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import Header from '../components/header'; 
+import CustomButton from '../components/longbutton'; 
+import InputBox from '../components/inputfield';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
 
-export default function Password() {
+
+
+const PasswordConfirmation = ({  }) => {
+  const [password, setPassword] = useState('');
+  const [secureText, setSecureText] = useState(true);
+
   return (
-    <View >
-      <Text>Home Screen</Text>
-      <Button title="Go to Details" onPress={() => navigation.navigate('Detail')} />
+    <View style={styles.container}>
+      {/* Reusable Header */}
+      <Header
+        title="Confirm Password"
+       
+        onHelpPress={() => alert('Help/Settings clicked')}
+      />
+
+      {/* Main Content */}
+      <View style={styles.contentContainer}>
+        <Text style={styles.instructionText}>
+          Please input your password before continuing payment
+        </Text>
+
+        {/* Password Input */}
+        <View style={styles.passwordContainer}>
+          <InputBox
+            label="Password"
+            value={password}
+            placeholder="Enter password"
+            secureTextEntry={secureText}
+            onChangeText={(text) => setPassword(text)}
+           
+          />
+          <Text style={styles.passwordHint}>Must be at least 8 characters.</Text>
+        </View>
+      </View>
+
+      {/* Confirm Password Button */}
+      <View style={styles.bottomContainer}>
+        <CustomButton title="Confirm Password" />
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-   
+    flex: 1,
+    backgroundColor: '#0D0B1E',
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+    justifyContent: 'center', 
+  },
+  instructionText: {
+    fontSize: 16,
+    color: '#9A9A9A', 
+    marginBottom: 20,
+  },
+  passwordContainer: {
+    marginTop: 10,
+  },
+  passwordHint: {
+    fontSize: 12,
+    color: '#9A9A9A', 
+    marginTop: 5,
+  },
+  bottomContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 40, 
   },
 });
+
+export default PasswordConfirmation;

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
 
-const Login = ({ navigation }) => {
+const CreateAccount = ({ navigation }) => {
 
   const [isAutoLogin, setAutoLogin] = useState(false);
   return (
@@ -12,14 +12,14 @@ const Login = ({ navigation }) => {
 
       {/* "Create account" link */}
       <TouchableOpacity style={styles.createAccount} >
-        <Text style={styles.createAccountText}>Create account</Text>
+        <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
 
 
 
       <View style={styles.container}>
 
-        <Text style={styles.loginText}>Login</Text>
+        <Text style={styles.loginText}>Create Account</Text>
         <View style={styles.inputContainer}>
           {/* Email Input Field */}
           <ReusableTextInput
@@ -33,11 +33,15 @@ const Login = ({ navigation }) => {
           <ReusableTextInput
             placeholder="Password"
             icon="lock"
-            iconColor="#6A6A6A"
-
-            rightText="FORGOT"
-            rightTextStyle={styles.forgotText}
-            onRightTextPress={() => alert('Forget Password')}
+            secureTextEntry={true}
+                  />
+                  
+          {/* Phone number Input Field */}
+          <ReusableTextInput
+            placeholder="+92 000 0000000"
+            icon="phone"
+            iconColor="#00D100"
+            keyboardType="phone-pad"
           />
         </View>
 
@@ -46,7 +50,7 @@ const Login = ({ navigation }) => {
         {/* Login Button */}
         <View style={styles.buttonContainer}>
           <ReusableButton
-            title="Login"
+            title="Create"
             icon="arrow-right"
             onPress={() => navigation.navigate('SummaryTransaction')}
 
@@ -57,7 +61,7 @@ const Login = ({ navigation }) => {
   );
 };
 
-export default Login;
+export default CreateAccount;
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
