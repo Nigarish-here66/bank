@@ -54,18 +54,25 @@ const Scanner = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f8f9fa',
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 16,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: 40,
+      },
+      headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 9,
+        paddingBottom: 10,
+      },
+      headerText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+      },
   backIcon: {
     marginLeft: 8,
+    marginTop: 4,
   },
   headerText: {
     fontSize: 18,
@@ -77,6 +84,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     marginVertical: 16,
+    marginTop: 50,
   },
   logo: {
     width: 80,
@@ -90,6 +98,7 @@ const styles = StyleSheet.create({
   merchantText: {
     fontSize: 20,
     fontWeight: 'bold',
+    marginTop: 8,
   },
   dateText: {
     fontSize: 14,
@@ -108,6 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 16,
     marginVertical: 8,
+    marginBottom: 16,
   },
   infoIcon: {
     marginRight: 8,
@@ -120,6 +130,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginHorizontal: 16,
     marginVertical: 8,
+    marginTop: 150,
+    paddingBottom: 8,
   },
   cardContainer: {
     backgroundColor: '#ffffff',

@@ -104,6 +104,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 16,
     marginVertical: 20,
+    shadowColor: 'purple',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowRadius: 5,
+    elevation: 9,
   },
   summaryItem: {
     alignItems: 'center',

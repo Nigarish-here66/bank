@@ -81,23 +81,24 @@ const Notification = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
+const styles = StyleSheet.create({container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#fff',
+    paddingTop: 40,
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 16,
-    backgroundColor: 'white',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingBottom: 10,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   scrollContainer: {
+    paddingTop: 40,
     paddingBottom: 20,
   },
   section: {
@@ -115,6 +116,7 @@ const styles = StyleSheet.create({
     color: '#007AFF',
     position: 'absolute',
     right: 16,
+    marginTop: 5,
   },
   notificationCard: {
     flexDirection: 'row',
@@ -123,6 +125,13 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginTop: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowRadius: 4,
+    elevation: 7,
   },
   iconContainer: {
     width: 40,

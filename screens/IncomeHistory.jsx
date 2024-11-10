@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    paddingTop: 40,
     backgroundColor: '#fff',
   },
   header: {
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
+    paddingHorizontal: 0,
   },
   headerTitle: {
     fontSize: 20,
@@ -139,7 +141,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 8,
     paddingVertical: 2,
-    marginLeft: 10,
+    marginLeft: 20,
+    
   },
   newBadgeText: {
     color: '#fff',
@@ -159,6 +162,13 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowRadius: 2,
+    elevation: 4,
   },
   selectedTransaction: {
     backgroundColor: '#ffffff',

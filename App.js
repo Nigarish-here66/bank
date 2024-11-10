@@ -15,10 +15,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Dashboard" component={Dashboard} />
-        <Tab.Screen name="Notification" component={Notification} />
-        <Tab.Screen name="Statistics" component={Statistics} />
-        <Tab.Screen name="Scanner" component={Scanner} />
+        <Tab.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }} />
+        <Tab.Screen name="Notification" component={Notification} options={{ headerShown: false }} />
+        <Tab.Screen name="Statistics" component={Statistics} options={{ headerShown: false }} />
+        <Tab.Screen name="Scanner" component={Scanner} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
   );

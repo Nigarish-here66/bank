@@ -1,14 +1,28 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; 
 
 const Dashboard = ({ navigation }) => {
   return (
-    <ScrollView style={styles.container}>
+    
+    <View style={styles.containerheader}>
       {/* Header */}
-      <Text style={styles.header}>Dashboard</Text>
+      <View style={styles.headertop}>
+        <TouchableOpacity>
+          <Ionicons name="menu" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Dashboard</Text>
+        <TouchableOpacity>
+          <Ionicons name="settings-outline" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView style={styles.container}>
+
+      {/* Header */}
+      <Text style={styles.header}>Total Balance</Text>
 
       {/* Total Balance Section */}
-      <Text style={styles.sectionTitle}>Total Balance</Text>
       <View style={styles.balanceContainer}>
         <Text style={styles.balanceAmount}>425.97 USD</Text>
         <View style={styles.percentageContainer}>
@@ -69,13 +83,31 @@ const Dashboard = ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+    containerheader: {
+        flex: 1,
+        backgroundColor: '#fff',
+        paddingTop: 40,
+      },
+      headertop: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        paddingBottom: 10,
+      },
+      headerTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+      },
   container: {
     flex: 1,
     padding: 20,
+    paddingTop: 20,
     backgroundColor: '#fff',
   },
   header: {
@@ -99,10 +131,10 @@ const styles = StyleSheet.create({
   },
   percentageContainer: {
     backgroundColor: '#4CAF50',
-    borderRadius: 10,
+    borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    marginLeft: 10,
+    marginLeft: 20,
   },
   percentageText: {
     color: '#fff',
@@ -111,6 +143,7 @@ const styles = StyleSheet.create({
   detailsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 20,
     marginBottom: 20,
   },
   detailItem: {
@@ -128,14 +161,15 @@ const styles = StyleSheet.create({
   tokenHeaderContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   newBadge: {
     backgroundColor: '#FF4081',
     borderRadius: 5,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    marginLeft: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    marginLeft: 20,
+    marginBottom: 6,
   },
   newBadgeText: {
     color: '#fff',
@@ -153,6 +187,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: 'blue',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowRadius: 4,
+    elevation: 7,
   },
   tokenPercentage: {
     color: '#4CAF50',
@@ -177,6 +218,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowRadius: 4,
+    elevation: 7,
   },
   bonusText: {
     fontSize: 14,
