@@ -2,28 +2,30 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Mybutton from '../components/button';
 
-export default function SetGoal() {
+export default function SetGoal({ navigation }) {
   return (
     <View style={styles.container}>
       {/* "Create account" link */}
-      <TouchableOpacity style={styles.createAccount}>
+      <TouchableOpacity style={styles.createAccount}
+        onPress={() => navigation.navigate('CreateAccount')}>
         <Text style={styles.createAccountText}>Create Account</Text>
       </TouchableOpacity>
 
       {/* Image */}
-      
+      <View style={styles.imageContainer}>
         <Image source={require('../assets/running.png')} style={styles.image} />
-      
+      </View>
+
       {/* Text */}
-      
+      <View style={styles.textContainer}>
         <Text style={styles.headerText}>SET YOUR</Text>
         <Text style={styles.headerText}>FINANCIAL GOAL</Text>
         <Text style={styles.descriptionText}>You can track your progress and achievements in a special section</Text>
-      
+      </View>
 
       {/* Button */}
       <View style={styles.buttonContainer}>
-        <Mybutton title="Login" />
+        <Mybutton title="Login" onPress={() => navigation.navigate('Login')} />
       </View>
     </View>
   );
@@ -41,48 +43,43 @@ const styles = StyleSheet.create({
   createAccountText: {
     color: '#FF5063',
     fontSize: 16,
-      fontWeight: 'bold',
-      textDecorationLine: 'underline',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
     marginRight: 10,
   },
-  
-    image: {
+  imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-        flex: 1,
-        marginLeft: 60,
+    flex: 1,
     marginTop: 50,
+  },
+  image: {
     width: 250,
     height: 300,
     resizeMode: 'contain',
   },
-  txt: {
-      alignItems: 'center',
-      textAlign: 'center',
+  textContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 20,
-      maxWidth: 300,
-      alignItem: 'center',
-    
   },
   headerText: {
-      fontWeight: 'bold',
-      fontSize: 30,
+    fontWeight: 'bold',
+    fontSize: 30,
     color: 'white',
-    
-      textAlign: 'center',
-
-      
+    textAlign: 'center',
   },
   descriptionText: {
     fontWeight: 'normal',
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
+    maxWidth: 300,
   },
   buttonContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-      marginTop: 20,
-      marginBottom: 25,
+    marginTop: 20,
+    marginBottom: 25,
   },
 });

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
-import Header from '../components/header';
+import Header from '../components/headerwhite';
 import LongButton from '../components/longbutton';
 
 

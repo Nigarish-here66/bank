@@ -11,7 +11,7 @@ const Login = ({ navigation }) => {
 
 
       {/* "Create account" link */}
-      <TouchableOpacity style={styles.createAccount} >
+      <TouchableOpacity style={styles.createAccount}  onPress={() => navigation.navigate('CreateAccount')}>
         <Text style={styles.createAccountText}>Create account</Text>
       </TouchableOpacity>
 
@@ -48,7 +48,7 @@ const Login = ({ navigation }) => {
           <ReusableButton
             title="Login"
             icon="arrow-right"
-            onPress={() => navigation.navigate('SummaryTransaction')}
+            onPress={() => navigation.navigate('Home')}
 
           />
         </View>

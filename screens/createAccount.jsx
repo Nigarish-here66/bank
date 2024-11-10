@@ -11,7 +11,7 @@ const CreateAccount = ({ navigation }) => {
 
 
       {/* "Create account" link */}
-      <TouchableOpacity style={styles.createAccount} >
+      <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('Login')} >
         <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
 
@@ -52,7 +52,7 @@ const CreateAccount = ({ navigation }) => {
           <ReusableButton
             title="Create"
             icon="arrow-right"
-            onPress={() => navigation.navigate('SummaryTransaction')}
+            onPress={() => navigation.navigate('Login')}
 
           />
         </View>

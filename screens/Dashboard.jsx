@@ -1,109 +1,99 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
+import MyHeader from '../components/headerblack';
 
 const Dashboard = ({ navigation }) => {
   return (
-    
     <View style={styles.containerheader}>
       {/* Header */}
-      <View style={styles.headertop}>
-        <TouchableOpacity>
-          <Ionicons name="menu" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Dashboard</Text>
-        <TouchableOpacity>
-          <Ionicons name="settings-outline" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-
+     <MyHeader title='Dashboard' onBackPress={() => navigation.goBack()} onHelpPress={() => alert('Help/Settings clicked')}/>
       <ScrollView style={styles.container}>
+        {/* Header */}
+        <Text style={styles.header}>Total Balance</Text>
 
-      {/* Header */}
-      <Text style={styles.header}>Total Balance</Text>
-
-      {/* Total Balance Section */}
-      <View style={styles.balanceContainer}>
-        <Text style={styles.balanceAmount}>425.97 USD</Text>
-        <View style={styles.percentageContainer}>
-          <Text style={styles.percentageText}>+4.24%</Text>
-        </View>
-      </View>
-      <View style={styles.detailsRow}>
-        <View style={styles.detailItem}>
-          <Text style={styles.detailText}>Positions</Text>
-          <Text style={styles.detailValue}>1950.00 USD</Text>
-        </View>
-        <View style={styles.detailItem}>
-          <Text style={styles.detailText}>Cash</Text>
-          <Text style={styles.detailValue}>250.00 USD</Text>
-        </View>
-      </View>
-
-      {/* Navigate to Income History */}
-      <TouchableOpacity
-        style={styles.incomeHistoryButton}
-        onPress={() => navigation.navigate('IncomeHistory')}
-      >
-        <Text style={styles.buttonText}>View Income History</Text>
-      </TouchableOpacity>
-
-      {/* Token Bonus Section */}
-      <View style={styles.tokenHeaderContainer}>
-        <Text style={styles.sectionTitle}>Token Bonus</Text>
-        <View style={styles.newBadge}>
-          <Text style={styles.newBadgeText}>New</Text>
-        </View>
-      </View>
-      <View style={styles.tokenSection}>
-        <View style={styles.tokenBox}>
-          <Text style={styles.tokenPercentage}>12%</Text>
-          <Text style={styles.tokenDescription}>Tokens to buy for 13%</Text>
-          <Text style={styles.tokenAmount}>330BTN</Text>
-        </View>
-        <View style={styles.bonusBoxContainer}>
-          <View style={styles.bonusBox}>
-            <Text style={styles.bonusText}>Bonus received</Text>
-            <Text style={styles.bonusAmount}>$22.42</Text>
-          </View>
-          <View style={styles.bonusBox}>
-            <Text style={styles.bonusText}>Bonus received</Text>
-            <Text style={styles.bonusAmount}>$22.42</Text>
+        {/* Total Balance Section */}
+        <View style={styles.balanceContainer}>
+          <Text style={styles.balanceAmount}>425.97 USD</Text>
+          <View style={styles.percentageContainer}>
+            <Text style={styles.percentageText}>+4.24%</Text>
           </View>
         </View>
-      </View>
+        <View style={styles.detailsRow}>
+          <View style={styles.detailItem}>
+            <Text style={styles.detailText}>Positions</Text>
+            <Text style={styles.detailValue}>1950.00 USD</Text>
+          </View>
+          <View style={styles.detailItem}>
+            <Text style={styles.detailText}>Cash</Text>
+            <Text style={styles.detailValue}>250.00 USD</Text>
+          </View>
+        </View>
 
-      {/* Action Buttons */}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.getTokenButton}>
-          <Text style={styles.buttonText}>Get Tokens</Text>
+        {/* Navigate to Income History */}
+        <TouchableOpacity
+          style={styles.incomeHistoryButton}
+          onPress={() => navigation.navigate('IncomeHistory')}
+        >
+          <Text style={styles.buttonText}>View Income History</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.borrowTokenButton}>
-          <Text style={styles.buttonText}>Borrow Tokens</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+
+        {/* Token Bonus Section */}
+        <View style={styles.tokenHeaderContainer}>
+          <Text style={styles.sectionTitle}>Token Bonus</Text>
+          <View style={styles.newBadge}>
+            <Text style={styles.newBadgeText}>New</Text>
+          </View>
+        </View>
+        <View style={styles.tokenSection}>
+          <View style={styles.tokenBox}>
+            <Text style={styles.tokenPercentage}>12%</Text>
+            <Text style={styles.tokenDescription}>Tokens to buy for 13%</Text>
+            <Text style={styles.tokenAmount}>330BTN</Text>
+          </View>
+          <View style={styles.bonusBoxContainer}>
+            <View style={styles.bonusBox}>
+              <Text style={styles.bonusText}>Bonus received</Text>
+              <Text style={styles.bonusAmount}>$22.42</Text>
+            </View>
+            <View style={styles.bonusBox}>
+              <Text style={styles.bonusText}>Bonus received</Text>
+              <Text style={styles.bonusAmount}>$22.42</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Action Buttons */}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.getTokenButton}>
+            <Text style={styles.buttonText}>Get Tokens</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.borrowTokenButton}>
+            <Text style={styles.buttonText}>Borrow Tokens</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    containerheader: {
-        flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: 40,
-      },
-      headertop: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 16,
-        paddingBottom: 10,
-      },
-      headerTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-      },
+  containerheader: {
+    flex: 1,
+    backgroundColor: '#fff',
+    
+  },
+  headertop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingBottom: 10,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
   container: {
     flex: 1,
     padding: 20,
@@ -257,6 +247,13 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  incomeHistoryButton: {
+    backgroundColor: '#4CAF50',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+    alignItems: 'center',
   },
 });
 

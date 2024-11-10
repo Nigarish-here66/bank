@@ -1,20 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import HeaderBlack from '../components/headerblack';
 
 const IncomeHistory = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Income History</Text>
-        <TouchableOpacity>
-          <Ionicons name="settings-outline" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+      <HeaderBlack title="Income History" onBackPress={() => navigation.goBack()} onHelpPress={() => alert('Help/Settings clicked')} />
 
       {/* Total Income Section */}
       <View style={styles.incomeContainer}>
@@ -96,24 +89,14 @@ const IncomeHistory = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    paddingTop: 40,
+    padding: 10,
     backgroundColor: '#fff',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-    paddingHorizontal: 0,
-  },
-  headerTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
+  
+  
   incomeContainer: {
     alignItems: 'center',
-    marginVertical: 20,
+    
   },
   incomeAmount: {
     fontSize: 32,
