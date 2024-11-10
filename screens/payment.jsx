@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
 import Header from '../components/headerwhite';
 import LongButton from '../components/longbutton';
+import Bottom from '../components/bottom'
 
-
-export default function Payment() {
+export default function Payment({navigation}) {
   return (
     <View style={styles.Outercontainer}>
       <Header title="Payment Receipt" onBackPress={() => alert('Back clicked')} onHelpPress={() => alert('Help/Settings clicked')} />
@@ -28,13 +28,14 @@ export default function Payment() {
             </View> 
         </View>
 
-        <LongButton title="Done" onPress={() => alert('Payment Done')} />
+        <LongButton title="Done" onPress={() => navigation.navigate('Home')} />
 
         <TouchableOpacity onPress={() => alert('')} style={styles.payAgainButton}>
           <Text style={styles.payAgainText}>Pay Again</Text>
         </TouchableOpacity>
 
       </View>
+      <Bottom/>
     </View>
   );
 }

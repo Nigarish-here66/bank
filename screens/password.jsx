@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
-import Header from '../components/header'; 
+import Header from '../components/headerwhite'; 
 import CustomButton from '../components/longbutton'; 
 import InputBox from '../components/inputfield';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
 
 
 
-const PasswordConfirmation = ({  }) => {
+const PasswordConfirmation = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
 
@@ -16,7 +16,7 @@ const PasswordConfirmation = ({  }) => {
       {/* Reusable Header */}
       <Header
         title="Confirm Password"
-       
+        onBackPress={() => navigation.goBack()}
         onHelpPress={() => alert('Help/Settings clicked')}
       />
 
@@ -42,7 +42,7 @@ const PasswordConfirmation = ({  }) => {
 
       {/* Confirm Password Button */}
       <View style={styles.bottomContainer}>
-        <CustomButton title="Confirm Password" />
+        <CustomButton title="Confirm Password"  onPress={() => navigation.navigate('Payment')}/>
       </View>
     </View>
   );

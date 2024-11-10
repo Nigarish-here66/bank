@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import Header from '../components/header';
+import Header from '../components/headerwhite';
+import BottomNavBar from '../components/bottom';
 
-export default function QR() {
+export default function QR({navigation}) {
   return (
     <View style={styles.container}>
       <Header title="Scan To Pay" onBackPress={() => alert('Back clicked')} onHelpPress={() => alert('Help/Settings clicked')} />
@@ -16,7 +17,7 @@ export default function QR() {
         <Text style={styles.title}>Payment with QR Code</Text>
         <Text style={styles.description}>Hold the code inside the frame, it will be scanned automatically</Text>
       </View>
-
+      <BottomNavBar navigation={navigation} />
     </View>
   );
 }

@@ -1,182 +1,169 @@
+
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import CustomButton from '../components/button'; 
+import Header from '../components/headerwhite';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
 
-const Scanner = () => {
+const { width, height } = Dimensions.get('window');
+
+const SummaryTransaction = ({ navigation }) => {
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Ionicons name="arrow-back" size={24} color="black" style={styles.backIcon} />
-        <Text style={styles.headerText}>Summary Transaction</Text>
-        <Ionicons name="settings-outline" size={24} color="black" style={styles.settingsIcon} />
-      </View>
+    <View style={styles.container}>
+      {/* Reusable Header */}
+      <Header
+        title="Summary Transaction"
+        onBackPress={() => navigation.goBack()}
+        onHelpPress={() => alert('Help/Settings clicked')}
+      />
 
-      <View style={styles.logoContainer}>
+      {/* Main Content */}
+      <View style={styles.contentContainer}>
+        {/* Starbucks Logo */}
         <Image
-          source={{ uri: 'https://via.placeholder.com/100' }} // Replace with actual logo URL
+          source={require('../assets/starbuck.png')} 
           style={styles.logo}
         />
-      </View>
 
-      <View style={styles.transactionInfo}>
-        <Text style={styles.merchantText}>Starbucks Coffee</Text>
-        <Text style={styles.dateText}>Payment on Dec 2, 2020</Text>
-        <Text style={styles.amountText}>$15.00</Text>
-      </View>
+        {/* Transaction Details */}
+        <Text style={styles.merchantName}>Starbucks Coffee</Text>
+        <Text style={styles.transactionDate}>Payment on Dec 2, 2020</Text>
 
-      <View style={styles.feeContainer}>
-        <Ionicons name="information-circle-outline" size={20} color="black" style={styles.infoIcon} />
-        <Text style={styles.feeText}>Payment fee $2 has been applied</Text>
-      </View>
+        {/* Transaction Amount */}
+        <Text style={styles.amount}>$15.00</Text>
 
-      <Text style={styles.chooseCardText}>Choose Cards</Text>
-
-      <View style={styles.cardContainer}>
-        <View style={styles.cardDetails}>
-          <Image
-            source={{ uri: 'https://via.placeholder.com/40' }} // Replace with actual card image URL
-            style={styles.cardImage}
-          />
-          <View style={styles.cardInfo}>
-            <Text style={styles.cardName}>Wally Virtual Card</Text>
-            <Text style={styles.cardNumber}>0318-1608-2105</Text>
-          </View>
-          <Ionicons name="chevron-down" size={20} color="black" />
+        {/* Payment Fee */}
+        <View style={styles.paymentFeeContainer}>
+          <Text style={styles.paymentFeeText}>Payment fee $2 has been applied</Text>
         </View>
       </View>
 
-      <TouchableOpacity style={styles.payButton}>
-        <Text style={styles.payButtonText}>Proceed to Pay</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      {/* White Box at Bottom */}
+      <View style={styles.bottomContainer}>
+        {/* Card Selection Section */}
+        <View style={styles.cardSelectionContainer}>
+          <Text style={styles.chooseCardText}>Choose Cards</Text>
+          <View style={styles.cardContainer}>
+            <View style={styles.card}>
+              <Image
+                source={require('../assets/sikka.png')} 
+                style={styles.cardImage}
+              />
+              <View style={styles.cardDetails}>
+                <Text style={styles.cardName}>Wally Virtual Card</Text>
+                <Text style={styles.cardNumber}>0318-1608-2105</Text>
+              </View>
+              <FontAwesome5 name="chevron-down" size={24} color="#000" style={styles.cardIcon} />
+            </View>
+          </View>
+        </View>
+
+        {/* Proceed to Pay Button */}
+        <View style={styles.buttonContainer}>
+          <CustomButton title="Proceed to Pay" onPress={() => navigation.navigate('Password')} />
+        </View>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        paddingTop: 40,
-      },
-      headerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 9,
-        paddingBottom: 10,
-      },
-      headerText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-      },
-  backIcon: {
-    marginLeft: 8,
-    marginTop: 4,
+  container: {
+    flex: 1,
+    backgroundColor: '#0D0B1E',
   },
-  headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  settingsIcon: {
-    marginRight: 8,
-  },
-  logoContainer: {
+  contentContainer: {
+    flex: 1,
     alignItems: 'center',
-    marginVertical: 16,
-    marginTop: 50,
+    paddingHorizontal: 20,
   },
   logo: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 100,
+    height: 100,
+    marginTop: 80,
   },
-  transactionInfo: {
-    alignItems: 'center',
-    marginVertical: 16,
-  },
-  merchantText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 8,
-  },
-  dateText: {
-    fontSize: 14,
-    color: '#ff9f1c',
-    marginVertical: 4,
-  },
-  amountText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-  },
-  feeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#e0e0e0',
-    padding: 8,
-    borderRadius: 8,
-    marginHorizontal: 16,
-    marginVertical: 8,
-    marginBottom: 16,
-  },
-  infoIcon: {
-    marginRight: 8,
-  },
-  feeText: {
-    fontSize: 14,
-  },
-  chooseCardText: {
+  merchantName: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginHorizontal: 16,
-    marginVertical: 8,
-    marginTop: 150,
-    paddingBottom: 8,
+    color: '#FFFFFF',
+    marginTop: 15,
+  },
+  transactionDate: {
+    fontSize: 14,
+    color: '#C4C4C4',
+    marginTop: 5,
+  },
+  amount: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginTop: 20,
+  },
+  paymentFeeContainer: {
+    backgroundColor: '#0B5840',
+    borderRadius: 10,
+    padding: 10,
+    marginTop: 15,
+  },
+  paymentFeeText: {
+    color: '#D1F8E9',
+    fontSize: 14,
+  },
+  bottomContainer: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    width: width,
+    position: 'absolute',
+    bottom: 0,
+  },
+  cardSelectionContainer: {
+    marginTop: 10,
+  },
+  chooseCardText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 10,
   },
   cardContainer: {
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    marginHorizontal: 16,
-    padding: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  cardDetails: {
+    borderRadius: 15,
+    backgroundColor: '#F4F4F4',
+    padding: 15,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   cardImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    marginRight: 12,
+    width: 50,
+    height: 30,
   },
-  cardInfo: {
+  cardDetails: {
     flex: 1,
+    marginLeft: 15,
   },
   cardName: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#000000',
   },
   cardNumber: {
     fontSize: 14,
-    color: '#6c757d',
+    color: '#9A9A9A',
   },
-  payButton: {
-    backgroundColor: '#e63946',
-    borderRadius: 8,
-    margin: 16,
-    paddingVertical: 12,
-    alignItems: 'center',
+  cardIcon: {
+    marginLeft: 10,
   },
-  payButtonText: {
-    fontSize: 18,
-    color: '#ffffff',
-    fontWeight: 'bold',
+  buttonContainer: {
+    marginTop: 20,
   },
 });
 
-export default Scanner;
+export default SummaryTransaction;

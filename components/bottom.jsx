@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
-
-const BottomNavBar = ({ navigation }) => {
+import { useNavigation } from '@react-navigation/native';
+const BottomNavBar = () => {
   
-
+  const navigation = useNavigation();
   return (
       <View style={styles.container}>
           
@@ -16,13 +16,13 @@ const BottomNavBar = ({ navigation }) => {
         <FontAwesome5 name="chart-line" size={24} color="#888" />
           </TouchableOpacity>
           
-      <TouchableOpacity onPress={() => navigation.navigate('Scanner')}>
+      <TouchableOpacity onPress={() => navigation.navigate('QR')}>
         <View style={styles.scanButton}>
           <FontAwesome5 name="qrcode" size={24} color="#FFF" />
               </View>
               
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
         <FontAwesome5 name="bell" size={24} color="#888" />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Profile')}>

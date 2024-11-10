@@ -14,6 +14,9 @@ import Login from './screens/login';
 import IncomeHistory from './screens/IncomeHistory';
 import Home from './screens/home';
 import Payment from './screens/payment';
+import QR from './screens/qr';
+import Password from "./screens/password";
+
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -37,6 +40,11 @@ export default function App() {
         <Stack.Screen name="IncomeHistory" component={IncomeHistory} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Payment" component={Payment} />
+        <Stack.Screen name="QR" component={QR} />
+        <Stack.Screen name="Password" component={Password} />
+
+
+       
         {/* <Stack.Screen name="GetToken" component={GetToken} />
         <Stack.Screen name="BorrowToken" component={BorrowToken} /> */}
       </Stack.Navigator>

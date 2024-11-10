@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
           {/* Buttons */}
           <View style={styles.actionButtonsContainer}>
             <TouchableOpacity style={styles.actionButton} 
-              onPress={() => navigation.navigate('Payment')}>
+              onPress={() => navigation.navigate('Scanner')}>
               <FontAwesome5 name="exchange-alt" size={20} color="#FFFFFF" />
               <Text style={styles.actionButtonText}>Transfer</Text>
             </TouchableOpacity>
@@ -38,7 +38,7 @@ const Home = ({ navigation }) => {
               <Text style={styles.actionButtonText}>Dashboard</Text>
             </TouchableOpacity>
                 <TouchableOpacity style={styles.actionButton}
-                onPress={() => navigation.navigate('Dashboard')}>
+                onPress={() => navigation.navigate('IncomeHistory')}>
               <FontAwesome5 name="history" size={20} color="#FFFFFF" />
               <Text style={styles.actionButtonText}>History</Text>
             </TouchableOpacity>

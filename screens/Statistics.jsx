@@ -2,20 +2,20 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-
-const Statistics = () => {
+import Bottom from '../components/bottom';
+import Header from '../components/headerblack';
+const Statistics = ({navigation}) => {
   return (
+    <View style={[styles.container,]}>
+       {/* Header */}
+       <Header
+        title="Statistics"
+        onBackPress={() => navigation.goBack()}
+        onHelpPress={() => alert('Help/Settings clicked')}
+      /> 
     <ScrollView style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Statistic</Text>
-        <TouchableOpacity>
-          <Ionicons name="settings-outline" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+     
+
 
       {/* Income/Expense Summary */}
       <LinearGradient
@@ -76,7 +76,10 @@ const Statistics = () => {
           </View>
         </View>
       </View>
+     
     </ScrollView>
+    <Bottom />
+    </View>
   );
 };
 
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 40,
+    
   },
   header: {
     flexDirection: 'row',

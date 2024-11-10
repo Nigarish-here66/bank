@@ -1,20 +1,17 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
-
-const Notification = () => {
+import Bottom from '../components/bottom';
+import Header from '../components/headerblack';
+const Notification = ({navigation}) => {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Notification</Text>
-        <TouchableOpacity>
-          <Ionicons name="settings-outline" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+      <Header
+        title="Notifications"
+        onBackPress={() => navigation.goBack()}
+        onHelpPress={() => alert('Help/Settings clicked')}
+      /> 
 
       {/* Notifications */}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -77,6 +74,7 @@ const Notification = () => {
           </View>
         </View>
       </ScrollView>
+      <Bottom />
     </View>
   );
 };
@@ -84,7 +82,7 @@ const Notification = () => {
 const styles = StyleSheet.create({container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 40,
+  
   },
   header: {
     flexDirection: 'row',
@@ -98,7 +96,7 @@ const styles = StyleSheet.create({container: {
     fontWeight: 'bold',
   },
   scrollContainer: {
-    paddingTop: 40,
+    paddingTop: 10,
     paddingBottom: 20,
   },
   section: {
