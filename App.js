@@ -16,7 +16,7 @@ import Home from './screens/home';
 import Payment from './screens/payment';
 import QR from './screens/qr';
 import Password from "./screens/password";
-
+import MyAccount from "./screens/Account";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -42,7 +42,7 @@ export default function App() {
         <Stack.Screen name="Payment" component={Payment} />
         <Stack.Screen name="QR" component={QR} />
         <Stack.Screen name="Password" component={Password} />
-
+        <Stack.Screen name="MyAccount" component={MyAccount} />
 
        
         {/* <Stack.Screen name="GetToken" component={GetToken} />

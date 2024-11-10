@@ -111,7 +111,7 @@ const styles = StyleSheet.create({container: {
   },
   markAsRead: {
     fontSize: 14,
-    color: '#007AFF',
+    color:'#00CCAA',
     position: 'absolute',
     right: 16,
     marginTop: 5,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({container: {
   iconContainer: {
     width: 40,
     height: 40,
-    backgroundColor: '#00BCD4',
+    backgroundColor: '#00CCAA',
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({container: {
   },
   topUpLink: {
     fontSize: 14,
-    color: '#007AFF',
+    color: '#00CCAA',
   },
   notificationItem: {
     flexDirection: 'row',
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({container: {
   iconBlue: {
     width: 40,
     height: 40,
-    backgroundColor: '#00BCD4',
+    backgroundColor:'#00CCAA',
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({container: {
   },
   tag: {
     backgroundColor: '#E0F7FA',
-    color: '#007AFF',
+    color:'#00CCAA',
     borderRadius: 10,
     paddingVertical: 2,
     paddingHorizontal: 8,

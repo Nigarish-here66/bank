@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import CustomButton from '../components/button'; 
 import Header from '../components/headerwhite';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
-
+import Bottom from "../components/bottom";
 const { width, height } = Dimensions.get('window');
 
 const SummaryTransaction = ({ navigation }) => {
@@ -62,7 +62,9 @@ const SummaryTransaction = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <CustomButton title="Proceed to Pay" onPress={() => navigation.navigate('Password')} />
         </View>
+        <Bottom />
       </View>
+      
     </View>
   );
 };
@@ -163,6 +165,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 20,
+    marginBottom: 30,
   },
 });
 

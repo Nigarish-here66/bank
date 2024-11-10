@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MyHeader from '../components/headerblack';
+import Bottom from "../components/bottom";
 
 const Dashboard = ({ navigation }) => {
   return (
@@ -73,6 +74,7 @@ const Dashboard = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <Bottom />
     </View>
   );
 };
@@ -120,7 +122,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   percentageContainer: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#00CCAA',
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 10,
@@ -186,7 +188,7 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   tokenPercentage: {
-    color: '#4CAF50',
+    color: '#00CCAA',
     fontSize: 24,
     fontWeight: 'bold',
   },
@@ -196,7 +198,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   tokenAmount: {
-    color: '#4CAF50',
+    color: '#00CCAA',
     fontSize: 18,
     marginTop: 5,
   },
@@ -231,7 +233,7 @@ const styles = StyleSheet.create({
   },
   getTokenButton: {
     flex: 1,
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#00CCAA',
     padding: 15,
     borderRadius: 10,
     marginRight: 10,
@@ -249,7 +251,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   incomeHistoryButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#00CCAA',
     padding: 15,
     borderRadius: 10,
     marginBottom: 20,

@@ -25,7 +25,7 @@ const BottomNavBar = () => {
       <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
         <FontAwesome5 name="bell" size={24} color="#888" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+      <TouchableOpacity onPress={() => navigation.navigate('MyAccount')}>
         <FontAwesome5 name="user" size={24} color="#888" />
       </TouchableOpacity>
     </View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   scanButton: {
     width: 50,
     height: 50,
-    backgroundColor: '#FFA500', 
+    backgroundColor: "#00CCAA", 
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',

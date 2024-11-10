@@ -51,38 +51,44 @@ const Home = ({ navigation }) => {
 
           {/* First Row */}
           <View style={styles.iconRow}>
-            <TouchableOpacity style={styles.paymentOption}>
+            <TouchableOpacity style={styles.paymentOption} 
+            onPress={() => alert('Electricty clicked')}
+            >
               <FontAwesome5 name="bolt" size={24} color="#8B8000" />
               <Text style={styles.paymentLabel}>Electricity</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption}>
+            <TouchableOpacity style={styles.paymentOption}
+            onPress={() => alert('Internet clicked')}
+            >
               <FontAwesome5 name="wifi" size={24} color="orange" />
               <Text style={styles.paymentLabel}>Internet</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption}>
+            <TouchableOpacity style={styles.paymentOption} 
+            onPress={() => alert('Voucher clicked')}
+            >
               <FontAwesome5 name="ticket-alt" size={24} color="green" />
               <Text style={styles.paymentLabel}>Voucher</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption}>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('Assurance clicked')}>
               <FontAwesome5 name="briefcase-medical" size={24} color="red" />
               <Text style={styles.paymentLabel}>Assurance</Text>
             </TouchableOpacity>
           </View>
 {/* Second Row */}
           <View style={styles.iconRow}>
-            <TouchableOpacity style={styles.paymentOption}>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('Merchant clicked')}>
               <FontAwesome5 name="store" size={24} color="green" />
               <Text style={styles.paymentLabel}>Merchant</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption}>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('Mobile credit clicked')}>
               <FontAwesome5 name="mobile-alt" size={24} color="blue" />
               <Text style={styles.paymentLabel}>Mobile Credit</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption}>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('Bill clicked')}>
               <FontAwesome5 name="file-invoice" size={24} color="orange" />
               <Text style={styles.paymentLabel}>Bill</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption}>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('More clicked')}>
               <FontAwesome5 name="ellipsis-h" size={24} color="green" />
               <Text style={styles.paymentLabel}>More</Text>
             </TouchableOpacity>
@@ -199,7 +205,7 @@ const styles = StyleSheet.create({
     color: '#00CCAA',
     position: 'absolute',
     right: 0,
-    top: 0,
+    top: -20,
   },
   promoCard: {
     backgroundColor: '#0D0B1E',

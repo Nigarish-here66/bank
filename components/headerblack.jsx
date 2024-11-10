@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 0,
-    marginVertical: 45,
+    marginVertical: 40,
      
   },
   iconContainer: {
