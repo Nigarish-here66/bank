@@ -18,9 +18,9 @@ const Account = ({ navigation }) => {
         {/* Profile Card */}
         <View style={styles.profileCard}>
           <View style={styles.circle}>
-            <Text style={styles.circleText}>MH</Text>
+            <Text style={styles.circleText}>XY</Text>
           </View>
-          <Text style={styles.nameText}>Manahil Habib</Text>
+          <Text style={styles.nameText}>XYZ</Text>
           <Text style={styles.accountNumber}>298985151</Text>
 
           {/* Profile and Settings buttons */}
