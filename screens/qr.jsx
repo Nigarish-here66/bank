@@ -6,7 +6,8 @@ import BottomNavBar from '../components/bottom';
 export default function QR({navigation}) {
   return (
     <View style={styles.container}>
-      <Header title="Scan To Pay" onBackPress={() => alert('Back clicked')} onHelpPress={() => alert('Help/Settings clicked')} />
+      <Header title="Scan To Pay" onBackPress={() => navigation.goBack()}
+        onHelpPress={() => alert('Help/Settings clicked')} />
 
       
       <View style={styles.imageContainer}>

@@ -4,7 +4,7 @@ import Header from '../components/headerwhite';
 import CustomButton from '../components/longbutton'; 
 import InputBox from '../components/inputfield';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
-
+import Bottom from "../components/bottom";
 
 
 const PasswordConfirmation = ({ navigation }) => {
@@ -44,6 +44,7 @@ const PasswordConfirmation = ({ navigation }) => {
       <View style={styles.bottomContainer}>
         <CustomButton title="Confirm Password"  onPress={() => navigation.navigate('Payment')}/>
       </View>
+      
     </View>
   );
 };

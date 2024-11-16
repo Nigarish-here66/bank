@@ -7,7 +7,10 @@ import Bottom from '../components/bottom'
 export default function Payment({navigation}) {
   return (
     <View style={styles.Outercontainer}>
-      <Header title="Payment Receipt" onBackPress={() => alert('Back clicked')} onHelpPress={() => alert('Help/Settings clicked')} />
+      <Header title="Payment Receipt" 
+      onBackPress={() => navigation.goBack()}
+      onHelpPress={() => alert('Help/Settings clicked')}
+      />
 
       <View style={styles.Innercontainer}>
 

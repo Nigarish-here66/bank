@@ -2,12 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import HeaderBlack from '../components/headerblack';
-
+import Bottom from "../components/bottom";
 const IncomeHistory = ({ navigation }) => {
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container} >
       {/* Header */}
       <HeaderBlack title="Income History" onBackPress={() => navigation.goBack()} onHelpPress={() => alert('Help/Settings clicked')} />
+    <ScrollView style={styles.innercontainer}>
+      
 
       {/* Total Income Section */}
       <View style={styles.incomeContainer}>
@@ -83,14 +85,19 @@ const IncomeHistory = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
+    <Bottom />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    
     backgroundColor: '#fff',
+  },
+  innercontainer:{
+    padding:20,
   },
   
   
@@ -143,15 +150,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f9f9f9',
     padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
+    borderRadius: 20,
+    marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 2,
       height: 2,
     },
-    shadowRadius: 2,
-    elevation: 4,
+    shadowRadius: 20,
+    elevation: 2,
   },
   selectedTransaction: {
     backgroundColor: '#ffffff',
@@ -181,7 +188,7 @@ const styles = StyleSheet.create({
   transactionAmount: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#4CAF50',
+    color: '#00CCAA',
   },
 });
 
