@@ -25,7 +25,8 @@ const BottomNavBar = () => {
       <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
         <FontAwesome5 name="bell" size={24} color="#888" />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+      
+      <TouchableOpacity onPress={() => navigation.navigate('Splash')}>
         <FontAwesome5 name="user" size={24} color="#888" />
       </TouchableOpacity>
     </View>
