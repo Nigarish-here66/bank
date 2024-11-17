@@ -1,25 +1,62 @@
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const CustomTextInput = ({ icon, placeholder, secureTextEntry, keyboardType , rightText, rightTextStyle, onRightTextPress }) => {
+const CustomTextInput = ({
+  icon,
+  placeholder,
+  secureTextEntry = false,
+  keyboardType = 'default',
+  value,
+  onChangeText,
+  rightText,
+  rightTextStyle,
+  onRightTextPress,
+  inputStyle,
+  containerStyle,
+  iconColor = '#FFFFFF',
+}) => {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
 
   return (
-    <View style={styles.inputContainer}>
-      <FontAwesome5 name={icon} size={18} color="#FFFFFF" style={styles.icon} />
+    <View style={[styles.inputContainer, containerStyle]}>
+      {/* Icon on the left */}
+      {icon && (
+        <FontAwesome5
+          name={icon}
+          size={18}
+          color={iconColor}
+          style={styles.icon}
+        />
+      )}
+
+      {/* TextInput field */}
       <TextInput
-        style={styles.input}
+        style={[styles.input, inputStyle]}
         placeholder={placeholder}
         placeholderTextColor="#A1A1A1"
-        secureTextEntry={!isSecure}
+        secureTextEntry={secureTextEntry && isSecure}
         keyboardType={keyboardType}
+        value={value}
+        onChangeText={onChangeText}
       />
+
+      {/* Toggle for secure text (SHOW/HIDE) */}
       {secureTextEntry && (
-        <TouchableOpacity onPress={() => setIsSecure(!isSecure)}>
-          <Text style={styles.hideText}>{isSecure ? 'HIDE' : 'SHOW'}</Text>
+        <TouchableOpacity
+          onPress={() => setIsSecure(!isSecure)}
+          style={styles.toggleVisibility}>
+          <Text style={styles.toggleText}>{isSecure ? 'SHOW' : 'HIDE'}</Text>
         </TouchableOpacity>
       )}
+
+      {/* Optional right text */}
       {rightText && (
         <TouchableOpacity onPress={onRightTextPress}>
           <Text style={[styles.rightText, rightTextStyle]}>{rightText}</Text>
@@ -47,7 +84,10 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
   },
-  hideText: {
+  toggleVisibility: {
+    marginLeft: 10,
+  },
+  toggleText: {
     color: '#A1A1A1',
     fontSize: 14,
     fontWeight: 'bold',
@@ -56,8 +96,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6A6A6A',
     textDecorationLine: 'underline',
+    marginLeft: 10,
   },
-
 });
 
 export default CustomTextInput;
