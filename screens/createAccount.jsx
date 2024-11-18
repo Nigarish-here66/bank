@@ -1,21 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
+import { ActivityIndicator } from 'react-native';
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
 
 const CreateAccount = ({ navigation }) => {
 
   const [isAutoLogin, setAutoLogin] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.navigate('Login');
+      }
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  const handleSignup = async () => {
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+    setLoading(true);
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
+      navigation.navigate('Login');
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <View style={styles.topContainer}>
 
-
       {/* "Create account" link */}
-      <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('Login')} >
+      <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
-
-
 
       <View style={styles.container}>
 
@@ -27,6 +59,8 @@ const CreateAccount = ({ navigation }) => {
             icon="envelope"
             iconColor="#00D100"
             keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
           />
 
           {/* Password Input Field */}
@@ -34,27 +68,34 @@ const CreateAccount = ({ navigation }) => {
             placeholder="Password"
             icon="lock"
             secureTextEntry={true}
-                  />
-                  
+            value={password}
+            onChangeText={setPassword}
+          />
+
           {/* Phone number Input Field */}
           <ReusableTextInput
             placeholder="+92 000 0000000"
             icon="phone"
             iconColor="#00D100"
             keyboardType="phone-pad"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
           />
         </View>
 
-
+        {error && <Text style={styles.errorText}>{error}</Text>}
 
         {/* Login Button */}
         <View style={styles.buttonContainer}>
-          <ReusableButton
-            title="Create"
-            icon="arrow-right"
-            onPress={() => navigation.navigate('Login')}
-
-          />
+          {loading ? (
+            <ActivityIndicator size="medium" color="#FF5063" />
+          ) : (
+            <ReusableButton
+              title="Sign Up"
+              icon="arrow-right"
+              onPress={handleSignup}
+            />
+          )}
         </View>
       </View>
     </View>
@@ -62,6 +103,7 @@ const CreateAccount = ({ navigation }) => {
 };
 
 export default CreateAccount;
+
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
@@ -77,15 +119,12 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 24,
-    color: '#FFFFFF',
+    color: '#00CCAA',
     fontWeight: 'bold',
-
   },
   createAccount: {
     top: 50,
-
     alignItems: 'flex-end',
-
   },
   createAccountText: {
     color: '#FF5063',
@@ -99,10 +138,13 @@ const styles = StyleSheet.create({
     color: '#4A90E2',
     fontSize: 14,
   },
-
   buttonContainer: {
     marginTop: 30,
     alignItems: 'center',
   },
-
+  errorText: {
+    color: 'red',
+    fontSize: 14,
+    marginBottom: 10,
+  },
 });

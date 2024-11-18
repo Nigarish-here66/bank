@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 
-const CustomTextInput = ({ icon, placeholder, secureTextEntry, keyboardType , rightText, rightTextStyle, onRightTextPress }) => {
+const CustomTextInput = ({ icon, onChangeText, placeholder, value ,secureTextEntry, keyboardType , rightText, rightTextStyle, onRightTextPress }) => {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
 
   return (
@@ -14,6 +14,8 @@ const CustomTextInput = ({ icon, placeholder, secureTextEntry, keyboardType , ri
         placeholderTextColor="#A1A1A1"
         secureTextEntry={!isSecure}
         keyboardType={keyboardType}
+        value={value}
+        onChangeText={onChangeText}
       />
       {secureTextEntry && (
         <TouchableOpacity onPress={() => setIsSecure(!isSecure)}>

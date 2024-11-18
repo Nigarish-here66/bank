@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
    
   },
   createAccountText: {
-    color: '#FF5063', 
+    color: '#00CCAA', 
     textDecorationLine: 'underline',
     fontSize: 16,
     fontWeight: 'bold',

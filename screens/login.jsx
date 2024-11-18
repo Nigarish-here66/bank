@@ -1,11 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
+import { ActivityIndicator } from 'react-native';
+import { signInWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth';
+import { auth } from '../firebase';
 
 const Login = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [Password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.navigate('Home');
+      }
+    });
+    return unsubscribe;
+  }, [navigation]);
 
-  const [isAutoLogin, setAutoLogin] = useState(false);
+  const handleLogin = async () => {
+    if (!email || !Password) {
+      alert('Please fill in all fields');
+      return;
+    }
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, Password);
+      navigation.navigate('Home');
+    }
+    catch (error) {
+      alert(error.message);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
+  
   return (
     <View style={styles.topContainer}>
 
@@ -27,6 +59,8 @@ const Login = ({ navigation }) => {
             icon="envelope"
             iconColor="#00D100"
             keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
           />
 
           {/* Password Input Field */}
@@ -34,10 +68,11 @@ const Login = ({ navigation }) => {
             placeholder="Password"
             icon="lock"
             iconColor="#6A6A6A"
-
             rightText="FORGOT"
             rightTextStyle={styles.forgotText}
             onRightTextPress={() => alert('Forget Password')}
+            value={Password}
+            onChangeText={setPassword}
           />
         </View>
 
@@ -45,12 +80,16 @@ const Login = ({ navigation }) => {
 
         {/* Login Button */}
         <View style={styles.buttonContainer}>
+         {loading ?(
+          <ActivityIndicator size="medium" color="#FF5063" />
+         ):(
           <ReusableButton
             title="Login"
             icon="arrow-right"
-            onPress={() => navigation.navigate('Home')}
-
+            onPress={handleLogin}
           />
+         )}
+          
         </View>
       </View>
     </View>
@@ -84,7 +123,7 @@ const styles = StyleSheet.create({
 
   },
   createAccountText: {
-    color: '#FF5063',
+    color: '#00CCAA',
     fontSize: 16,
     fontWeight: 'bold',
   },
