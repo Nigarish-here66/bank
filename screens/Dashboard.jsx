@@ -8,18 +8,20 @@ const Dashboard = ({ navigation }) => {
   return (
     <View style={styles.containerheader}>
       {/* Header */}
-     <MyHeader title='Dashboard' onBackPress={() => navigation.goBack()} onHelpPress={() => alert('Help/Settings clicked')}/>
+      <MyHeader title='Dashboard' onBackPress={() => navigation.goBack()} onHelpPress={() => alert('Help/Settings clicked')}/>
+
       <ScrollView style={styles.container}>
-        {/* Header */}
+        {/* Total Balance Section */}
         <Text style={styles.header}>Total Balance</Text>
 
-        {/* Total Balance Section */}
         <View style={styles.balanceContainer}>
           <Text style={styles.balanceAmount}>425.97 USD</Text>
           <View style={styles.percentageContainer}>
             <Text style={styles.percentageText}>+4.24%</Text>
           </View>
         </View>
+
+        {/* Balance Details */}
         <View style={styles.detailsRow}>
           <View style={styles.detailItem}>
             <Text style={styles.detailText}>Positions</Text>
@@ -31,7 +33,7 @@ const Dashboard = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Navigate to Income History */}
+        {/* Income History Button */}
         <TouchableOpacity
           style={styles.incomeHistoryButton}
           onPress={() => navigation.navigate('IncomeHistory')}
@@ -46,6 +48,7 @@ const Dashboard = ({ navigation }) => {
             <Text style={styles.newBadgeText}>New</Text>
           </View>
         </View>
+
         <View style={styles.tokenSection}>
           <View style={styles.tokenBox}>
             <Text style={styles.tokenPercentage}>12%</Text>
@@ -67,13 +70,17 @@ const Dashboard = ({ navigation }) => {
         {/* Action Buttons */}
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.getTokenButton}>
+            <Ionicons name="gift" size={20} color="#fff" />
             <Text style={styles.buttonText}>Get Tokens</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.borrowTokenButton}>
+            <Ionicons name="ios-attach" size={20} color="#fff" />
             <Text style={styles.buttonText}>Borrow Tokens</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      {/* Bottom Navigation Bar */}
       <Bottom />
     </View>
   );
@@ -83,23 +90,10 @@ const styles = StyleSheet.create({
   containerheader: {
     flex: 1,
     backgroundColor: '#fff',
-    
-  },
-  headertop: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingBottom: 10,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
   },
   container: {
     flex: 1,
     padding: 20,
-    paddingTop: 20,
     backgroundColor: '#fff',
   },
   header: {

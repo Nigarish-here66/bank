@@ -69,11 +69,13 @@ const Account = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { 
+  container: {
     flex: 1,
-    backgroundColor: 'white'
-   },
-  scrollView: { paddingHorizontal: 20 },
+    backgroundColor: 'white',
+  },
+  scrollView: {
+    paddingHorizontal: 20,
+  },
   profileCard: {
     backgroundColor: '#1C1B2A',
     borderRadius: 20,
@@ -81,6 +83,11 @@ const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 20,
     width: '100%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5,
   },
   circle: {
     backgroundColor: "#00CCAA",
@@ -90,10 +97,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  circleText: { fontSize: 24, color: '#FFF' },
-  nameText: { fontSize: 24, color: '#FFF', marginTop: 10 },
-  accountNumber: { fontSize: 18, color: '#B0B0B0', marginTop: 5 },
-  buttonRow: { flexDirection: 'row', marginTop: 15 },
+  circleText: {
+    fontSize: 24,
+    color: '#FFF',
+  },
+  nameText: {
+    fontSize: 24,
+    color: '#FFF',
+    marginTop: 10,
+  },
+  accountNumber: {
+    fontSize: 18,
+    color: '#B0B0B0',
+    marginTop: 5,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    marginTop: 15,
+  },
   profileButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -112,8 +133,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 5,
   },
-  buttonText: { fontSize: 14, color: '#000', marginLeft: 8 },
-  actions: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 15 },
+  buttonText: {
+    fontSize: 14,
+    color: '#000',
+    marginLeft: 8,
+  },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 15,
+  },
   actionButton: {
     backgroundColor: '#1C1B2A',
     width: '48%',
@@ -122,9 +151,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 10,
+    elevation: 5,
   },
-  actionText: { fontSize: 16, color: '#FFF', marginTop: 5 },
-  footerText: { textAlign: 'center', color: '#9b9b9b', marginVertical: 20 },
+  actionText: {
+    fontSize: 16,
+    color: '#FFF',
+    marginTop: 5,
+  },
+  footerText: {
+    textAlign: 'center',
+    color: '#9b9b9b',
+    marginVertical: 20,
+    fontSize: 12,
+    fontStyle: 'italic',
+  },
 });
 
 export default Account;

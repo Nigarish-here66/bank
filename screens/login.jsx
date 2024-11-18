@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
+import {View,Text,StyleSheet,TouchableOpacity,Alert,ActivityIndicator} from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
 import { auth } from '../firebase';
@@ -18,7 +11,6 @@ const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Redirect if user is already logged in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -33,16 +25,12 @@ const Login = ({ navigation }) => {
       setError('Please fill in both email and password.');
       return;
     }
-
     setLoading(true);
-    setError(null); // Reset error before attempting login
-
+    setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log('Login successful');
       navigation.navigate('Home');
     } catch (error) {
-      console.error(error.message);
       setError('Invalid email or password. Please try again.');
     } finally {
       setLoading(false);
@@ -51,7 +39,6 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.topContainer}>
-      {/* Create Account Link */}
       <TouchableOpacity
         style={styles.createAccount}
         onPress={() => navigation.navigate('CreateAccount')}
@@ -61,53 +48,34 @@ const Login = ({ navigation }) => {
 
       <View style={styles.container}>
         <Text style={styles.loginText}>Login</Text>
-
-        {/* Display Error Message */}
         {error && <Text style={styles.errorText}>{error}</Text>}
-
         <View style={styles.inputContainer}>
-          {/* Email Input Field */}
           <ReusableTextInput
             placeholder="Enter your email"
             icon="envelope"
-            iconColor="#00D100"
-            keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
           />
-
-          {/* Password Input Field */}
           <ReusableTextInput
             placeholder="Enter your password"
             icon="lock"
-            iconColor="#6A6A6A"
             secureTextEntry
             value={password}
             onChangeText={setPassword}
-            rightText="FORGOT"
-            rightTextStyle={styles.forgotText}
-            onRightTextPress={() =>
-              Alert.alert('Forgot Password', 'Reset password feature coming soon!')
-            }
           />
         </View>
-
-        {/* Login Button */}
         <View style={styles.buttonContainer}>
           {loading ? (
             <ActivityIndicator size="large" color="#FF5063" />
           ) : (
-            <ReusableButton
-              title="Login"
-              icon="arrow-right"
-              onPress={handleLogin}
-            />
+            <ReusableButton title="Login" icon="arrow-right" onPress={handleLogin} />
           )}
         </View>
       </View>
     </View>
   );
 };
+
 
 export default Login;
 

@@ -10,7 +10,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 const CustomTextInput = ({
   icon,
+  iconSize = 18,
   placeholder,
+  placeholderColor = '#A1A1A1',
   secureTextEntry = false,
   keyboardType = 'default',
   value,
@@ -21,48 +23,62 @@ const CustomTextInput = ({
   inputStyle,
   containerStyle,
   iconColor = '#FFFFFF',
+  errorMessage,
+  errorTextStyle,
 }) => {
   const [isSecure, setIsSecure] = useState(secureTextEntry);
 
   return (
-    <View style={[styles.inputContainer, containerStyle]}>
-      {/* Icon on the left */}
-      {icon && (
-        <FontAwesome5
-          name={icon}
-          size={18}
-          color={iconColor}
-          style={styles.icon}
+    <>
+      <View style={[styles.inputContainer, containerStyle]}>
+        {/* Icon on the left */}
+        {icon && (
+          <FontAwesome5
+            name={icon}
+            size={iconSize}
+            color={iconColor}
+            style={styles.icon}
+            accessibilityLabel={`Icon for ${placeholder}`}
+          />
+        )}
+
+        {/* TextInput field */}
+        <TextInput
+          style={[styles.input, inputStyle]}
+          placeholder={placeholder}
+          placeholderTextColor={placeholderColor}
+          secureTextEntry={secureTextEntry && isSecure}
+          keyboardType={keyboardType}
+          value={value}
+          onChangeText={onChangeText}
+          accessibilityLabel={placeholder}
         />
-      )}
 
-      {/* TextInput field */}
-      <TextInput
-        style={[styles.input, inputStyle]}
-        placeholder={placeholder}
-        placeholderTextColor="#A1A1A1"
-        secureTextEntry={secureTextEntry && isSecure}
-        keyboardType={keyboardType}
-        value={value}
-        onChangeText={onChangeText}
-      />
+        {/* Toggle for secure text (SHOW/HIDE) */}
+        {secureTextEntry && (
+          <TouchableOpacity
+            onPress={() => setIsSecure(!isSecure)}
+            style={styles.toggleVisibility}
+            accessibilityLabel={`Toggle secure text visibility for ${placeholder}`}>
+            <Text style={styles.toggleText}>{isSecure ? 'SHOW' : 'HIDE'}</Text>
+          </TouchableOpacity>
+        )}
 
-      {/* Toggle for secure text (SHOW/HIDE) */}
-      {secureTextEntry && (
-        <TouchableOpacity
-          onPress={() => setIsSecure(!isSecure)}
-          style={styles.toggleVisibility}>
-          <Text style={styles.toggleText}>{isSecure ? 'SHOW' : 'HIDE'}</Text>
-        </TouchableOpacity>
-      )}
+        {/* Optional right text */}
+        {rightText && (
+          <TouchableOpacity
+            onPress={onRightTextPress}
+            accessibilityLabel={rightText}>
+            <Text style={[styles.rightText, rightTextStyle]}>{rightText}</Text>
+          </TouchableOpacity>
+        )}
+      </View>
 
-      {/* Optional right text */}
-      {rightText && (
-        <TouchableOpacity onPress={onRightTextPress}>
-          <Text style={[styles.rightText, rightTextStyle]}>{rightText}</Text>
-        </TouchableOpacity>
+      {/* Error Message */}
+      {errorMessage && (
+        <Text style={[styles.errorText, errorTextStyle]}>{errorMessage}</Text>
       )}
-    </View>
+    </>
   );
 };
 
@@ -74,7 +90,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 15,
-    marginBottom: 15,
+    marginBottom: 5,
   },
   icon: {
     marginRight: 10,
@@ -96,6 +112,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#6A6A6A',
     textDecorationLine: 'underline',
+    marginLeft: 10,
+  },
+  errorText: {
+    color: '#FF6B6B',
+    fontSize: 12,
+    marginTop: 5,
     marginLeft: 10,
   },
 });
