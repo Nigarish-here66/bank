@@ -1,82 +1,67 @@
 import React, { useState } from 'react';
-import {View,Text,StyleSheet,TouchableOpacity,KeyboardAvoidingView,Platform,ScrollView,Alert} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
-import { auth } from '../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const CreateAccount = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
 
-  const handleCreateAccount = async () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Please fill in all required fields.');
-      return;
-    }
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      Alert.alert('Success', 'Account created successfully.');
-      navigation.navigate('Login');
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    }
-  };
-
+  const [isAutoLogin, setAutoLogin] = useState(false);
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.topContainer}
-    >
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <TouchableOpacity
-          style={styles.createAccount}
-          onPress={() => navigation.navigate('Login')}
-        >
-          <Text style={styles.createAccountText}>Sign In</Text>
-        </TouchableOpacity>
+    <View style={styles.topContainer}>
 
-        <View style={styles.container}>
-          <Text style={styles.loginText}>Create Account</Text>
-          <View style={styles.inputContainer}>
-            <ReusableTextInput
-              placeholder="Email"
-              icon="envelope"
-              keyboardType="email-address"
-              value={email}
-              onChangeText={setEmail}
-            />
-            <ReusableTextInput
-              placeholder="Password"
-              icon="lock"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-            />
-            <ReusableTextInput
-              placeholder="Phone (Optional)"
-              icon="phone"
-              keyboardType="phone-pad"
-              value={phone}
-              onChangeText={setPhone}
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <ReusableButton
-              title="Create"
-              icon="arrow-right"
-              onPress={handleCreateAccount}
-            />
-          </View>
+
+      {/* "Create account" link */}
+      <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('Login')} >
+        <Text style={styles.createAccountText}>Sign In</Text>
+      </TouchableOpacity>
+
+
+
+      <View style={styles.container}>
+
+        <Text style={styles.loginText}>Create Account</Text>
+        <View style={styles.inputContainer}>
+          {/* Email Input Field */}
+          <ReusableTextInput
+            placeholder="jone@deper.one"
+            icon="envelope"
+            iconColor="#00D100"
+            keyboardType="email-address"
+          />
+
+          {/* Password Input Field */}
+          <ReusableTextInput
+            placeholder="Password"
+            icon="lock"
+            secureTextEntry={true}
+                  />
+                  
+          {/* Phone number Input Field */}
+          <ReusableTextInput
+            placeholder="+92 000 0000000"
+            icon="phone"
+            iconColor="#00D100"
+            keyboardType="phone-pad"
+          />
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+
+
+
+        {/* Login Button */}
+        <View style={styles.buttonContainer}>
+          <ReusableButton
+            title="Create"
+            icon="arrow-right"
+            onPress={() => navigation.navigate('Login')}
+
+          />
+        </View>
+      </View>
+    </View>
   );
 };
 
 export default CreateAccount;
-
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
@@ -94,25 +79,30 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#FFFFFF',
     fontWeight: 'bold',
+
   },
   createAccount: {
     top: 50,
+
     alignItems: 'flex-end',
+
   },
   createAccountText: {
     color: '#FF5063',
     fontSize: 16,
     fontWeight: 'bold',
-    textDecorationLine: 'underline',
   },
   inputContainer: {
     marginTop: 40,
   },
+  forgotText: {
+    color: '#4A90E2',
+    fontSize: 14,
+  },
+
   buttonContainer: {
     marginTop: 30,
     alignItems: 'center',
   },
-  scrollViewContainer: {
-    paddingBottom: 40,
-  }
+
 });

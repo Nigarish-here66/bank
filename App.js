@@ -17,41 +17,36 @@ import Payment from './screens/payment';
 import QR from './screens/qr';
 import Password from "./screens/password";
 import MyAccount from "./screens/Account";
-
 const Stack = createStackNavigator();
-
-const screenOptions = {
-  headerShown: false,
-  cardStyle: { backgroundColor: '#fff' }
-};
-
-const screens = [
-  { name: "Splash", component: Splash },
-  { name: "SetGoals", component: SetGoals },
-  { name: "CreateAccount", component: CreateAccount },
-  { name: "Login", component: Login },
-  { name: "Dashboard", component: Dashboard },
-  { name: "Notification", component: Notification },
-  { name: "Statistics", component: Statistics },
-  { name: "Scanner", component: Scanner },
-  { name: "IncomeHistory", component: IncomeHistory },
-  { name: "Home", component: Home },
-  { name: "Payment", component: Payment },
-  { name: "QR", component: QR },
-  { name: "Password", component: Password },
-  { name: "MyAccount", component: MyAccount }
-];
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator 
         initialRouteName="Splash" 
-        screenOptions={screenOptions}
+        screenOptions={{ 
+          headerShown: false, 
+          cardStyle: { backgroundColor: '#fff' } 
+        }}
       >
-        {screens.map((screen, index) => (
-          <Stack.Screen key={index} name={screen.name} component={screen.component} />
-        ))}
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="SetGoals" component={SetGoals} />
+        <Stack.Screen name="CreateAccount" component={CreateAccount} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Notification" component={Notification} />
+        <Stack.Screen name="Statistics" component={Statistics} />
+        <Stack.Screen name="Scanner" component={Scanner} />
+        <Stack.Screen name="IncomeHistory" component={IncomeHistory} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Payment" component={Payment} />
+        <Stack.Screen name="QR" component={QR} />
+        <Stack.Screen name="Password" component={Password} />
+        <Stack.Screen name="MyAccount" component={MyAccount} />
+
+       
+        {/* <Stack.Screen name="GetToken" component={GetToken} />
+        <Stack.Screen name="BorrowToken" component={BorrowToken} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
