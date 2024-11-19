@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, Button, Alert, ActivityIndicator } from 'react-native';
 import { useState, useEffect } from 'react';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import axios from 'axios';
 import Header from '../components/headerwhite';
 import BottomNavBar from '../components/bottom';
 import ReusableButton from '../components/button';
@@ -23,13 +24,13 @@ export default function QR({navigation}) {
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
     setIsLoading(true);
-
+  
     try {
       Alert.alert('Processing', 'Please wait while we process your payment...');
-
+  
       // Simulate processing delay
       await new Promise(resolve => setTimeout(resolve, 1500));
-
+  
       const paymentData = {
         qrData: data,
         scanType: type,
@@ -37,18 +38,14 @@ export default function QR({navigation}) {
         status: 'processed',
         amount: Math.floor(Math.random() * 1000)
       };
-
-      const response = await fetch('https://httpbin.org/post', {
-        method: 'POST',
+  
+    
+      const response = await axios.post('https://httpbin.org/post', paymentData, {
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(paymentData)
+          'Content-Type': 'application/json'
+        }
       });
-
-      const responseData = await response.json();
-
-      if (response.ok) {
+      if (response.status === 200) {
         Alert.alert(
           'Payment Successful!',
           `Amount: $${paymentData.amount}\n` +
