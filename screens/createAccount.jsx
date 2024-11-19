@@ -7,8 +7,6 @@ import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const CreateAccount = ({ navigation }) => {
-
-  const [isAutoLogin, setAutoLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -16,14 +14,17 @@ const CreateAccount = ({ navigation }) => {
   const [error, setError] = useState(null);
 
   const handleSignup = async () => {
-    if (!email || !password || !phoneNumber) {
+    if (!email || !password) {
       setError('Please fill in all fields');
       return;
     }
     setLoading(true);
     try {
+      // Create the account
       await createUserWithEmailAndPassword(auth, email, password);
-      await signInWithEmailAndPassword(auth, email, password);
+      // Sign out immediately to prevent auto-navigation
+      await signOut(auth);
+      // Navigate to login page
       navigation.navigate('Login');
     } catch (error) {
       setError(error.message);
