@@ -4,8 +4,21 @@ import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
 import CustomButton from '../components/button';  
 import { useNavigation } from '@react-navigation/native';
 const { width, height } = Dimensions.get('window'); 
+import { useFonts, Lobster_400Regular } from '@expo-google-fonts/lobster';
+import { LilitaOne_400Regular } from '@expo-google-fonts/lilita-one';
+
 const GetStarted = () => {
     const navigation = useNavigation();
+
+    const [fontsLoaded] = useFonts({
+      Lobster_400Regular,
+      LilitaOne_400Regular,
+     
+    });
+  
+    if (!fontsLoaded) {
+      return <View><Text>Loading...</Text></View>;
+    }
   return (
     <View style={styles.container}>
       
@@ -59,20 +72,23 @@ const styles = StyleSheet.create({
     top: 80,
   },
   headerText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: 'LilitaOne_400Regular',
+    // fontWeight: 'bold',
     color: '#444',
     marginBottom: 20,
     textAlign: 'right',  
   },
   appName: {
-    fontSize: 32,
-    fontWeight: 'bold',
+    fontSize: 48,
+    fontFamily: 'LilitaOne_400Regular',
+    // fontWeight: 'bold',
     color: '#00CCAA',
     textAlign: 'right',  
   },
   description: {
     fontSize: 16,
+    fontFamily: 'Lobster_400Regular',
     color: '#888',
     textAlign: 'right', 
     marginTop: 20,

@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     lineHeight: 21,
-    fontWeight: "bold",
+    fontFamily: 'LilitaOne_400Regular',
+    
     letterSpacing: 0.25,
     color: "white",
   },

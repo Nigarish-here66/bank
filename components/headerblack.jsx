@@ -49,12 +49,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   iconPlaceholder: {
-    width: 40, // Ensures alignment if no icon is rendered
+    width: 40, 
   },
   title: {
     color: 'black',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: 'LilitaOne_400Regular',
     flex: 1,
     textAlign: 'center',
   },

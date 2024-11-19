@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
   instructionText: {
     fontSize: 16,
     color: '#9A9A9A', 
+    fontFamily: 'Lobster_400Regular',
+    maxWidth: 300,
     marginBottom: 20,
   },
   passwordContainer: {
@@ -69,6 +71,7 @@ const styles = StyleSheet.create({
   },
   passwordHint: {
     fontSize: 12,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#9A9A9A', 
     marginTop: 5,
   },

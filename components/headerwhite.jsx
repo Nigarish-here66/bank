@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     width: 40, // To maintain spacing and alignment when an icon is absent
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: 'LilitaOne_400Regular',
     flex: 1,
     textAlign: 'center',
   },

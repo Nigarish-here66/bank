@@ -48,12 +48,13 @@ const styles = StyleSheet.create({
 
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontFamily: 'LilitaOne_400Regular',
     marginBottom: 20,
   },
   description: {
     fontSize: 16,
+    fontFamily: 'Lobster_400Regular',
     color: '#666',
     marginBottom: 100,
     marginVertical: 10,

@@ -15,19 +15,19 @@ export default function Payment({navigation}) {
       <View style={styles.Innercontainer}>
 
         <View style={styles.img}><Image source={require('../assets/confirmed.png')} style={{ width: 100, height: 100 }} /></View>
-        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Payment Success</Text>
+        <Text style={styles.head}>Payment Success</Text>
         <Text style={styles.description}>Your payment for Starbucks Coffee has been successfully done</Text>
         
-        <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Total Payment</Text>
-        <Text>$132.00</Text>
+        <Text style={styles.head}>Total Payment</Text>
+        <Text style={styles.cost}>$132.00</Text>
 
         <Text>Payment for</Text>
 
         <View style={styles.card}>
           <Image source={require('../assets/Starbucks.png')} style={{ width: 30, height: 30, marginRight: 10 }} />
           <View style={styles.txt}>
-            <Text>Starbucks Coffee</Text>
-            <Text>Dec 2, 2020 . 3:02 PM</Text>
+            <Text style={styles.cardtxt} >Starbucks Coffee</Text>
+            <Text style={styles.cardtxt}>Dec 2, 2020 . 3:02 PM</Text>
             </View> 
         </View>
 
@@ -59,10 +59,23 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
   },
+  head :{
+    fontSize: 24,
+    fontFamily: 'LilitaOne_400Regular',
+    marginBottom:20,
+  },
+  cost :{
+    fontSize: 28,
+    fontFamily: 'LilitaOne_400Regular',
+    marginBottom:20,
+    color: "#00CCAA",
+  },
 
   description: {
     fontSize: 16,
-    color: '#Black',
+    fontFamily: 'Lobster_400Regular',
+    maxWidth :300,
+    color: 'Black',
     marginBottom: 20,
     marginVertical: 10,
     textAlign: 'center',
@@ -72,20 +85,28 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: 'row',
     alignItems: 'center',
+    textAlign: "center",
     backgroundColor: '#D3D3D3',
     borderRadius: 10,
     padding: 15,
-    width: '100%',
-  
+    width: '80%',
+  marginBottom: 25,
   
   },
 
   txt: {
     flexDirection: 'column',
     alignItems: 'center',
-    marginLeft: 50,
-    
+    textAlign:"center",
+   
+    marginLeft: 35,
   
+  },
+
+  cardtxt: {
+    fontFamily: 'LilitaOne_400Regular',
+   
+    textAlign: "center",
   },
   payAgainButton: {
     
@@ -94,6 +115,7 @@ const styles = StyleSheet.create({
   payAgainText: {
     color: '#007E57',
     fontSize: 16,
+    fontFamily: 'LilitaOne_400Regular',
   },
  
   img: {

@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     color: '#00CCAA', 
     textDecorationLine: 'underline',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'LilitaOne_400Regular',
+   
   },
   image: {
     width: '100%',
@@ -67,12 +68,13 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   titleText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#FFFFFF', 
   },
   subText: {
     fontSize: 14,
+    fontFamily: 'Lobster_400Regular',
     color: '#A1A1A1', 
     textAlign: 'center',
     marginTop: 30,
