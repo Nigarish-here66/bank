@@ -39,6 +39,7 @@ const SummaryTransaction = ({ navigation }) => {
       </View>
 
       {/* White Box at Bottom */}
+      <View style={styles.Container}>
       <View style={styles.bottomContainer}>
         {/* Card Selection Section */}
         <View style={styles.cardSelectionContainer}>
@@ -62,9 +63,10 @@ const SummaryTransaction = ({ navigation }) => {
         <View style={styles.buttonContainer}>
           <CustomButton title="Proceed to Pay" onPress={() => navigation.navigate('Password')} />
         </View>
-        <Bottom />
+       
       </View>
-      
+      <Bottom />
+      </View>
     </View>
   );
 };
@@ -119,6 +121,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     paddingVertical: 20,
     paddingHorizontal: 20,
+    width: width,
+    
+  },
+
+  Container: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+   
     width: width,
     position: 'absolute',
     bottom: 0,

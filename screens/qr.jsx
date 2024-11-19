@@ -13,12 +13,13 @@ export default function QR({navigation}) {
       <View style={styles.imageContainer}>
         <Image source={require('../assets/scan.png')} style={styles.image} />
       </View>
-
+    <View style={styles.Content}>
       <View style={styles.textContent}>
         <Text style={styles.title}>Payment with QR Code</Text>
         <Text style={styles.description}>Hold the code inside the frame, it will be scanned automatically</Text>
       </View>
       <BottomNavBar navigation={navigation} />
+      </View>
     </View>
   );
 }
@@ -43,6 +44,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: 'white',
     padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+
+  },
+
+  Content: {
+    marginTop: 20,
+    backgroundColor: 'white',
+   
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
 
