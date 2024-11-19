@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 24,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+    color: '#00CCAA',
+    fontFamily: 'LilitaOne_400Regular',
 
   },
   createAccount: {
@@ -125,14 +125,14 @@ const styles = StyleSheet.create({
   createAccountText: {
     color: '#00CCAA',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'LilitaOne_400Regular',
   },
   inputContainer: {
     marginTop: 40,
   },
   forgotText: {
     color: '#4A90E2',
-    fontSize: 14,
+    fontSize: 12,
   },
 
   buttonContainer: {

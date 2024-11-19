@@ -85,19 +85,20 @@ const styles = StyleSheet.create({
     marginTop: 80,
   },
   merchantName: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#FFFFFF',
     marginTop: 15,
   },
   transactionDate: {
     fontSize: 14,
+    fontFamily: 'Lobster_400Regular',
     color: '#C4C4C4',
     marginTop: 5,
   },
   amount: {
     fontSize: 36,
-    fontWeight: 'bold',
+    fontFamily: 'LilitaOne_400Regular',
     color: '#FFFFFF',
     marginTop: 20,
   },
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
   paymentFeeText: {
     color: '#D1F8E9',
     fontSize: 14,
+    fontFamily: 'Lobster_400Regular',
   },
   bottomContainer: {
     backgroundColor: '#FFFFFF',
@@ -125,8 +127,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   chooseCardText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#000',
     marginBottom: 10,
   },
@@ -152,12 +154,13 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   cardName: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#000000',
   },
   cardNumber: {
     fontSize: 14,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#9A9A9A',
   },
   cardIcon: {

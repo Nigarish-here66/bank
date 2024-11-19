@@ -47,17 +47,20 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 14,
+    fontFamily: 'LilitaOne_400Regular',
   },
   hideText: {
     color: '#A1A1A1',
     fontSize: 14,
-    fontWeight: 'bold',
+    fontFamily: 'LilitaOne_400Regular',
+
   },
   rightText: {
     fontSize: 14,
     color: '#6A6A6A',
     textDecorationLine: 'underline',
+    fontFamily: 'LilitaOne_400Regular',
   },
 
 });

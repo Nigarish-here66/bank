@@ -136,19 +136,20 @@ const styles = StyleSheet.create({
     left: 15,
   },
   helloText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#FFFFFF',
     marginTop: 20,
   },
   balanceLabel: {
     fontSize: 14,
     color: '#C4C4C4',
+    fontFamily: 'Lobster_400Regular',
     marginTop: 5,
   },
   balanceAmount: {
-    fontSize: 36,
-    fontWeight: 'bold',
+    fontSize: 32,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#FFFFFF',
     marginTop: 10,
   },
@@ -168,6 +169,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: '#FFFFFF',
     fontSize: 14,
+    fontFamily: 'LilitaOne_400Regular',
     marginTop: 5,
   },
   paymentListContainer: {
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'LilitaOne_400Regular',
     color: '#333333',
   },
   iconRow: {
@@ -189,6 +191,7 @@ const styles = StyleSheet.create({
   },
   paymentLabel: {
     fontSize: 14,
+    fontFamily: 'Lobster_400Regular',
     color: '#333333',
     marginTop: 5,
   },
@@ -197,11 +200,12 @@ const styles = StyleSheet.create({
   },
   promoTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'LilitaOne_400Regular',
     color: 'black',
   },
   seeMoreText: {
     fontSize: 14,
+    fontFamily: 'LilitaOne_400Regular',
     color: '#00CCAA',
     position: 'absolute',
     right: 0,
@@ -215,11 +219,12 @@ const styles = StyleSheet.create({
   },
   promoText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'LilitaOne_400Regular',
     color: '#FFFFFF',
   },
   promoDescription: {
     fontSize: 14,
+    fontFamily: 'Lobster_400Regular',
     color: '#D1F8E9',
     marginTop: 10,
   },
