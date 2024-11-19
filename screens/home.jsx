@@ -44,7 +44,7 @@ const Home = ({ navigation }) => {
 
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.balanceContainer}>
-          <Text style={styles.helloText}>Hello, Nagarash</Text>
+          <Text style={styles.helloText}>Hello, Ayesha</Text>
           <Text style={styles.balanceLabel}>Your available balance</Text>
           <Text style={styles.balanceAmount}>{balance} PKR</Text>
 
