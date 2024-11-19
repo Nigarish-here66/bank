@@ -3,89 +3,85 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { Ionicons } from '@expo/vector-icons';
 import HeaderBlack from '../components/headerblack';
 import Bottom from "../components/bottom";
+
 const IncomeHistory = ({ navigation }) => {
   return (
-    <View style={styles.container} >
+    <View style={styles.container}>
       {/* Header */}
       <HeaderBlack title="Income History" onBackPress={() => navigation.goBack()} onHelpPress={() => alert('Help/Settings clicked')} />
-    <ScrollView style={styles.innercontainer}>
-      
+      <ScrollView style={styles.innercontainer}>
+        {/* Total Income Section */}
+        <View style={styles.incomeContainer}>
+          <Text style={styles.incomeAmount}>46,438.00 USD</Text>
+          <Text style={styles.incomeLabel}>Total Income</Text>
+        </View>
 
-      {/* Total Income Section */}
-      <View style={styles.incomeContainer}>
-        <Text style={styles.incomeAmount}>46,438.00 USD</Text>
-        <Text style={styles.incomeLabel}>Total Income</Text>
+        {/* Transactions Section */}
+        <View style={styles.transactionsContainer}>
+          <View style={styles.transactionsHeader}>
+            <Text style={styles.sectionTitle}>Transactions</Text>
+            <View style={styles.newBadge}>
+              <Text style={styles.newBadgeText}>New</Text>
+            </View>
+          </View>
+
+          {/* Transactions List */}
+          <View>
+            {/* Today’s Transactions */}
+            <Text style={styles.subHeader}>Today</Text>
+            <TransactionItem
+              icon="gift-outline"
+              title="Bonuses"
+              date="11-03-2019"
+              amount="+200"
+            />
+            <TransactionItem
+              icon="gift-outline"
+              title="Gift"
+              date="06-03-2019"
+              amount="+500"
+              isSelected
+            />
+            <TransactionItem
+              icon="gift-outline"
+              title="Gift"
+              date="10-03-2019"
+              amount="+200"
+            />
+
+            {/* Yesterday’s Transactions */}
+            <Text style={styles.subHeader}>Yesterday</Text>
+            <TransactionItem
+              icon="calendar-outline"
+              title="Others"
+              date="01-03-2019"
+              amount="+200"
+            />
+            <TransactionItem
+              icon="calendar-outline"
+              title="Monthly Salary"
+              date="12-03-2019"
+              amount="+1400"
+            />
+          </View>
+        </View>
+      </ScrollView>
+      <Bottom />
+    </View>
+  );
+};
+
+const TransactionItem = ({ icon, title, date, amount, isSelected }) => {
+  return (
+    <View style={[styles.transactionItem, isSelected && styles.selectedTransaction]}>
+      <View style={[styles.iconContainer, isSelected && { backgroundColor: '#00C3F9' }]}>
+        <Ionicons name={icon} size={24} color="white" />
       </View>
-
-      {/* Transactions Section */}
-      <View style={styles.transactionsContainer}>
-        <View style={styles.transactionsHeader}>
-          <Text style={styles.sectionTitle}>Transactions</Text>
-          <View style={styles.newBadge}>
-            <Text style={styles.newBadgeText}>New</Text>
-          </View>
-        </View>
-
-        {/* Today’s Transactions */}
-        <View style={styles.transactionItem}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="gift-outline" size={24} color="white" />
-          </View>
-          <View style={styles.transactionDetails}>
-            <Text style={styles.transactionTitle}>Bonuses</Text>
-            <Text style={styles.transactionDate}>11-03-2019</Text>
-          </View>
-          <Text style={styles.transactionAmount}>+200</Text>
-        </View>
-
-        <View style={[styles.transactionItem, styles.selectedTransaction]}>
-          <View style={[styles.iconContainer, { backgroundColor: '#00C3F9' }]}>
-            <Ionicons name="gift-outline" size={24} color="white" />
-          </View>
-          <View style={styles.transactionDetails}>
-            <Text style={styles.transactionTitle}>Gift</Text>
-            <Text style={styles.transactionDate}>06-03-2019</Text>
-          </View>
-          <Text style={styles.transactionAmount}>+500</Text>
-        </View>
-
-        <View style={styles.transactionItem}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="gift-outline" size={24} color="white" />
-          </View>
-          <View style={styles.transactionDetails}>
-            <Text style={styles.transactionTitle}>Gift</Text>
-            <Text style={styles.transactionDate}>10-03-2019</Text>
-          </View>
-          <Text style={styles.transactionAmount}>+200</Text>
-        </View>
-
-        {/* Yesterday’s Transactions */}
-        <Text style={styles.subHeader}>Yesterday</Text>
-        <View style={styles.transactionItem}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="calendar-outline" size={24} color="white" />
-          </View>
-          <View style={styles.transactionDetails}>
-            <Text style={styles.transactionTitle}>Others</Text>
-            <Text style={styles.transactionDate}>01-03-2019</Text>
-          </View>
-          <Text style={styles.transactionAmount}>+200</Text>
-        </View>
-
-        <View style={styles.transactionItem}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="calendar-outline" size={24} color="white" />
-          </View>
-          <View style={styles.transactionDetails}>
-            <Text style={styles.transactionTitle}>Monthly Salary</Text>
-            <Text style={styles.transactionDate}>12-03-2019</Text>
-          </View>
-          <Text style={styles.transactionAmount}>+1400</Text>
-        </View>
+      <View style={styles.transactionDetails}>
+        <Text style={styles.transactionTitle}>{title}</Text>
+        <Text style={styles.transactionDate}>{date}</Text>
       </View>
-    </ScrollView>
-    <Bottom />
+      <Text style={styles.transactionAmount}>{amount}</Text>
     </View>
   );
 };
@@ -93,17 +89,13 @@ const IncomeHistory = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
     backgroundColor: '#fff',
   },
-  innercontainer:{
-    padding:20,
+  innercontainer: {
+    padding: 20,
   },
-  
-  
   incomeContainer: {
     alignItems: 'center',
-    
   },
   incomeAmount: {
     fontSize: 32,
@@ -132,7 +124,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 2,
     marginLeft: 20,
-    
   },
   newBadgeText: {
     color: '#fff',

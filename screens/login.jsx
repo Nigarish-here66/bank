@@ -3,13 +3,15 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
 import { ActivityIndicator } from 'react-native';
-import { signInWithEmailAndPassword , onAuthStateChanged} from 'firebase/auth';
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
-  const [Password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -20,37 +22,29 @@ const Login = ({ navigation }) => {
   }, [navigation]);
 
   const handleLogin = async () => {
-    if (!email || !Password) {
-      alert('Please fill in all fields');
+    if (!email || !password) {
+      setError('Please fill in all fields');
       return;
     }
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, Password);
+      await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate('Home');
-    }
-    catch (error) {
-      alert(error.message);
-    }
-    finally {
+    } catch (error) {
+      setError(error.message);
+    } finally {
       setLoading(false);
     }
-  }
+  };
 
-  
   return (
     <View style={styles.topContainer}>
-
-
       {/* "Create account" link */}
-      <TouchableOpacity style={styles.createAccount}  onPress={() => navigation.navigate('CreateAccount')}>
+      <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('CreateAccount')}>
         <Text style={styles.createAccountText}>Create account</Text>
       </TouchableOpacity>
 
-
-
       <View style={styles.container}>
-
         <Text style={styles.loginText}>Login</Text>
         <View style={styles.inputContainer}>
           {/* Email Input Field */}
@@ -71,25 +65,20 @@ const Login = ({ navigation }) => {
             rightText="FORGOT"
             rightTextStyle={styles.forgotText}
             onRightTextPress={() => alert('Forget Password')}
-            value={Password}
+            value={password}
             onChangeText={setPassword}
           />
         </View>
 
-
+        {error && <Text style={styles.errorText}>{error}</Text>}
 
         {/* Login Button */}
         <View style={styles.buttonContainer}>
-         {loading ?(
-          <ActivityIndicator size="medium" color="#FF5063" />
-         ):(
-          <ReusableButton
-            title="Login"
-            icon="arrow-right"
-            onPress={handleLogin}
-          />
-         )}
-          
+          {loading ? (
+            <ActivityIndicator size="medium" color="#FF5063" />
+          ) : (
+            <ReusableButton title="Login" icon="arrow-right" onPress={handleLogin} />
+          )}
         </View>
       </View>
     </View>
@@ -97,6 +86,7 @@ const Login = ({ navigation }) => {
 };
 
 export default Login;
+
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
@@ -108,19 +98,16 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   loginText: {
     fontSize: 24,
     color: '#00CCAA',
     fontFamily: 'LilitaOne_400Regular',
-
   },
   createAccount: {
     top: 50,
-
     alignItems: 'flex-end',
-
   },
   createAccountText: {
     color: '#00CCAA',
@@ -134,10 +121,13 @@ const styles = StyleSheet.create({
     color: '#4A90E2',
     fontSize: 12,
   },
-
   buttonContainer: {
     marginTop: 30,
     alignItems: 'center',
   },
-
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginBottom: 10,
+  },
 });

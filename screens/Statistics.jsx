@@ -5,82 +5,79 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { ActivityIndicator } from 'react-native';
 import Bottom from '../components/bottom';
 import Header from '../components/headerblack';
-const Statistics = ({navigation}) => {
+
+const Statistics = ({ navigation }) => {
   return (
-    <View style={[styles.container,]}>
-       {/* Header */}
-       <Header
+    <View style={styles.container}>
+      {/* Header */}
+      <Header
         title="Statistics"
         onBackPress={() => navigation.goBack()}
         onHelpPress={() => alert('Help/Settings clicked')}
-      /> 
-    <ScrollView style={styles.container}>
-     
+      />
+      <ScrollView style={styles.scrollView}>
+        {/* Income/Expense Summary */}
+        <LinearGradient
+          colors={['#7F00FF', '#E100FF']}
+          style={styles.summaryContainer}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+        >
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryLabel}>Income</Text>
+            <Text style={styles.summaryAmount}>$5,440</Text>
+          </View>
+          <View style={styles.summaryItem}>
+            <Text style={styles.summaryLabel}>Expense</Text>
+            <Text style={styles.summaryAmount}>$2,209</Text>
+          </View>
+        </LinearGradient>
 
+        {/* Weekly Chart */}
+        <View style={styles.weeklyContainer}>
+          <View style={styles.weeklyHeader}>
+            <Text style={styles.weeklyText}>Weekly</Text>
+            <Text style={styles.legendIncome}>Income</Text>
+            <Text style={styles.legendExpense}>Expense</Text>
+          </View>
+          <View style={styles.barChart}>
+            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
+              <View key={index} style={styles.barContainer}>
+                <View style={[styles.incomeBar, { height: 60 }]} />
+                <View style={[styles.expenseBar, { height: 40 }]} />
+                <Text style={styles.barLabel}>{day}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
 
-      {/* Income/Expense Summary */}
-      <LinearGradient
-        colors={['#7F00FF', '#E100FF']}
-        style={styles.summaryContainer}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
-        <View style={styles.summaryItem}>
-          <Text style={styles.summaryLabel}>Income</Text>
-          <Text style={styles.summaryAmount}>$5,440</Text>
-        </View>
-        <View style={styles.summaryItem}>
-          <Text style={styles.summaryLabel}>Expense</Text>
-          <Text style={styles.summaryAmount}>$2,209</Text>
-        </View>
-      </LinearGradient>
-
-      {/* Weekly Chart */}
-      <View style={styles.weeklyContainer}>
-        <View style={styles.weeklyHeader}>
-          <Text style={styles.weeklyText}>Weekly</Text>
-          <Text style={styles.legendIncome}>Income</Text>
-          <Text style={styles.legendExpense}>Expense</Text>
-        </View>
-        <View style={styles.barChart}>
-          {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, index) => (
-            <View key={index} style={styles.barContainer}>
-              <View style={[styles.incomeBar, { height: 60 }]} />
-              <View style={[styles.expenseBar, { height: 40 }]} />
-              <Text style={styles.barLabel}>{day}</Text>
-            </View>
-          ))}
-        </View>
-      </View>
-
-      {/* Category Chart */}
-      <View style={styles.categoryContainer}>
-        <Text style={styles.categoryTitle}>Category Chart</Text>
-        <Text style={styles.expenseTotal}>- $312.00</Text>
-        <View style={styles.pieChart}>
-          {/* Replace this View with an actual pie chart library or component */}
+        {/* Category Chart */}
+        <View style={styles.categoryContainer}>
+          <Text style={styles.categoryTitle}>Category Chart</Text>
+          <Text style={styles.expenseTotal}>- $312.00</Text>
+          <View style={styles.pieChart}>
+            {/* Replace this View with an actual pie chart library or component */}
             <View style={styles.pieSlice} />
             <ActivityIndicator size="large" color="#2196F3" />
-          <View style={styles.pieSlice} />
+            <View style={styles.pieSlice} />
+          </View>
+          <View style={styles.legendContainer}>
+            <View style={styles.legendItem}>
+              <View style={[styles.legendColor, { backgroundColor: '#FFC107' }]} />
+              <Text style={styles.legendText}>Transportation</Text>
+            </View>
+            <View style={styles.legendItem}>
+              <View style={[styles.legendColor, { backgroundColor: '#2196F3' }]} />
+              <Text style={styles.legendText}>Shopping</Text>
+            </View>
+            <View style={styles.legendItem}>
+              <View style={[styles.legendColor, { backgroundColor: '#FF4081' }]} />
+              <Text style={styles.legendText}>Coffee</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.legendContainer}>
-          <View style={styles.legendItem}>
-            <View style={[styles.legendColor, { backgroundColor: '#FFC107' }]} />
-            <Text style={styles.legendText}>Transportation</Text>
-          </View>
-          <View style={styles.legendItem}>
-            <View style={[styles.legendColor, { backgroundColor: '#2196F3' }]} />
-            <Text style={styles.legendText}>Shopping</Text>
-          </View>
-          <View style={styles.legendItem}>
-            <View style={[styles.legendColor, { backgroundColor: '#FF4081' }]} />
-            <Text style={styles.legendText}>Coffee</Text>
-          </View>
-        </View>
-      </View>
-     
-    </ScrollView>
-    <Bottom />
+      </ScrollView>
+      <Bottom />
     </View>
   );
 };
@@ -89,7 +86,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    
+  },
+  scrollView: {
+    flex: 1,
   },
   header: {
     flexDirection: 'row',
@@ -194,13 +193,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    // Placeholder pie chart, replace with a chart component
   },
   pieSlice: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#FF4081', // Placeholder color, replace with actual pie chart slices
+    backgroundColor: '#FF4081',
   },
   legendContainer: {
     flexDirection: 'row',

@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 import Bottom from '../components/bottom';
 import Header from '../components/headerblack';
+
 const Notification = ({navigation}) => {
   return (
     <View style={styles.container}>
@@ -36,42 +38,35 @@ const Notification = ({navigation}) => {
         {/* Yesterday Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>YESTERDAY</Text>
-          <View style={styles.notificationItem}>
-            <View style={styles.iconYellow}>
-              <Text style={styles.iconText}>💸</Text>
+          {notifications.yesterday.map((notification, index) => (
+            <View key={index} style={styles.notificationItem}>
+              <View style={styles.iconYellow}>
+                <Text style={styles.iconText}>{notification.icon}</Text>
+              </View>
+              <View style={styles.notificationText}>
+                <Text style={styles.notificationTitle}>{notification.title}</Text>
+                <Text style={styles.timeText}>{notification.time}</Text>
+              </View>
+              <Text style={styles.tag}>{notification.tag}</Text>
             </View>
-            <View style={styles.notificationText}>
-              <Text style={styles.notificationTitle}>Daily Cashback</Text>
-              <Text style={styles.timeText}>8:00 AM</Text>
-            </View>
-            <Text style={styles.tag}>Promo</Text>
-          </View>
-          <View style={styles.notificationItem}>
-            <View style={styles.iconBlue}>
-              <Text style={styles.iconText}>BLCK10</Text>
-            </View>
-            <View style={styles.notificationText}>
-              <Text style={styles.notificationTitle}>Use BLCK10 Promo Code</Text>
-              <Text style={styles.timeText}>3:40 PM</Text>
-            </View>
-            <Text style={styles.tag}>Promo</Text>
-          </View>
-          {/* Add more notification items as needed */}
+          ))}
         </View>
 
         {/* Last 7 Days Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>LAST 7 DAY</Text>
-          <View style={styles.notificationItem}>
-            <View style={styles.iconOrange}>
-              <Text style={styles.iconText}>NOV10</Text>
+          <Text style={styles.sectionTitle}>LAST 7 DAYS</Text>
+          {notifications.last7Days.map((notification, index) => (
+            <View key={index} style={styles.notificationItem}>
+              <View style={styles.iconOrange}>
+                <Text style={styles.iconText}>{notification.icon}</Text>
+              </View>
+              <View style={styles.notificationText}>
+                <Text style={styles.notificationTitle}>{notification.title}</Text>
+                <Text style={styles.timeText}>{notification.time}</Text>
+              </View>
+              <Text style={styles.tag}>{notification.tag}</Text>
             </View>
-            <View style={styles.notificationText}>
-              <Text style={styles.notificationTitle}>Use NOV10 Promo Code</Text>
-              <Text style={styles.timeText}>3:40 PM</Text>
-            </View>
-            <Text style={styles.tag}>Promo</Text>
-          </View>
+          ))}
         </View>
       </ScrollView>
       <Bottom />
@@ -79,10 +74,20 @@ const Notification = ({navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({container: {
+const notifications = {
+  yesterday: [
+    { icon: '💸', title: 'Daily Cashback', time: '8:00 AM', tag: 'Promo' },
+    { icon: 'BLCK10', title: 'Use BLCK10 Promo Code', time: '3:40 PM', tag: 'Promo' },
+  ],
+  last7Days: [
+    { icon: 'NOV10', title: 'Use NOV10 Promo Code', time: '3:40 PM', tag: 'Promo' },
+  ],
+};
+
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
     backgroundColor: '#fff',
-  
   },
   header: {
     flexDirection: 'row',

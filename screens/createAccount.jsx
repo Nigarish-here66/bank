@@ -7,6 +7,8 @@ import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const CreateAccount = ({ navigation }) => {
+
+  const [isAutoLogin, setAutoLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -14,15 +16,14 @@ const CreateAccount = ({ navigation }) => {
   const [error, setError] = useState(null);
 
   const handleSignup = async () => {
-    if (!email || !password) {
+    if (!email || !password || !phoneNumber) {
       setError('Please fill in all fields');
       return;
     }
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await signOut(auth);
-     
+      await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate('Login');
     } catch (error) {
       setError(error.message);
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   createAccountText: {
-    color: '#FF5063',
+    color: '#00CCAA',
     fontSize: 16,
     fontFamily: 'LilitaOne_400Regular',
   },
