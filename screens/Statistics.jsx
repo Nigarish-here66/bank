@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { ActivityIndicator } from 'react-native';
 import Bottom from '../components/bottom';
 import Header from '../components/headerblack';
 const Statistics = ({navigation}) => {
@@ -58,7 +59,8 @@ const Statistics = ({navigation}) => {
         <Text style={styles.expenseTotal}>- $312.00</Text>
         <View style={styles.pieChart}>
           {/* Replace this View with an actual pie chart library or component */}
-          <View style={styles.pieSlice} />
+            <View style={styles.pieSlice} />
+            <ActivityIndicator size="large" color="#2196F3" />
           <View style={styles.pieSlice} />
         </View>
         <View style={styles.legendContainer}>
