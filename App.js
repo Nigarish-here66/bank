@@ -45,8 +45,7 @@ export default function App() {
         <Stack.Screen name="MyAccount" component={MyAccount} />
 
        
-        {/* <Stack.Screen name="GetToken" component={GetToken} />
-        <Stack.Screen name="BorrowToken" component={BorrowToken} /> */}
+      
       </Stack.Navigator>
     </NavigationContainer>
   );
