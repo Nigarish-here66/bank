@@ -2,78 +2,82 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MyHeader from '../components/headerblack';
-import Bottom from "../components/bottom";
+import Bottom from '../components/bottom';
 
 const Dashboard = ({ navigation }) => {
   return (
-    <View style={styles.containerheader}>
+    <View style={styles.container}>
       {/* Header */}
-      <MyHeader title='Dashboard' onBackPress={() => navigation.goBack()} onHelpPress={() => alert('Help/Settings clicked')}/>
+      <MyHeader
+        title="Dashboard"
+        onBackPress={() => navigation.goBack()}
+        onHelpPress={() => alert('Help/Settings clicked')}
+      />
 
-      <ScrollView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Total Balance Section */}
-        <Text style={styles.header}>Total Balance</Text>
-
-        <View style={styles.balanceContainer}>
-          <Text style={styles.balanceAmount}>425.97 USD</Text>
-          <View style={styles.percentageContainer}>
-            <Text style={styles.percentageText}>+4.24%</Text>
+        <View style={styles.card}>
+          <Text style={styles.sectionTitle}>Total Balance</Text>
+          <View style={styles.balanceContainer}>
+            <Text style={styles.balanceAmount}>425.97 USD</Text>
+            <View style={styles.percentageContainer}>
+              <Text style={styles.percentageText}>+4.24%</Text>
+            </View>
           </View>
-        </View>
-
-        {/* Balance Details */}
-        <View style={styles.detailsRow}>
-          <View style={styles.detailItem}>
-            <Text style={styles.detailText}>Positions</Text>
-            <Text style={styles.detailValue}>1950.00 USD</Text>
-          </View>
-          <View style={styles.detailItem}>
-            <Text style={styles.detailText}>Cash</Text>
-            <Text style={styles.detailValue}>250.00 USD</Text>
+          <View style={styles.detailsRow}>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>Positions</Text>
+              <Text style={styles.detailValue}>1950.00 USD</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailLabel}>Cash</Text>
+              <Text style={styles.detailValue}>250.00 USD</Text>
+            </View>
           </View>
         </View>
 
         {/* Income History Button */}
         <TouchableOpacity
-          style={styles.incomeHistoryButton}
+          style={styles.actionButton}
           onPress={() => navigation.navigate('IncomeHistory')}
         >
           <Text style={styles.buttonText}>View Income History</Text>
         </TouchableOpacity>
 
         {/* Token Bonus Section */}
-        <View style={styles.tokenHeaderContainer}>
-          <Text style={styles.sectionTitle}>Token Bonus</Text>
-          <View style={styles.newBadge}>
-            <Text style={styles.newBadgeText}>New</Text>
-          </View>
-        </View>
-
-        <View style={styles.tokenSection}>
-          <View style={styles.tokenBox}>
-            <Text style={styles.tokenPercentage}>12%</Text>
-            <Text style={styles.tokenDescription}>Tokens to buy for 13%</Text>
-            <Text style={styles.tokenAmount}>330BTN</Text>
-          </View>
-          <View style={styles.bonusBoxContainer}>
-            <View style={styles.bonusBox}>
-              <Text style={styles.bonusText}>Bonus received</Text>
-              <Text style={styles.bonusAmount}>$22.42</Text>
+        <View style={styles.card}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Token Bonus</Text>
+            <View style={styles.newBadge}>
+              <Text style={styles.newBadgeText}>New</Text>
             </View>
-            <View style={styles.bonusBox}>
-              <Text style={styles.bonusText}>Bonus received</Text>
-              <Text style={styles.bonusAmount}>$22.42</Text>
+          </View>
+          <View style={styles.tokenSection}>
+            <View style={styles.tokenBox}>
+              <Text style={styles.tokenPercentage}>12%</Text>
+              <Text style={styles.tokenDescription}>Tokens to buy for 13%</Text>
+              <Text style={styles.tokenAmount}>330 BTN</Text>
+            </View>
+            <View style={styles.bonusBoxContainer}>
+              <View style={styles.bonusBox}>
+                <Text style={styles.bonusLabel}>Bonus received</Text>
+                <Text style={styles.bonusAmount}>$22.42</Text>
+              </View>
+              <View style={styles.bonusBox}>
+                <Text style={styles.bonusLabel}>Bonus received</Text>
+                <Text style={styles.bonusAmount}>$22.42</Text>
+              </View>
             </View>
           </View>
         </View>
 
         {/* Action Buttons */}
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.getTokenButton}>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.actionButtonPrimary}>
             <Ionicons name="gift" size={20} color="#fff" />
             <Text style={styles.buttonText}>Get Tokens</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.borrowTokenButton}>
+          <TouchableOpacity style={styles.actionButtonSecondary}>
             <Ionicons name="ios-attach" size={20} color="#fff" />
             <Text style={styles.buttonText}>Borrow Tokens</Text>
           </TouchableOpacity>
@@ -87,113 +91,115 @@ const Dashboard = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  containerheader: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  scrollContent: {
     padding: 20,
+  },
+  card: {
     backgroundColor: '#fff',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    borderRadius: 15,
+    padding: 20,
     marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
   },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  balanceContainer: {
+  sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
   },
-  balanceAmount: {
-    fontSize: 32,
+  sectionTitle: {
+    fontSize: 18,
     fontWeight: 'bold',
+    color: '#333',
+  },
+  newBadge: {
+    backgroundColor: '#FF4081',
+    borderRadius: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    marginLeft: 10,
+  },
+  newBadgeText: {
+    color: '#fff',
+    fontSize: 12,
+  },
+  balanceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  balanceAmount: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#222',
   },
   percentageContainer: {
-    backgroundColor: '#00CCAA',
+    backgroundColor: '#4caf50',
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    marginLeft: 20,
+    marginLeft: 15,
   },
   percentageText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
   },
   detailsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
-    marginBottom: 20,
   },
   detailItem: {
     flex: 1,
     alignItems: 'center',
   },
-  detailText: {
+  detailLabel: {
     fontSize: 14,
     color: '#888',
   },
   detailValue: {
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  tokenHeaderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 15,
-  },
-  newBadge: {
-    backgroundColor: '#FF4081',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    marginLeft: 20,
-    marginBottom: 6,
-  },
-  newBadgeText: {
-    color: '#fff',
-    fontSize: 12,
+    color: '#333',
   },
   tokenSection: {
     flexDirection: 'row',
-    marginBottom: 20,
   },
   tokenBox: {
     flex: 1,
-    backgroundColor: '#333',
+    backgroundColor: '#2C5364',
     borderRadius: 10,
     padding: 15,
     marginRight: 10,
-    justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: 'blue',
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 7,
+    elevation: 6,
   },
   tokenPercentage: {
-    color: '#00CCAA',
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#FFD700',
   },
   tokenDescription: {
     color: '#ccc',
     marginTop: 5,
+    fontSize: 14,
     textAlign: 'center',
   },
   tokenAmount: {
-    color: '#00CCAA',
     fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFD700',
     marginTop: 5,
   },
   bonusBoxContainer: {
@@ -204,52 +210,53 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
     marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowRadius: 4,
-    elevation: 7,
+    elevation: 4,
   },
-  bonusText: {
+  bonusLabel: {
     fontSize: 14,
     color: '#888',
   },
   bonusAmount: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#333',
   },
-  buttonContainer: {
+  buttonRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 20,
   },
-  getTokenButton: {
+  actionButtonPrimary: {
     flex: 1,
-    backgroundColor: '#00CCAA',
-    padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#4caf50',
     borderRadius: 10,
+    paddingVertical: 15,
     marginRight: 10,
-    alignItems: 'center',
   },
-  borrowTokenButton: {
+  actionButtonSecondary: {
     flex: 1,
-    backgroundColor: '#FF4081',
-    padding: 15,
-    borderRadius: 10,
+    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FF4081',
+    borderRadius: 10,
+    paddingVertical: 15,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
+    fontWeight: '500',
+    marginLeft: 5,
   },
-  incomeHistoryButton: {
-    backgroundColor: '#00CCAA',
-    padding: 15,
+  actionButton: {
+    backgroundColor: '#4caf50',
     borderRadius: 10,
-    marginBottom: 20,
+    paddingVertical: 15,
     alignItems: 'center',
+    marginBottom: 20,
   },
 });
 

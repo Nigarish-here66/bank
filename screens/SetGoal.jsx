@@ -2,13 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import CustomButton from '../components/button';  
 import { useNavigation } from '@react-navigation/native';
+
 const { width, height } = Dimensions.get('window');  
+
 const SetGoals = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       {/* Top Right 'Create account' */}
-      <TouchableOpacity style={styles.createAccount}  onPress={() => navigation.navigate('CreateAccount')}>
+      <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('CreateAccount')}>
         <Text style={styles.createAccountText}>Create account</Text>
       </TouchableOpacity>
 
@@ -29,7 +32,11 @@ const SetGoals = () => {
 
       {/* Bottom Section with Login Button */}
       <View style={styles.bottomContainer}>
-        <CustomButton title="Login" onPress={() => navigation.navigate('Login')} />
+        <CustomButton 
+          title="Login" 
+          onPress={() => navigation.navigate('Login')} 
+          style={styles.loginButton}
+        />
       </View>
     </View>
   );
@@ -45,17 +52,16 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
   },
   createAccount: {
+    position: 'absolute',
     top: 30,
-    
+    right: 20,
     alignItems: 'flex-end',
-   
   },
   createAccountText: {
     color: '#00CCAA', 
     textDecorationLine: 'underline',
     fontSize: 16,
     fontFamily: 'LilitaOne_400Regular',
-   
   },
   image: {
     width: '100%',
@@ -80,13 +86,19 @@ const styles = StyleSheet.create({
     marginTop: 30,
     paddingHorizontal: 10,
     maxWidth: '70%', 
-
   },
   bottomContainer: {
-
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 50,  
+  },
+  loginButton: {
+    width: '80%',
+    height: 50,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00CCAA',
   },
 });
 

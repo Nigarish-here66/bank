@@ -1,110 +1,99 @@
-import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, ScrollView } from 'react-native';
-import Header from '../components/headerblack'; 
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import Header from '../components/headerblack';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Bottom from '../components/bottom';
-const { width, height } = Dimensions.get('window');
+
+const { width } = Dimensions.get('window');
 
 const Home = ({ navigation }) => {
+  const [balance, setBalance] = useState(0);
+  const [paymentOptions, setPaymentOptions] = useState([
+    [
+      { label: 'Electricity', icon: 'bolt', color: '#8B8000' },
+      { label: 'Internet', icon: 'wifi', color: 'orange' },
+      { label: 'Voucher', icon: 'ticket-alt', color: 'green' },
+      { label: 'Assurance', icon: 'briefcase-medical', color: 'red' },
+    ],
+    [
+      { label: 'Gas', icon: 'fire', color: 'red' },
+      { label: 'Water', icon: 'tint', color: 'blue' },
+      { label: 'Cable', icon: 'tv', color: 'purple' },
+      { label: 'Taxes', icon: 'receipt', color: 'yellow' },
+    ],
+    [
+      { label: 'Merchant', icon: 'store', color: 'green' },
+      { label: 'Mobile Credit', icon: 'mobile-alt', color: 'blue' },
+      { label: 'Bill', icon: 'file-invoice', color: 'orange' },
+      { label: 'More', icon: 'ellipsis-h', color: 'green' },
+    ],
+  ]);
+
+  useEffect(() => {
+    const randomBalance = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
+    setBalance(randomBalance);
+  }, []);
+
   return (
     <View style={styles.container}>
-      {/* Reusable Header */}
       <Header
-        title="Home" 
+        title="Home"
         onBackPress={() => navigation.goBack()}
         onHelpPress={() => alert('Help/Settings clicked')}
       />
 
-      {/* Main Content */}
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.balanceContainer}>
-          {/* Wpay Icon */}
-         
-          {/* User Info */}
-          <Text style={styles.helloText}>Hello Andre,</Text>
+          <Text style={styles.helloText}>Hello, Nagarash</Text>
           <Text style={styles.balanceLabel}>Your available balance</Text>
-          <Text style={styles.balanceAmount}>$15,901</Text>
+          <Text style={styles.balanceAmount}>{balance} PKR</Text>
 
-          {/* Buttons */}
           <View style={styles.actionButtonsContainer}>
-            <TouchableOpacity style={styles.actionButton} 
-              onPress={() => navigation.navigate('Scanner')}>
-              <FontAwesome5 name="exchange-alt" size={20} color="#FFFFFF" />
-              <Text style={styles.actionButtonText}>Transfer</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionButton}
-            onPress={() => navigation.navigate('Dashboard')}>
-              <FontAwesome5 name="wallet" size={20} color="#FFFFFF" />
-              <Text style={styles.actionButtonText}>Dashboard</Text>
-            </TouchableOpacity>
-                <TouchableOpacity style={styles.actionButton}
-                onPress={() => navigation.navigate('IncomeHistory')}>
-              <FontAwesome5 name="history" size={20} color="#FFFFFF" />
-              <Text style={styles.actionButtonText}>History</Text>
-            </TouchableOpacity>
+            {[
+              { label: 'Transfer', icon: 'exchange-alt', route: 'Scanner' },
+              { label: 'Dashboard', icon: 'wallet', route: 'Dashboard' },
+              { label: 'History', icon: 'history', route: 'IncomeHistory' },
+            ].map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.actionButton}
+                onPress={() => navigation.navigate(item.route)}
+              >
+                <FontAwesome5 name={item.icon} size={20} color="#FFFFFF" />
+                <Text style={styles.actionButtonText}>{item.label}</Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
 
-        {/* Payment List */}
         <View style={styles.paymentListContainer}>
           <Text style={styles.sectionTitle}>Payment List</Text>
 
-          {/* First Row */}
-          <View style={styles.iconRow}>
-            <TouchableOpacity style={styles.paymentOption} 
-            onPress={() => alert('Electricty clicked')}
-            >
-              <FontAwesome5 name="bolt" size={24} color="#8B8000" />
-              <Text style={styles.paymentLabel}>Electricity</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption}
-            onPress={() => alert('Internet clicked')}
-            >
-              <FontAwesome5 name="wifi" size={24} color="orange" />
-              <Text style={styles.paymentLabel}>Internet</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption} 
-            onPress={() => alert('Voucher clicked')}
-            >
-              <FontAwesome5 name="ticket-alt" size={24} color="green" />
-              <Text style={styles.paymentLabel}>Voucher</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('Assurance clicked')}>
-              <FontAwesome5 name="briefcase-medical" size={24} color="red" />
-              <Text style={styles.paymentLabel}>Assurance</Text>
-            </TouchableOpacity>
-          </View>
-{/* Second Row */}
-          <View style={styles.iconRow}>
-            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('Merchant clicked')}>
-              <FontAwesome5 name="store" size={24} color="green" />
-              <Text style={styles.paymentLabel}>Merchant</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('Mobile credit clicked')}>
-              <FontAwesome5 name="mobile-alt" size={24} color="blue" />
-              <Text style={styles.paymentLabel}>Mobile Credit</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('Bill clicked')}>
-              <FontAwesome5 name="file-invoice" size={24} color="orange" />
-              <Text style={styles.paymentLabel}>Bill</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.paymentOption} onPress={() => alert('More clicked')}>
-              <FontAwesome5 name="ellipsis-h" size={24} color="green" />
-              <Text style={styles.paymentLabel}>More</Text>
-            </TouchableOpacity>
-          </View>
+          {paymentOptions.map((row, rowIndex) => (
+            <View key={rowIndex} style={styles.iconRow}>
+              {row.map((option, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.paymentOption}
+                  onPress={() => alert(`${option.label} clicked`)}
+                >
+                  <FontAwesome5 name={option.icon} size={24} color={option.color} />
+                  <Text style={styles.paymentLabel}>{option.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          ))}
         </View>
 
-        {/* Promo & Discount */}
         <View style={styles.promoContainer}>
           <Text style={styles.promoTitle}>Promo & Discount</Text>
           <TouchableOpacity onPress={() => alert('See More Pressed')}>
             <Text style={styles.seeMoreText}>See More</Text>
           </TouchableOpacity>
           <View style={styles.promoCard}>
-            <Text style={styles.promoText}>30% OFF Black Friday deal</Text>
+            <Text style={styles.promoText}>30% OFF Black Friday Deal</Text>
             <Text style={styles.promoDescription}>
-              Get discount for every payment you make this week.
+              Get discounts for every payment you make this week.
             </Text>
           </View>
         </View>
@@ -114,6 +103,7 @@ const Home = ({ navigation }) => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -128,48 +118,41 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
   },
-  wpayLogo: {
-    width: 50,
-    height: 30,
-    position: 'absolute',
-    top: 15,
-    left: 15,
-  },
   helloText: {
     fontSize: 20,
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold',
     color: '#FFFFFF',
     marginTop: 20,
   },
   balanceLabel: {
     fontSize: 14,
     color: '#C4C4C4',
-    fontFamily: 'Lobster_400Regular',
     marginTop: 5,
   },
   balanceAmount: {
     fontSize: 32,
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold',
     color: '#FFFFFF',
     marginTop: 10,
   },
   actionButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%',
     marginTop: 20,
   },
   actionButton: {
     backgroundColor: '#00CCAA',
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     borderRadius: 10,
     alignItems: 'center',
+    flex: 1,
+    marginHorizontal: 5,
   },
   actionButtonText: {
     color: '#FFFFFF',
     fontSize: 14,
-    fontFamily: 'LilitaOne_400Regular',
     marginTop: 5,
   },
   paymentListContainer: {
@@ -177,7 +160,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold',
     color: '#333333',
   },
   iconRow: {
@@ -191,21 +174,19 @@ const styles = StyleSheet.create({
   },
   paymentLabel: {
     fontSize: 14,
-    fontFamily: 'Lobster_400Regular',
     color: '#333333',
-    marginTop: 5,
+    marginTop: 15,
   },
   promoContainer: {
     marginTop: 30,
   },
   promoTitle: {
     fontSize: 18,
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold',
     color: 'black',
   },
   seeMoreText: {
     fontSize: 14,
-    fontFamily: 'LilitaOne_400Regular',
     color: '#00CCAA',
     position: 'absolute',
     right: 0,
@@ -219,16 +200,14 @@ const styles = StyleSheet.create({
   },
   promoText: {
     fontSize: 18,
-    fontFamily: 'LilitaOne_400Regular',
+    fontWeight: 'bold',
     color: '#FFFFFF',
   },
   promoDescription: {
     fontSize: 14,
-    fontFamily: 'Lobster_400Regular',
     color: '#D1F8E9',
     marginTop: 10,
   },
- 
 });
 
 export default Home;

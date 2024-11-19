@@ -8,7 +8,6 @@ import { auth } from '../firebase';
 
 const CreateAccount = ({ navigation }) => {
 
-  const [isAutoLogin, setAutoLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -25,14 +24,13 @@ const CreateAccount = ({ navigation }) => {
   }, [navigation]);
 
   const handleSignup = async () => {
-    if (!email || !password) {
+    if (!email || !password || !phoneNumber) {
       setError('Please fill in all fields');
       return;
     }
     setLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate('Login');
     } catch (error) {
       setError(error.message);
@@ -121,14 +119,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontFamily: 'LilitaOne_400Regular',
     color: '#00CCAA',
-    
   },
   createAccount: {
     top: 50,
     alignItems: 'flex-end',
   },
   createAccountText: {
-    color: '#FF5063',
+    color: '#00CCAA',
     fontSize: 16,
     fontFamily: 'LilitaOne_400Regular',
   },
