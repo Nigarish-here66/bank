@@ -5,6 +5,8 @@ import axios from 'axios';
 import Header from '../components/headerwhite';
 import BottomNavBar from '../components/bottom';
 import ReusableButton from '../components/button';
+import { ref, push, serverTimestamp } from 'firebase/database';
+import { auth, database } from '../firebase';
 
 export default function QR({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -39,13 +41,34 @@ export default function QR({navigation}) {
         amount: Math.floor(Math.random() * 1000)
       };
   
-    
+      //  API call
       const response = await axios.post('https://httpbin.org/post', paymentData, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
+
       if (response.status === 200) {
+        // Get current user
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+          throw new Error('No user logged in');
+        }
+
+        // Create reference to user payments in Firebase
+        const userPaymentsRef = ref(database, `users/${currentUser.uid}/payments`);
+        
+        // Prepare data for Firebase
+        const firebasePaymentData = {
+          ...paymentData,
+          apiResponse: response.data,
+          userId: currentUser.uid,
+          serverTimestamp: serverTimestamp(), 
+        };
+
+        // Save to Firebase
+        await push(userPaymentsRef, firebasePaymentData);
+
         Alert.alert(
           'Payment Successful!',
           `Amount: $${paymentData.amount}\n` +
@@ -56,9 +79,21 @@ export default function QR({navigation}) {
         throw new Error('Payment processing failed');
       }
     } catch (error) {
+      let errorMessage = 'There was an error processing your payment. Please try again.';
+      
+      
+      if (error.message === 'No user logged in') {
+        errorMessage = 'Please log in to process payments.';
+      } else if (error.response) {
+        errorMessage = `Payment failed: ${error.response.data.message || 'API Error'}`;
+      } else if (error.code) {
+        // Handle Firebase error
+        errorMessage = `Database error: ${error.message}`;
+      }
+
       Alert.alert(
         'Payment Failed',
-        'There was an error processing your payment. Please try again.',
+        errorMessage,
         [{ text: 'OK', onPress: () => setScanned(false) }]
       );
       console.error('QR Scanning Error:', error);

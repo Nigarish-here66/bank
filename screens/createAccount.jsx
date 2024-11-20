@@ -1,36 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
 import { ActivityIndicator } from 'react-native';
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const CreateAccount = ({ navigation }) => {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigation.navigate('Login');
-      }
-    });
-    return unsubscribe;
-  }, [navigation]);
-
   const handleSignup = async () => {
-    if (!email || !password || !phoneNumber) {
+    if (!email || !password) {
       setError('Please fill in all fields');
       return;
     }
     setLoading(true);
     try {
+      // Create the account
       await createUserWithEmailAndPassword(auth, email, password);
+      // Sign out immediately to prevent auto-navigation
+      await signOut(auth);
+      // Navigate to login page
       navigation.navigate('Login');
     } catch (error) {
       setError(error.message);
@@ -41,14 +35,12 @@ const CreateAccount = ({ navigation }) => {
 
   return (
     <View style={styles.topContainer}>
-
       {/* "Create account" link */}
       <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
 
       <View style={styles.container}>
-
         <Text style={styles.loginText}>Create Account</Text>
         <View style={styles.inputContainer}>
           {/* Email Input Field */}
@@ -86,7 +78,7 @@ const CreateAccount = ({ navigation }) => {
         {/* Login Button */}
         <View style={styles.buttonContainer}>
           {loading ? (
-            <ActivityIndicator size="medium" color="#FF5063" />
+            <ActivityIndicator size="medium" color="#00CCAA" />
           ) : (
             <ReusableButton
               title="Sign Up"
