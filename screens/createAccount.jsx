@@ -1,27 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
 import { ActivityIndicator } from 'react-native';
 import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
-import { auth } from '../firebase';
+import { auth, database } from '../firebase';
+import { ref, set } from 'firebase/database';
 
 const CreateAccount = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [name, setName] = useState('');
+  const [balance, setBalance] = useState('0');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const randomBalance = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
+    setBalance(randomBalance);
+  }, []);
+
   const handleSignup = async () => {
-    if (!email || !password) {
+    if (!email || !password || !name || !phoneNumber) {
       setError('Please fill in all fields');
       return;
     }
     setLoading(true);
     try {
-      // Create the account
-      await createUserWithEmailAndPassword(auth, email, password);
+      
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      // Save additional user in Database
+      await set(ref(database, `users/${uid}`), {
+        name: name,
+        email: email,
+        phoneNumber: phoneNumber,
+        balance: balance,
+        createdAt: new Date().toISOString()
+      });
+
       // Sign out immediately to prevent auto-navigation
       await signOut(auth);
       // Navigate to login page
@@ -35,7 +54,6 @@ const CreateAccount = ({ navigation }) => {
 
   return (
     <View style={styles.topContainer}>
-      {/* "Create account" link */}
       <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
@@ -43,6 +61,16 @@ const CreateAccount = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.loginText}>Create Account</Text>
         <View style={styles.inputContainer}>
+          {/* Name Input Field */}
+          <ReusableTextInput
+            placeholder="Full Name"
+            icon="user"
+            iconColor="#00D100"
+            value={name}
+            onChangeText={setName}
+            
+          />
+
           {/* Email Input Field */}
           <ReusableTextInput
             placeholder="jone@deper.one"
@@ -75,7 +103,6 @@ const CreateAccount = ({ navigation }) => {
 
         {error && <Text style={styles.errorText}>{error}</Text>}
 
-        {/* Login Button */}
         <View style={styles.buttonContainer}>
           {loading ? (
             <ActivityIndicator size="medium" color="#00CCAA" />

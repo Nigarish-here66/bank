@@ -1,25 +1,49 @@
+// components/HeaderWhite.js
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const HeaderBlack = ({
-  title,
-  onBackPress,
-  onHelpPress,
-  iconColor = 'black',
-  iconSize = 20,
+const HeaderWhite = ({ 
+  title, 
+  onBackPress, 
+  onHelpPress, 
+  
+  textColor = 'black', 
+  iconColor = 'black', 
+  iconSize = 20 
 }) => {
-  const renderIcon = (name, onPress) => (
-    <TouchableOpacity onPress={onPress} style={styles.iconContainer}>
-      <FontAwesome5 name={name} size={iconSize} color={iconColor} />
-    </TouchableOpacity>
-  );
-
   return (
     <View style={styles.container}>
-      {onBackPress ? renderIcon('arrow-left', onBackPress) : <View style={styles.iconPlaceholder} />}
-      <Text style={styles.title}>{title}</Text>
-      {onHelpPress ? renderIcon('question-circle', onHelpPress) : <View style={styles.iconPlaceholder} />}
+      {/* Back Icon */}
+      {onBackPress ? (
+        <TouchableOpacity 
+          onPress={onBackPress} 
+          style={styles.iconContainer} 
+          accessibilityRole="button" 
+          accessibilityLabel="Go back"
+        >
+          <FontAwesome5 name="arrow-left" size={iconSize} color={iconColor} />
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.iconPlaceholder} />
+      )}
+
+      {/* Title */}
+      <Text style={[styles.title, { color: textColor }]}>{title}</Text>
+
+      {/* Help Icon */}
+      {onHelpPress ? (
+        <TouchableOpacity 
+          onPress={onHelpPress} 
+          style={styles.iconContainer} 
+          accessibilityRole="button" 
+          accessibilityLabel="Get help"
+        >
+          <FontAwesome5  name="sign-out-alt" size={iconSize} color={iconColor} />
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.iconPlaceholder} />
+      )}
     </View>
   );
 };
@@ -30,17 +54,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginVertical: 10,
+    paddingVertical: 35,
   },
   iconContainer: {
     padding: 10,
   },
   iconPlaceholder: {
-    width: 40,
+    width: 40, // To maintain spacing and alignment when an icon is absent
   },
   title: {
-    color: 'black',
     fontSize: 20,
     fontFamily: 'LilitaOne_400Regular',
     flex: 1,
@@ -48,4 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HeaderBlack;
+export default HeaderWhite;

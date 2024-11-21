@@ -45,7 +45,7 @@ const BottomNavBar = ({ activeScreen }) => {
       </TouchableOpacity>
 
       <TouchableOpacity 
-        onPress={() => navigation.navigate('Profile')} 
+        onPress={() => navigation.navigate('MyAccount')} 
         style={styles.iconContainer}
         activeOpacity={0.7}
       >

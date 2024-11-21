@@ -1,33 +1,78 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Header from '../components/headerblack';
 import BottomNavBar from '../components/bottom';
+import { auth, database } from '../firebase';
+import { ref, onValue } from 'firebase/database';
+import { signOut } from 'firebase/auth';
 
 const Account = ({ navigation }) => {
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      const userRef = ref(database, `users/${currentUser.uid}`);
+      onValue(userRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          setUserName(userData.name || 'User');
+        }
+      });
+    }
+  }, []);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      navigation.replace('Splash');
+    } catch (error) {
+      Alert.alert('Error', 'Failed to sign out. Please try again.');
+    }
+  };
+  const handleSignOutConfirmation = () => {
+    Alert.alert(
+      "Sign Out",
+      "Are you sure you want to sign out?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Sign Out",
+          onPress: handleSignOut,
+          style: "destructive"
+        }
+      ]
+    );
+  };
   return (
     <View style={styles.container}>
       {/* Reusable Header */}
       <Header
         title="My Account"
         onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')}
+        onHelpPress={handleSignOutConfirmation}
       />
 
       <ScrollView contentContainerStyle={styles.scrollView}>
         {/* Profile Card */}
         <View style={styles.profileCard}>
-          <View style={styles.circle}>
-            <Text style={styles.circleText}>XY</Text>
-          </View>
-          <Text style={styles.nameText}>XYZ</Text>
+        <View style={styles.circle}>
+        <Text style={styles.circleText}>
+          {userName ? userName.substring(0, 2).toUpperCase() : 'U'}
+        </Text>
+        </View>
+        <Text style={styles.nameText}>{userName}</Text>
           <Text style={styles.accountNumber}>298985151</Text>
 
           {/* Profile and Settings buttons */}
           <View style={styles.buttonRow}>
             <TouchableOpacity style={styles.profileButton}>
               <FontAwesome5 name="user" size={16} color="#000" />
-              <Text style={styles.buttonText}>Profile</Text>
+              <Text style={styles.buttonText}  onPress={() => navigation.navigate('EditProfile')}>Edit Profile</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.settingsButton}>
               <FontAwesome5 name="cog" size={16} color="#000" />

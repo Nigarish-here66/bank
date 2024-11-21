@@ -8,7 +8,7 @@ const IncomeHistory = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <HeaderBlack title="Income History" onBackPress={() => navigation.goBack()} onHelpPress={() => alert('Help/Settings clicked')} />
+      <HeaderBlack title="Income History" onBackPress={() => navigation.goBack()} />
       <ScrollView style={styles.innercontainer}>
         {/* Total Income Section */}
         <View style={styles.incomeContainer}>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import CustomButton from '../components/button'; 
@@ -8,64 +7,76 @@ import Bottom from "../components/bottom";
 const { width, height } = Dimensions.get('window');
 
 const SummaryTransaction = ({ navigation }) => {
+  // Constants for transaction details
+  const baseAmount = 15.00;
+  const feeAmount = 2.00;
+  const totalAmount = baseAmount + feeAmount;
+  const transactionDate = "Dec 2, 2020";
+  const merchantName = "Starbucks Coffee";
+
+  const handleProceedToPayment = () => {
+    navigation.navigate('Password', {
+      totalAmount: totalAmount,
+      transactionDate: transactionDate,
+      merchantName: merchantName
+    });
+  };
+
   return (
     <View style={styles.container}>
-      {/* Reusable Header */}
       <Header
         title="Summary Transaction"
         onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')}
+       
       />
 
-      {/* Main Content */}
       <View style={styles.contentContainer}>
-        {/* Starbucks Logo */}
         <Image
           source={require('../assets/starbuck.png')} 
           style={styles.logo}
         />
 
-        {/* Transaction Details */}
-        <Text style={styles.merchantName}>Starbucks Coffee</Text>
-        <Text style={styles.transactionDate}>Payment on Dec 2, 2020</Text>
+        <Text style={styles.merchantName}>{merchantName}</Text>
+        <Text style={styles.transactionDate}>Payment on {transactionDate}</Text>
 
-        {/* Transaction Amount */}
-        <Text style={styles.amount}>$15.00</Text>
+        <Text style={styles.amount}>{baseAmount.toFixed(2)} PKR</Text>
 
-        {/* Payment Fee */}
         <View style={styles.paymentFeeContainer}>
-          <Text style={styles.paymentFeeText}>Payment fee $2 has been applied</Text>
+          <Text style={styles.paymentFeeText}>Payment fee {feeAmount} PKR has been applied</Text>
+        </View>
+
+        <View style={styles.totalContainer}>
+          <Text style={styles.totalText}>Total Amount: {totalAmount.toFixed(2)} PKR</Text>
         </View>
       </View>
 
-      {/* White Box at Bottom */}
       <View style={styles.Container}>
-      <View style={styles.bottomContainer}>
-        {/* Card Selection Section */}
-        <View style={styles.cardSelectionContainer}>
-          <Text style={styles.chooseCardText}>Choose Cards</Text>
-          <View style={styles.cardContainer}>
-            <View style={styles.card}>
-              <Image
-                source={require('../assets/sikka.png')} 
-                style={styles.cardImage}
-              />
-              <View style={styles.cardDetails}>
-                <Text style={styles.cardName}>Wally Virtual Card</Text>
-                <Text style={styles.cardNumber}>0318-1608-2105</Text>
+        <View style={styles.bottomContainer}>
+          <View style={styles.cardSelectionContainer}>
+            <Text style={styles.chooseCardText}>Choose Cards</Text>
+            <View style={styles.cardContainer}>
+              <View style={styles.card}>
+                <Image
+                  source={require('../assets/sikka.png')} 
+                  style={styles.cardImage}
+                />
+                <View style={styles.cardDetails}>
+                  <Text style={styles.cardName}>Wally Virtual Card</Text>
+                  <Text style={styles.cardNumber}>0318-1608-2105</Text>
+                </View>
+                <FontAwesome5 name="chevron-down" size={24} color="#000" style={styles.cardIcon} />
               </View>
-              <FontAwesome5 name="chevron-down" size={24} color="#000" style={styles.cardIcon} />
             </View>
           </View>
-        </View>
 
-        {/* Proceed to Pay Button */}
-        <View style={styles.buttonContainer}>
-          <CustomButton title="Proceed to Pay" onPress={() => navigation.navigate('Password')} />
+          <View style={styles.buttonContainer}>
+            <CustomButton 
+              title="Proceed to Pay" 
+              onPress={handleProceedToPayment} 
+            />
+          </View>
         </View>
-       
-      </View>
-      <Bottom />
+        <Bottom />
       </View>
     </View>
   );
@@ -180,6 +191,19 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 20,
     marginBottom: 30,
+  },
+  totalContainer: {
+    backgroundColor: '#0B5840',
+    borderRadius: 10,
+    padding: 10,
+    marginTop: 15,
+    width: '100%',
+  },
+  totalText: {
+    color: '#D1F8E9',
+    fontSize: 16,
+    fontFamily: 'LilitaOne_400Regular',
+    textAlign: 'center',
   },
 });
 

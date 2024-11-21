@@ -9,7 +9,7 @@ export default function Payment({navigation}) {
     <View style={styles.Outercontainer}>
       <Header title="Payment Receipt" 
       onBackPress={() => navigation.goBack()}
-      onHelpPress={() => alert('Help/Settings clicked')}
+      
       />
 
       <View style={styles.Innercontainer}>
@@ -19,7 +19,7 @@ export default function Payment({navigation}) {
         <Text style={styles.description}>Your payment for Starbucks Coffee has been successfully done</Text>
         
         <Text style={styles.head}>Total Payment</Text>
-        <Text style={styles.cost}>$132.00</Text>
+        <Text style={styles.cost}>PKR 17.00</Text>
 
         <Text>Payment for</Text>
 

@@ -7,13 +7,13 @@ const HeaderWhite = ({
   title, 
   onBackPress, 
   onHelpPress, 
-  backgroundColor = '#000', 
+   
   textColor = '#FFF', 
   iconColor = '#FFF', 
   iconSize = 20 
 }) => {
   return (
-    <View style={[styles.container, { backgroundColor }]}>
+    <View style={styles.container}>
       {/* Back Icon */}
       {onBackPress ? (
         <TouchableOpacity 
@@ -39,7 +39,7 @@ const HeaderWhite = ({
           accessibilityRole="button" 
           accessibilityLabel="Get help"
         >
-          <FontAwesome5 name="question-circle" size={iconSize} color={iconColor} />
+          <FontAwesome5 name="sign-out-alt" size={iconSize} color={iconColor} />
         </TouchableOpacity>
       ) : (
         <View style={styles.iconPlaceholder} />
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 35,
   },
   iconContainer: {
     padding: 10,

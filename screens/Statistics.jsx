@@ -13,7 +13,7 @@ const Statistics = ({ navigation }) => {
       <Header
         title="Statistics"
         onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')}
+       
       />
       <ScrollView style={styles.scrollView}>
         {/* Income/Expense Summary */}

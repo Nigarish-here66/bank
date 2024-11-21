@@ -123,7 +123,7 @@ export default function QR({navigation}) {
       <Header 
         title="Scan To Pay" 
         onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')} 
+       
       />
 
       <View style={styles.imageContainer}>

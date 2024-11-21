@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ScrollView, Alert, BackHandler } from 'react-native';
 import Header from '../components/headerblack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Bottom from '../components/bottom';
+import { signOut } from 'firebase/auth';
+import { auth, database } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 
 const { width } = Dimensions.get('window');
 
 const Home = ({ navigation }) => {
   const [balance, setBalance] = useState(0);
+  const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(true);
+
   const [paymentOptions, setPaymentOptions] = useState([
     [
       { label: 'Electricity', icon: 'bolt', color: '#8B8000' },
@@ -30,23 +36,106 @@ const Home = ({ navigation }) => {
   ]);
 
   useEffect(() => {
-    const randomBalance = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
-    setBalance(randomBalance);
+    // Get current user data
+    const currentUser = auth.currentUser;
+    
+    if (currentUser) {
+      // Reference to the user's data in the database
+      const userRef = ref(database, `users/${currentUser.uid}`);
+      
+      // Set up real-time listener for user data
+      const unsubscribe = onValue(userRef, (snapshot) => {
+        const userData = snapshot.val();
+        if (userData) {
+          setUserName(userData.name || '');
+          setBalance(userData.balance || 0);
+        }
+        setLoading(false);
+      }, (error) => {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+      });
+
+      // Hardware back button handler
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        handleBackPress
+      );
+
+      // Cleanup function
+      return () => {
+        unsubscribe(); // Remove database listener
+        backHandler.remove(); // Remove back button handler
+      };
+    }
   }, []);
+
+  const handleBackPress = () => {
+    if (navigation.isFocused()) {
+      Alert.alert(
+        "Exit App",
+        "Are you sure you want to exit and signout?",
+        [
+          {
+            text: "No",
+            style: "cancel"
+          },
+          {
+            text: "Yes",
+            onPress: handleSignOut,
+          }
+        ]
+      );
+      return true;
+    }
+    return false;
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      navigation.replace('Splash');
+    } catch (error) {
+      Alert.alert('Error', 'Failed to sign out. Please try again.');
+    }
+  };
+
+  const handleSignOutConfirmation = () => {
+    Alert.alert(
+      "Sign Out",
+      "Are you sure you want to sign out?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "Sign Out",
+          onPress: handleSignOut,
+          style: "destructive"
+        }
+      ]
+    );
+  };
 
   return (
     <View style={styles.container}>
       <Header
         title="Home"
-        onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')}
+        onBackPress={handleBackPress}
+        onHelpPress={handleSignOutConfirmation}
+       
       />
 
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.balanceContainer}>
-          <Text style={styles.helloText}>Hello, Ayesha</Text>
+          <Text style={styles.helloText}>
+            Hello, {loading ? '...' : userName}
+          </Text>
           <Text style={styles.balanceLabel}>Your available balance</Text>
-          <Text style={styles.balanceAmount}>{balance} PKR</Text>
+          <Text style={styles.balanceAmount}>
+            {loading ? '...' : `${balance} PKR`}
+          </Text>
 
           <View style={styles.actionButtonsContainer}>
             {[
@@ -66,6 +155,7 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
+       
         <View style={styles.paymentListContainer}>
           <Text style={styles.sectionTitle}>Payment List</Text>
 
@@ -103,6 +193,7 @@ const Home = ({ navigation }) => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

@@ -11,7 +11,7 @@ const Dashboard = ({ navigation }) => {
       <MyHeader
         title="Dashboard"
         onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')}
+       
       />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>

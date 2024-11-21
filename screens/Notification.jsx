@@ -12,7 +12,7 @@ const Notification = ({navigation}) => {
       <Header
         title="Notifications"
         onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')}
+        
       /> 
 
       {/* Notifications */}
