@@ -75,7 +75,7 @@ const Login = ({ navigation }) => {
         {/* Login Button */}
         <View style={styles.buttonContainer}>
           {loading ? (
-            <ActivityIndicator size="medium" color="#FF5063" />
+            <ActivityIndicator size="medium" color='#00CCAA' />
           ) : (
             <ReusableButton title="Login" icon="arrow-right" onPress={handleLogin} />
           )}

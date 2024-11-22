@@ -65,9 +65,9 @@ const CreateAccount = ({ navigation }) => {
           <ReusableTextInput
             placeholder="Full Name"
             icon="user"
-            iconColor="#00D100"
             value={name}
             onChangeText={setName}
+            keyboardType="default"
             
           />
 
@@ -75,7 +75,6 @@ const CreateAccount = ({ navigation }) => {
           <ReusableTextInput
             placeholder="jone@deper.one"
             icon="envelope"
-            iconColor="#00D100"
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
@@ -94,7 +93,6 @@ const CreateAccount = ({ navigation }) => {
           <ReusableTextInput
             placeholder="+92 000 0000000"
             icon="phone"
-            iconColor="#00D100"
             keyboardType="phone-pad"
             value={phoneNumber}
             onChangeText={setPhoneNumber}
