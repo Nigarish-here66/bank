@@ -122,9 +122,8 @@ const Home = ({ navigation }) => {
     <View style={styles.container}>
       <Header
         title="Home"
-        onBackPress={handleBackPress}
-        onHelpPress={handleSignOutConfirmation}
-       
+        onBackPress={() => navigation.goBack()}
+        onHelpPress={() => alert('Help/Settings clicked')}
       />
 
       <ScrollView contentContainerStyle={styles.scrollView}>
