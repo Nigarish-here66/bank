@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -9,6 +10,7 @@ import { signOut } from 'firebase/auth';
 
 const Account = ({ navigation }) => {
   const [userName, setUserName] = useState('');
+  const [accountNumber, setAccountNumber] = useState('');
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -18,6 +20,7 @@ const Account = ({ navigation }) => {
         if (snapshot.exists()) {
           const userData = snapshot.val();
           setUserName(userData.name || 'User');
+          setAccountNumber(userData.accountNumber || '298985151');
         }
       });
     }
@@ -31,6 +34,7 @@ const Account = ({ navigation }) => {
       Alert.alert('Error', 'Failed to sign out. Please try again.');
     }
   };
+
   const handleSignOutConfirmation = () => {
     Alert.alert(
       "Sign Out",
@@ -48,6 +52,7 @@ const Account = ({ navigation }) => {
       ]
     );
   };
+
   return (
     <View style={styles.container}>
       {/* Reusable Header */}
@@ -60,21 +65,21 @@ const Account = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         {/* Profile Card */}
         <View style={styles.profileCard}>
-        <View style={styles.circle}>
-        <Text style={styles.circleText}>
-          {userName ? userName.substring(0, 2).toUpperCase() : 'U'}
-        </Text>
-        </View>
-        <Text style={styles.nameText}>{userName}</Text>
-          <Text style={styles.accountNumber}>298985151</Text>
+          <View style={styles.circle}>
+            <Text style={styles.circleText}>
+              {userName ? userName.substring(0, 2).toUpperCase() : 'U'}
+            </Text>
+          </View>
+          <Text style={styles.nameText}>{userName}</Text>
+          <Text style={styles.accountNumber}>{accountNumber}</Text>
 
           {/* Profile and Settings buttons */}
           <View style={styles.buttonRow}>
-            <TouchableOpacity style={styles.profileButton}>
+            <TouchableOpacity style={styles.profileButton} onPress={() => navigation.navigate('EditProfile')}>
               <FontAwesome5 name="user" size={16} color="#000" />
-              <Text style={styles.buttonText}  onPress={() => navigation.navigate('EditProfile')}>Edit Profile</Text>
+              <Text style={styles.buttonText}>Edit Profile</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.settingsButton}>
+            <TouchableOpacity style={styles.settingsButton} onPress={() => Alert.alert('Under Development')}>
               <FontAwesome5 name="cog" size={16} color="#000" />
               <Text style={styles.buttonText}>Settings</Text>
             </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions , ScrollView } from 'react-native';
 import CustomButton from '../components/button'; 
 import Header from '../components/headerwhite';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
@@ -91,11 +91,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingHorizontal: 20,
+    
+    
   },
   logo: {
     width: 100,
     height: 100,
-    marginTop: 80,
+    marginTop: 10,
   },
   merchantName: {
     fontSize: 20,
@@ -120,6 +122,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginTop: 15,
+    
   },
   paymentFeeText: {
     color: '#D1F8E9',
@@ -190,7 +193,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 20,
-    marginBottom: 30,
+   
   },
   totalContainer: {
     backgroundColor: '#0B5840',

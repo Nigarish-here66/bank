@@ -1,28 +1,28 @@
 // components/HeaderWhite.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet , Image } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const HeaderWhite = ({ 
   title, 
   onBackPress, 
-  onHelpPress, 
-  
+  onHelpPress,
   textColor = 'black', 
   iconColor = 'black', 
   iconSize = 20 
 }) => {
   return (
     <View style={styles.container}>
+      
       {/* Back Icon */}
       {onBackPress ? (
         <TouchableOpacity 
           onPress={onBackPress} 
           style={styles.iconContainer} 
           accessibilityRole="button" 
-          accessibilityLabel="Go back"
+          
         >
-          <FontAwesome5 name="arrow-left" size={iconSize} color={iconColor} />
+        <View style={styles.imgPlaceholder}><Image source={require('../assets/sikka.png')} style={styles.image} /></View> 
         </TouchableOpacity>
       ) : (
         <View style={styles.iconPlaceholder} />
@@ -45,6 +45,7 @@ const HeaderWhite = ({
         <View style={styles.iconPlaceholder} />
       )}
     </View>
+    
   );
 };
 
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 35,
+    marginTop: 40,
   },
   iconContainer: {
     padding: 10,
@@ -67,6 +68,13 @@ const styles = StyleSheet.create({
     fontFamily: 'LilitaOne_400Regular',
     flex: 1,
     textAlign: 'center',
+  },
+  imgPlaceholder: {
+    width: 30, // To maintain spacing and alignment when an icon is absent
+  },
+  image: {
+    width: 60,
+    height: 40,
   },
 });
 

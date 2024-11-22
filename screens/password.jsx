@@ -138,7 +138,7 @@ const PasswordConfirmation = ({ route, navigation }) => {
             secureTextEntry={secureText}
             onChangeText={(text) => setPassword(text)}
           />
-          <Text style={styles.passwordHint}>Must be at least 8 characters.</Text>
+          
         </View>
       </View>
 

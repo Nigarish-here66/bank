@@ -11,7 +11,7 @@ export default function Payment({navigation}) {
       onBackPress={() => navigation.goBack()}
       
       />
-
+<View style={styles.container}>
       <View style={styles.Innercontainer}>
 
         <View style={styles.img}><Image source={require('../assets/confirmed.png')} style={{ width: 100, height: 100 }} /></View>
@@ -24,7 +24,7 @@ export default function Payment({navigation}) {
         <Text>Payment for</Text>
 
         <View style={styles.card}>
-          <Image source={require('../assets/Starbucks.png')} style={{ width: 30, height: 30, marginRight: 10 }} />
+          <Image source={require('../assets/Starbucks.png')} style={{ width: 40, height: 30, marginRight: 5 }} />
           <View style={styles.txt}>
             <Text style={styles.cardtxt} >Starbucks Coffee</Text>
             <Text style={styles.cardtxt}>Dec 2, 2020 . 3:02 PM</Text>
@@ -33,18 +33,27 @@ export default function Payment({navigation}) {
 
         <LongButton title="Done" onPress={() => navigation.navigate('Home')} />
 
-        <TouchableOpacity onPress={() => alert('')} style={styles.payAgainButton}>
+        {/* <TouchableOpacity onPress={() => alert('')} style={styles.payAgainButton}>
           <Text style={styles.payAgainText}>Pay Again</Text>
-        </TouchableOpacity>
-
+          </TouchableOpacity> */}
+          </View>
+<Bottom/>
       </View>
-      <Bottom/>
+      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
+container: {
+  flex: 1,
+    backgroundColor: 'white',
+    marginTop: 40,
+    alignItems: 'center',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    
+},
   Outercontainer: {
     flex: 1,
     backgroundColor: '#0D0B1E',
@@ -58,6 +67,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    marginBottom: 70,
+
   },
   head :{
     fontSize: 24,
@@ -77,19 +88,21 @@ const styles = StyleSheet.create({
     maxWidth :300,
     color: 'Black',
     marginBottom: 20,
-    marginVertical: 10,
+    marginVertical: 5,
     textAlign: 'center',
   },
 
   card: {
+    
     marginTop: 15,
     flexDirection: 'row',
-    alignItems: 'center',
-    textAlign: "center",
+    alignItems: 'left',
+    textAlign: "left",
     backgroundColor: '#D3D3D3',
     borderRadius: 10,
     padding: 15,
-    width: '80%',
+    width: '100%',
+    
   marginBottom: 25,
   
   },
@@ -121,7 +134,7 @@ const styles = StyleSheet.create({
   img: {
     backgroundColor: 'white',
     borderRadius: 40,
-    padding: 15,
+    padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
