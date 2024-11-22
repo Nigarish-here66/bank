@@ -98,11 +98,11 @@ const Account = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.actionButton}>
+          <TouchableOpacity style={styles.actionButton} onPress={() => Alert.alert('Under Development')}>
             <FontAwesome5 name="file-alt" size={20} color="#fff" />
             <Text style={styles.actionText}>Account Statement</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton}>
+          <TouchableOpacity style={styles.actionButton} onPress={() => Alert.alert('Under Development')}>
             <FontAwesome5 name="user-plus" size={20} color="#fff" />
             <Text style={styles.actionText}>Payee Management</Text>
           </TouchableOpacity>
