@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ActivityIndicator } from 'react-native';
@@ -25,11 +25,11 @@ const Statistics = ({ navigation }) => {
         >
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Income</Text>
-            <Text style={styles.summaryAmount}>$5,440</Text>
+            <Text style={styles.summaryAmount}>5,440 PKR</Text>
           </View>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryLabel}>Expense</Text>
-            <Text style={styles.summaryAmount}>$2,209</Text>
+            <Text style={styles.summaryAmount}>2,209 PKR</Text>
           </View>
         </LinearGradient>
 
@@ -54,13 +54,8 @@ const Statistics = ({ navigation }) => {
         {/* Category Chart */}
         <View style={styles.categoryContainer}>
           <Text style={styles.categoryTitle}>Category Chart</Text>
-          <Text style={styles.expenseTotal}>- $312.00</Text>
-          <View style={styles.pieChart}>
-            {/* Replace this View with an actual pie chart library or component */}
-            <View style={styles.pieSlice} />
-            <ActivityIndicator size="large" color="#2196F3" />
-            <View style={styles.pieSlice} />
-          </View>
+          <Text style={styles.expenseTotal}>- 312.00 PKR</Text>
+          <Image source={require('../assets/chart.png')} style={styles.chartImage} />
           <View style={styles.legendContainer}>
             <View style={styles.legendItem}>
               <View style={[styles.legendColor, { backgroundColor: '#FFC107' }]} />
@@ -188,17 +183,12 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginBottom: 20,
   },
-  pieChart: {
-    height: 200,
+  chartImage: {
+    height: 300,
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-  },
-  pieSlice: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#FF4081',
   },
   legendContainer: {
     flexDirection: 'row',
@@ -214,10 +204,12 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     marginRight: 5,
+    marginBottom: 50,
   },
   legendText: {
     fontSize: 14,
     color: '#888',
+    marginBottom: 50,
   },
 });
 

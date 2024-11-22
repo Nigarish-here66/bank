@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MyHeader from '../components/headerblack';
 import Bottom from '../components/bottom';
@@ -73,13 +73,26 @@ const Dashboard = ({ navigation }) => {
 
         {/* Action Buttons */}
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.actionButtonPrimary}>
+          <TouchableOpacity
+            style={styles.actionButtonPrimary}
+            onPress={() => navigation.navigate("TokenPopup")}>
             <Ionicons name="gift" size={20} color="#fff" />
             <Text style={styles.buttonText}>Get Tokens</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButtonSecondary}>
-            <Ionicons name="ios-attach" size={20} color="#fff" />
-            <Text style={styles.buttonText}>Borrow Tokens</Text>
+          <TouchableOpacity
+            style={styles.actionButtonSecondary}
+            onPress={() => {
+              Alert.alert(
+                "Borrow Tokens",
+                "Are you sure you want to borrow tokens?",
+                [
+                  { text: "Cancel", style: "cancel" },
+                  { text: "Confirm", onPress: () => console.log("Tokens borrowed!") }
+                ]
+              );
+            }}>
+          <Ionicons name="ios-attach" size={20} color="#fff" />
+          <Text style={styles.buttonText}>Borrow Tokens</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

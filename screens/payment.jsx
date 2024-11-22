@@ -19,7 +19,7 @@ export default function Payment({navigation}) {
         <Text style={styles.description}>Your payment for Starbucks Coffee has been successfully done</Text>
         
         <Text style={styles.head}>Total Payment</Text>
-        <Text style={styles.cost}>PKR 17.00</Text>
+        <Text style={styles.cost}>17.00 PKR</Text>
 
         <Text>Payment for</Text>
 

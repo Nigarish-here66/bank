@@ -76,11 +76,24 @@ const Notification = ({navigation}) => {
 
 const notifications = {
   yesterday: [
-    { icon: '💸', title: 'Daily Cashback', time: '8:00 AM', tag: 'Promo' },
-    { icon: 'BLCK10', title: 'Use BLCK10 Promo Code', time: '3:40 PM', tag: 'Promo' },
+    { icon: "💰", title: "Received $50", time: "2:30 PM", tag: "Finance" },
+    { icon: "📈", title: "Stock Alert: +3%", time: "11:00 AM", tag: "Stocks" },
+    { icon: "🎉", title: "Bonus Unlocked!", time: "9:15 AM", tag: "Rewards" },
+    { icon: "📩", title: "New Message", time: "7:45 AM", tag: "Inbox" },
+    { icon: "🔔", title: "Daily Reminder", time: "7:00 AM", tag: "Reminder" },
+    { icon: "🛒", title: "Order Delivered", time: "6:00 AM", tag: "Shopping" },
+    { icon: "🏦", title: "Bank Statement", time: "5:00 AM", tag: "Banking" },
+    { icon: "🌟", title: "New Achievement", time: "4:00 AM", tag: "Achievements" },
   ],
   last7Days: [
-    { icon: 'NOV10', title: 'Use NOV10 Promo Code', time: '3:40 PM', tag: 'Promo' },
+    { icon: "🔔", title: "Event Reminder", time: "Tuesday, 3:45 PM", tag: "Events" },
+    { icon: "🛍️", title: "Shopping Discount", time: "Monday, 2:30 PM", tag: "Shopping" },
+    { icon: "📅", title: "Meeting Scheduled", time: "Sunday, 1:15 PM", tag: "Work" },
+    { icon: "🚗", title: "Car Service Due", time: "Saturday, 12:00 PM", tag: "Reminders" },
+    { icon: "🎶", title: "Playlist Updated", time: "Friday, 11:30 AM", tag: "Music" },
+    { icon: "📞", title: "Missed Call", time: "Thursday, 10:15 AM", tag: "Calls" },
+    { icon: "📤", title: "Email Sent", time: "Wednesday, 9:00 AM", tag: "Work" },
+    { icon: "📕", title: "Reading Completed", time: "Tuesday, 8:00 AM", tag: "Learning" },
   ],
 };
 

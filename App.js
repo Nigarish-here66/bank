@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Dashboard from './screens/Dashboard';
+import TokenPopupScreen from './screens/TokenPopup';
 import Notification from './screens/Notification';
 import Statistics from './screens/Statistics';
 import Scanner from './screens/Scanner';
@@ -45,7 +46,7 @@ export default function App() {
         <Stack.Screen name="Password" component={Password} />
         <Stack.Screen name="MyAccount" component={MyAccount} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
-
+        <Stack.Screen name="TokenPopup" component={TokenPopupScreen} />
        
       
       </Stack.Navigator>

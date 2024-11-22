@@ -12,7 +12,7 @@ const IncomeHistory = ({ navigation }) => {
       <ScrollView style={styles.innercontainer}>
         {/* Total Income Section */}
         <View style={styles.incomeContainer}>
-          <Text style={styles.incomeAmount}>46,438.00 USD</Text>
+          <Text style={styles.incomeAmount}>46,438.02 PKR</Text>
           <Text style={styles.incomeLabel}>Total Income</Text>
         </View>
 
@@ -58,10 +58,40 @@ const IncomeHistory = ({ navigation }) => {
               amount="+200"
             />
             <TransactionItem
+              icon="gift-outline"
+              title="Bonuses"
+              date="11-03-2019"
+              amount="+200"
+            />
+            <TransactionItem
               icon="calendar-outline"
               title="Monthly Salary"
               date="12-03-2019"
               amount="+1400"
+            />
+            <TransactionItem
+              icon="calendar-outline"
+              title="Others"
+              date="01-03-2019"
+              amount="+200"
+            />
+            <TransactionItem
+              icon="calendar-outline"
+              title="Monthly Salary"
+              date="12-03-2019"
+              amount="+1400"
+            />
+            <TransactionItem
+              icon="gift-outline"
+              title="Bonuses"
+              date="11-03-2019"
+              amount="+200"
+            />
+            <TransactionItem
+              icon="gift-outline"
+              title="Bonuses"
+              date="11-03-2019"
+              amount="+200"
             />
           </View>
         </View>
