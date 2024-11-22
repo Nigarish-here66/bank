@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -88,22 +87,22 @@ const Account = ({ navigation }) => {
 
         {/* Action Buttons */}
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('Dashboard')}>
-            <FontAwesome5 name="th-list" size={20} color="#fff" />
+          <TouchableOpacity style={[styles.actionButton, { backgroundColor: 'white' }]} onPress={() => navigation.navigate('Dashboard')}>
+            <FontAwesome5 name="th-list" size={20} color="red" />
             <Text style={styles.actionText}>Dashboard</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton}>
-            <FontAwesome5 name="comment-dots" size={20} color="#fff" />
+          <TouchableOpacity style={[styles.actionButton, { backgroundColor: 'white' }]} onPress={() => Alert.alert('Under Development')}>
+            <FontAwesome5 name="comment-dots" size={20} color="yellow" />
             <Text style={styles.actionText}>Complaint</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.actionButton} onPress={() => Alert.alert('Under Development')}>
-            <FontAwesome5 name="file-alt" size={20} color="#fff" />
+          <TouchableOpacity style={[styles.actionButton, { backgroundColor: 'white' }]} onPress={() => Alert.alert('Under Development')}>
+            <FontAwesome5 name="file-alt" size={20} color="blue" />
             <Text style={styles.actionText}>Account Statement</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionButton} onPress={() => Alert.alert('Under Development')}>
-            <FontAwesome5 name="user-plus" size={20} color="#fff" />
+          <TouchableOpacity style={[styles.actionButton, { backgroundColor: 'white' }]} onPress={() => Alert.alert('Under Development')}>
+            <FontAwesome5 name="user-plus" size={20} color="green" />
             <Text style={styles.actionText}>Payee Management</Text>
           </TouchableOpacity>
         </View>
@@ -127,7 +126,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   profileCard: {
-    backgroundColor: '#1C1B2A',
+    backgroundColor: 'white',
     borderRadius: 20,
     alignItems: 'center',
     padding: 20,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontSize: 24,
-    color: '#FFF',
+    color: '#000',
     marginTop: 10,
   },
   accountNumber: {
@@ -202,10 +201,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginVertical: 10,
     elevation: 5,
+    color: 'black',
   },
   actionText: {
     fontSize: 16,
-    color: '#FFF',
+    color: 'black',
     marginTop: 5,
   },
   footerText: {

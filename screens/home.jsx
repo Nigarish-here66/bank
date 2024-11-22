@@ -120,6 +120,7 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      
       <Header
         title="Home"
         onBackPress={() => navigation.goBack()}
@@ -196,6 +197,7 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
