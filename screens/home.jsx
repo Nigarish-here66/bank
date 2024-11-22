@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ScrollView, Alert, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ScrollView, Alert, BackHandler , ImageBackground} from 'react-native';
 import Header from '../components/headerblack';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Bottom from '../components/bottom';
@@ -119,7 +119,7 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../assets/image.png')} style={styles.container}>
       
       <Header
         title="Home"
@@ -190,7 +190,7 @@ const Home = ({ navigation }) => {
       </ScrollView>
 
       <Bottom />
-    </View>
+    </ImageBackground>
   );
 };
 
