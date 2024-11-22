@@ -123,7 +123,7 @@ const Home = ({ navigation }) => {
       <Header
         title="Home"
         onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')}
+        onHelpPress={handleSignOutConfirmation}
       />
 
       <ScrollView contentContainerStyle={styles.scrollView}>

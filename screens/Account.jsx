@@ -54,7 +54,7 @@ const Account = ({ navigation }) => {
       <Header
         title="My Account"
         onBackPress={() => navigation.goBack()}
-        onHelpPress={() => alert('Help/Settings clicked')}
+        onHelpPress={handleSignOutConfirmation}
       />
 
       <ScrollView contentContainerStyle={styles.scrollView}>
