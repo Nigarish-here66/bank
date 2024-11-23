@@ -83,27 +83,43 @@ const Dashboard = ({ navigation }) => {
 
         {/* Action Buttons */}
         <View style={styles.buttonRow}>
-          <TouchableOpacity
-            style={styles.actionButtonPrimary}
-            onPress={() => navigation.navigate("TokenPopup")}>
+        <TouchableOpacity
+          style={styles.actionButtonPrimary}
+          onPress={() => navigation.navigate("TokenPopup")}
+        >
+          <LinearGradient
+             colors={['#7F00FF', '#E100FF']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.gradientButtontwo} 
+          >
             <Ionicons name="gift" size={20} color="#fff" />
             <Text style={styles.buttonText}>Get Tokens</Text>
-          </TouchableOpacity>
+          </LinearGradient>
+        </TouchableOpacity>
           <TouchableOpacity
-            style={styles.actionButtonSecondary}
-            onPress={() => {
-              Alert.alert(
-                "Borrow Tokens",
-                "Are you sure you want to borrow tokens?",
-                [
-                  { text: "Cancel", style: "cancel" },
-                  { text: "Confirm", onPress: () => console.log("Tokens borrowed!") }
-                ]
-              );
-            }}>
-          <Ionicons name="ios-attach" size={20} color="#fff" />
-          <Text style={styles.buttonText}>Borrow Tokens</Text>
-          </TouchableOpacity>
+          style={styles.actionButtonSecondary}
+          onPress={() => {
+            Alert.alert(
+              "Borrow Tokens",
+              "Are you sure you want to borrow tokens?",
+              [
+                { text: "Cancel", style: "cancel" },
+                { text: "Confirm", onPress: () => console.log("Tokens borrowed!") }
+              ]
+            );
+          }}
+        >
+          <LinearGradient
+             colors={['#7F00FF', '#E100FF']}
+             start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.gradientButtontwo} 
+          >
+            <Ionicons name="ios-attach" size={20} color="#fff" />
+            <Text style={styles.buttonText}>Borrow Tokens</Text>
+          </LinearGradient>
+        </TouchableOpacity>
         </View>
       </ScrollView>
 
@@ -254,20 +270,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#4caf50',
     borderRadius: 10,
     paddingVertical: 15,
     marginRight: 10,
+  },
+  gradientButtontwo: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
   },
   actionButtonSecondary: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FF4081',
     borderRadius: 10,
     paddingVertical: 15,
   },
+  
   buttonText: {
     color: '#fff',
     fontSize: 16,
