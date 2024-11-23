@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 
 const LongButton = ({
   title,
@@ -20,21 +21,25 @@ const LongButton = ({
   return (
     <View style={[styles.container, { width }]}>
       <TouchableOpacity
-        style={[
-          styles.button,
-          { backgroundColor: isDisabled ? "#A1A1A1" : backgroundColor, borderRadius },
-        ]}
-        onPress={isDisabled || isLoading ? null : onPress}
-        disabled={isDisabled || isLoading}
-        accessibilityRole="button"
-        accessibilityLabel={title}
-      >
-        {isLoading ? (
-          <ActivityIndicator size="small" color={textColor} />
-        ) : (
+      style={[styles.buttonContainer, { borderRadius }]}
+      onPress={isDisabled || isLoading ? null : onPress}
+      disabled={isDisabled || isLoading}
+      accessibilityRole="button"
+      accessibilityLabel={title}
+    >
+      {isLoading ? (
+        <ActivityIndicator size="small" color={textColor} />
+      ) : (
+        <LinearGradient
+          colors={['#7F00FF', '#E100FF']} 
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={[styles.button, { borderRadius }]} 
+        >
           <Text style={[styles.buttonText, { color: textColor }]}>{title}</Text>
-        )}
-      </TouchableOpacity>
+        </LinearGradient>
+      )}
+    </TouchableOpacity>
     </View>
   );
 };

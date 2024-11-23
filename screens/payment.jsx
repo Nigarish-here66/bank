@@ -79,7 +79,7 @@ container: {
     fontSize: 28,
     fontFamily: 'LilitaOne_400Regular',
     marginBottom:20,
-    color: "#00CCAA",
+    color: '#E100FFB2',
   },
 
   description: {
