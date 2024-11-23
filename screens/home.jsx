@@ -6,6 +6,7 @@ import Bottom from '../components/bottom';
 import { signOut } from 'firebase/auth';
 import { auth, database } from '../firebase';
 import { ref, onValue } from 'firebase/database';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -145,14 +146,22 @@ const Home = ({ navigation }) => {
               { label: 'Dashboard', icon: 'wallet', route: 'Dashboard' },
               { label: 'History', icon: 'history', route: 'IncomeHistory' },
             ].map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.actionButton}
-                onPress={() => navigation.navigate(item.route)}
+              <LinearGradient
+                colors={['#7F00FF', '#E100FF']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.actionButtonGradient}
               >
-                <FontAwesome5 name={item.icon} size={20} color="#FFFFFF" />
-                <Text style={styles.actionButtonText}>{item.label}</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  key={item.index}
+                  style={styles.actionButtonContent}
+                  onPress={() => navigation.navigate(item.route)}
+                  activeOpacity={0.7}
+                >
+                  <FontAwesome5 name={item.icon} size={20} color="#FFFFFF" />
+                  <Text style={styles.actionButtonText}>{item.label}</Text>
+                </TouchableOpacity>
+              </LinearGradient>
             ))}
           </View>
         </View>
@@ -207,15 +216,21 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   balanceContainer: {
-    backgroundColor: '#0D0B1E',
+    // backgroundColor: '#0D0B1E',
+    backgroundColor: 'white',
     borderRadius: 15,
     padding: 20,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5,
   },
   helloText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: 'black',
     marginTop: 20,
   },
   balanceLabel: {
@@ -226,7 +241,7 @@ const styles = StyleSheet.create({
   balanceAmount: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: 'black',
     marginTop: 10,
   },
   actionButtonsContainer: {
@@ -235,14 +250,18 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
   },
-  actionButton: {
-    backgroundColor: '#00CCAA',
+  actionButtonGradient: {
+    flex: 1,
+    borderRadius: 10,
+    marginHorizontal: 5,
+  },
+  actionButtonContent: {
+    flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 10,
-    borderRadius: 10,
     alignItems: 'center',
-    flex: 1,
-    marginHorizontal: 5,
+    justifyContent: 'center',
+    borderRadius: 10,
   },
   actionButtonText: {
     color: '#FFFFFF',
@@ -287,19 +306,24 @@ const styles = StyleSheet.create({
     top: -20,
   },
   promoCard: {
-    backgroundColor: '#0D0B1E',
+    backgroundColor: 'white',
     borderRadius: 15,
     padding: 20,
     marginTop: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5,
   },
   promoText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#FFFFFF',
+    color: 'black',
   },
   promoDescription: {
     fontSize: 14,
-    color: '#D1F8E9',
+    color: 'black',
     marginTop: 10,
   },
 });

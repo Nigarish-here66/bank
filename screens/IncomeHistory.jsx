@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import HeaderBlack from '../components/headerblack';
 import Bottom from "../components/bottom";
 
 const IncomeHistory = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
+      opacity: 0.9, 
+           }}>
       {/* Header */}
       <HeaderBlack title="Income History" onBackPress={() => navigation.goBack()} />
       <ScrollView style={styles.innercontainer}>
@@ -97,7 +99,7 @@ const IncomeHistory = ({ navigation }) => {
         </View>
       </ScrollView>
       <Bottom />
-    </View>
+    </ImageBackground>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image,ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { ActivityIndicator } from 'react-native';
@@ -8,7 +8,9 @@ import Header from '../components/headerblack';
 
 const Statistics = ({ navigation }) => {
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
+      opacity: 0.9, 
+           }}>
       {/* Header */}
       <Header
         title="Statistics"
@@ -73,7 +75,7 @@ const Statistics = ({ navigation }) => {
         </View>
       </ScrollView>
       <Bottom />
-    </View>
+    </ImageBackground>
   );
 };
 
