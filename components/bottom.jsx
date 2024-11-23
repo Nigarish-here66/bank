@@ -9,7 +9,7 @@ const BottomNavBar = ({ activeScreen }) => {
   const navigation = useNavigation();
 
   // Determines the icon color based on whether it's the active screen or not.
-  const getIconColor = (screen) => (screen === activeScreen ? '#00CCAA' : '#888');
+  const getIconColor = (screen) => (screen === activeScreen ? '#00CCAA' : 'black');
 
   return (
     <View style={styles.container}>
