@@ -4,6 +4,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { auth, database } from '../firebase';
 import { ref, onValue, update } from 'firebase/database';
 import Header from '../components/headerblack';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 const EditProfile = ({ navigation }) => {
   const [userData, setUserData] = useState({
@@ -83,11 +85,18 @@ const EditProfile = ({ navigation }) => {
 
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.profileCard}>
-          <View style={styles.circle}>
-            <Text style={styles.circleText}>
-              {userData.name ? userData.name.substring(0, 2).toUpperCase() : 'U'}
-            </Text>
-          </View>
+        <LinearGradient
+            colors={['#7F00FF', '#E100FF']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.circleGradient}
+          >
+            <View style={styles.circle}>
+              <Text style={styles.circleText}>
+                {userData.name ? userData.name.substring(0, 2).toUpperCase() : 'U'}
+              </Text>
+            </View>
+        </LinearGradient>
 
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Name</Text>
@@ -133,20 +142,27 @@ const EditProfile = ({ navigation }) => {
             </View>
           </View>
 
-          <TouchableOpacity 
-            style={styles.saveButton} 
-            onPress={handleSave}
-            disabled={isSaving}
-          >
-            {isSaving ? (
-              <ActivityIndicator color="#FFF" />
-            ) : (
-              <>
-                <FontAwesome5 name="save" size={16} color="#FFF" />
-                <Text style={styles.saveButtonText}>Save Changes</Text>
-              </>
-            )}
-          </TouchableOpacity>
+                  <LinearGradient
+              colors={['#7F00FF', '#E100FF']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={styles.saveButtonGradient}
+            >
+              <TouchableOpacity 
+                style={styles.saveButton} 
+                onPress={handleSave} 
+                disabled={isSaving}
+              >
+                {isSaving ? (
+                  <ActivityIndicator color="#FFF" />
+                ) : (
+                  <>
+                    <FontAwesome5 name="save" size={16} color="#FFF" style={styles.saveIcon} />
+                    <Text style={styles.saveButtonText}>Save Changes</Text>
+                  </>
+                )}
+              </TouchableOpacity>
+            </LinearGradient>
         </View>
       </ScrollView>
     </ImageBackground>
@@ -167,7 +183,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   profileCard: {
-    backgroundColor: '#1C1B2A',
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 20,
     width: '100%',
@@ -178,14 +194,19 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5,
   },
-  circle: {
-    backgroundColor: "#00CCAA",
+  circleGradient: {
     borderRadius: 50,
     width: 80,
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
+  },
+  circle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
   },
   circleText: {
     fontSize: 24,
@@ -208,6 +229,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
     paddingHorizontal: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5,
+    
   },
   inputIcon: {
     marginRight: 10,
@@ -217,16 +244,19 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     fontSize: 16,
     color: '#000',
+    
+    
+  },
+  saveButtonGradient: {
+    borderRadius: 10,
+    width: '100%',
+    marginTop: 20,
   },
   saveButton: {
     flexDirection: 'row',
-    backgroundColor: '#00CCAA',
     paddingVertical: 15,
     paddingHorizontal: 30,
-    borderRadius: 10,
     alignItems: 'center',
-    marginTop: 20,
-    width: '100%',
     justifyContent: 'center',
   },
   saveButtonText: {
@@ -235,6 +265,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 10,
   },
+  saveIcon: {
+    marginRight: 10,
+  },
+  
 });
 
 export default EditProfile;
