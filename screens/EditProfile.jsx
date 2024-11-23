@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet,  ScrollView, TextInput, TouchableOpacity,Alert,ActivityIndicator  } from 'react-native';
+import { View, Text, StyleSheet,  ScrollView, TextInput, TouchableOpacity,Alert,ActivityIndicator,  ImageBackground  } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { auth, database } from '../firebase';
 import { ref, onValue, update } from 'firebase/database';
@@ -73,7 +73,9 @@ const EditProfile = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
+      opacity: 0.9, 
+           }}>
       <Header
         title="Edit Profile"
         onBackPress={() => navigation.goBack()}
@@ -147,7 +149,7 @@ const EditProfile = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </View>
+    </ImageBackground>
   );
 };
 

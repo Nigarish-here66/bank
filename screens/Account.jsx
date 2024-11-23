@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, ImageBackground } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Header from '../components/headerblack';
 import BottomNavBar from '../components/bottom';
@@ -53,7 +53,9 @@ const Account = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
+      opacity: 0.9, 
+           }}>
       {/* Reusable Header */}
       <Header
         title="My Account"
@@ -113,7 +115,7 @@ const Account = ({ navigation }) => {
 
       {/* Bottom Navigation Bar */}
       <BottomNavBar />
-    </View>
+    </ImageBackground>
   );
 };
 
