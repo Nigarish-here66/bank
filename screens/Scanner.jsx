@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions , ScrollView } from 'react-native';
-import CustomButton from '../components/button'; 
+import CustomButton from '../components/longbutton'; 
 import Header from '../components/headerwhite';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
 import Bottom from "../components/bottom";
@@ -23,7 +23,7 @@ const SummaryTransaction = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View  style={styles.container} >
       <Header
         title="Summary Transaction"
         onBackPress={() => navigation.goBack()}

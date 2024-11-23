@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontFamily: 'LilitaOne_400Regular',
     // fontWeight: 'bold',
-    color: '#00CCAA',
+    color: '#E100FFB2',
     textAlign: 'right',  
   },
   description: {

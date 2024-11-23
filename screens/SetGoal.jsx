@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   createAccountText: {
-    color: '#00CCAA', 
+    color:   '#C711DFFF', 
     textDecorationLine: 'underline',
     fontSize: 16,
     fontFamily: 'LilitaOne_400Regular',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00CCAA',
+   
   },
 });
 

@@ -75,7 +75,7 @@ const Login = ({ navigation }) => {
         {/* Login Button */}
         <View style={styles.buttonContainer}>
           {loading ? (
-            <ActivityIndicator size="medium" color='#00CCAA' />
+            <ActivityIndicator size="medium" color= '#E100FFB2' />
           ) : (
             <ReusableButton title="Login" icon="arrow-right" onPress={handleLogin} />
           )}
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 24,
-    color: '#00CCAA',
+    color:  '#C711DFFF',
     fontFamily: 'LilitaOne_400Regular',
   },
   createAccount: {
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   createAccountText: {
-    color: '#00CCAA',
+    color: '#C711DFFF',
     fontSize: 16,
     fontFamily: 'LilitaOne_400Regular',
   },

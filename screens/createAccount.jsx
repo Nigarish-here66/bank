@@ -103,7 +103,7 @@ const CreateAccount = ({ navigation }) => {
 
         <View style={styles.buttonContainer}>
           {loading ? (
-            <ActivityIndicator size="medium" color="#00CCAA" />
+            <ActivityIndicator size="medium" color= '#C711DFFF'/>
           ) : (
             <ReusableButton
               title="Sign Up"
@@ -135,14 +135,14 @@ const styles = StyleSheet.create({
   loginText: {
     fontSize: 24,
     fontFamily: 'LilitaOne_400Regular',
-    color: '#00CCAA',
+    color:  '#C711DFFF',
   },
   createAccount: {
     top: 50,
     alignItems: 'flex-end',
   },
   createAccountText: {
-    color: '#00CCAA',
+    color:  '#C711DFFF',
     fontSize: 16,
     fontFamily: 'LilitaOne_400Regular',
   },
