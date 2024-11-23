@@ -1,14 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MyHeader from '../components/headerblack';
 import Bottom from '../components/bottom';
 
 const Dashboard = ({ navigation }) => {
   return (
-    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
-      opacity: 0.9, 
-           }}>
+    <View style={styles.container}>
       {/* Header */}
       <MyHeader
         title="Dashboard"
@@ -101,7 +99,7 @@ const Dashboard = ({ navigation }) => {
 
       {/* Bottom Navigation Bar */}
       <Bottom />
-    </ImageBackground>
+    </View>
   );
 };
 
