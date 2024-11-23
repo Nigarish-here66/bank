@@ -5,6 +5,8 @@ import Header from '../components/headerwhite';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'; 
 import Bottom from "../components/bottom";
 const { width, height } = Dimensions.get('window');
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 const SummaryTransaction = ({ navigation }) => {
   // Constants for transaction details
@@ -41,13 +43,25 @@ const SummaryTransaction = ({ navigation }) => {
 
         <Text style={styles.amount}>{baseAmount.toFixed(2)} PKR</Text>
 
-        <View style={styles.paymentFeeContainer}>
-          <Text style={styles.paymentFeeText}>Payment fee {feeAmount} PKR has been applied</Text>
-        </View>
+        <LinearGradient
+          colors={['#7F00FF', '#E100FF']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.paymentFeeContainer}
+        >
+          <Text style={styles.paymentFeeText}>
+            Payment fee {feeAmount} PKR has been applied
+          </Text>
+       </LinearGradient>
 
-        <View style={styles.totalContainer}>
+       <LinearGradient
+          colors={['#7F00FF', '#E100FF']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.totalContainer}
+        >
           <Text style={styles.totalText}>Total Amount: {totalAmount.toFixed(2)} PKR</Text>
-        </View>
+          </LinearGradient>
       </View>
 
       <View style={styles.Container}>
@@ -118,14 +132,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   paymentFeeContainer: {
-    backgroundColor: '#0B5840',
     borderRadius: 10,
     padding: 10,
     marginTop: 15,
-    
   },
   paymentFeeText: {
-    color: '#D1F8E9',
+    color: '#FFFFFFFF',
     fontSize: 14,
     fontFamily: 'Lobster_400Regular',
   },
@@ -200,10 +212,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginTop: 15,
-    width: '100%',
+    width: '80%',
   },
   totalText: {
-    color: '#D1F8E9',
+    color: 'white',
     fontSize: 16,
     fontFamily: 'LilitaOne_400Regular',
     textAlign: 'center',
