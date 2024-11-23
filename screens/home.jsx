@@ -119,7 +119,9 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <ImageBackground source={require('../assets/image.png')} style={styles.container}>
+    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
+      opacity: 0.9, 
+           }}>
       
       <Header
         title="Home"

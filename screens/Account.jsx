@@ -66,7 +66,7 @@ const Account = ({ navigation }) => {
         <View style={styles.profileCard}>
           <View style={styles.circle}>
             <Text style={styles.circleText}>
-              {userName ? userName.substring(0, 2).toUpperCase() : 'U'}
+              {userName ? userName.substring(0, 2).toUpperCase() : '?'}
             </Text>
           </View>
           <Text style={styles.nameText}>{userName}</Text>
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 6,
     elevation: 5,
+    
   },
   circle: {
     backgroundColor: "#00CCAA",
