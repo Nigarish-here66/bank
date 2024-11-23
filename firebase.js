@@ -8,13 +8,13 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBsLcAehwBrBumGqj2ALB6-FAuTzOtU3do",
-  authDomain: "sikka-bank.firebaseapp.com",
-  projectId: "sikka-bank",
-  storageBucket: "sikka-bank.firebasestorage.app",
-  messagingSenderId: "1059510390250",
-  appId: "1:1059510390250:web:02b97648b5013f58ccf693",
-  databaseURL: "https://sikka-bank-default-rtdb.firebaseio.com"
+ apiKey: "AIzaSyBOhvxlX91IypMAg3eGIsEKjJtIBGHqx_U",
+  authDomain: "bank-cd49d.firebaseapp.com",
+  projectId: "bank-cd49d",
+  storageBucket: "bank-cd49d.firebasestorage.app",
+  messagingSenderId: "260555104650",
+  appId: "1:260555104650:web:683bebc23eb09b97cfa873",
+  databaseURL: "https://bank-cd49d-default-rtdb.firebaseio.com"
 };
 
 // Initialize Firebase
