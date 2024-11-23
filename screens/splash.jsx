@@ -9,7 +9,6 @@ import { LilitaOne_400Regular } from '@expo-google-fonts/lilita-one';
 
 const GetStarted = () => {
     const navigation = useNavigation();
-
     const [fontsLoaded] = useFonts({
       Lobster_400Regular,
       LilitaOne_400Regular,

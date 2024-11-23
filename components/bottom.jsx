@@ -3,13 +3,18 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+// A functional component for the Bottom Navigation Bar.
+// It includes navigation buttons for various screens (Home, Statistics, QR, Notifications, MyAccount).
+// The active screen is highlighted with a different icon color.
 const BottomNavBar = ({ activeScreen }) => {
   const navigation = useNavigation();
 
+  // Determines the icon color based on whether it's the active screen or not.
   const getIconColor = (screen) => (screen === activeScreen ? '#00CCAA' : '#888');
 
   return (
     <View style={styles.container}>
+      {/* Navigation buttons for different screens */}
       <TouchableOpacity 
         onPress={() => navigation.navigate('Home')} 
         style={styles.iconContainer}
@@ -26,6 +31,7 @@ const BottomNavBar = ({ activeScreen }) => {
         <FontAwesome5 name="chart-line" size={24} color={getIconColor('Statistics')} />
       </TouchableOpacity>
 
+      {/* Centered QR scan button with a larger size and distinct style */}
       <TouchableOpacity 
         onPress={() => navigation.navigate('QR')} 
         style={styles.scanButtonContainer}
@@ -55,6 +61,7 @@ const BottomNavBar = ({ activeScreen }) => {
   );
 };
 
+// Styles for the Bottom Navigation Bar, including layout, colors, and shadows.
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
