@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'rea
 import { Ionicons } from '@expo/vector-icons';
 import MyHeader from '../components/headerblack';
 import Bottom from '../components/bottom';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Dashboard = ({ navigation }) => {
   return (
@@ -38,11 +39,18 @@ const Dashboard = ({ navigation }) => {
 
         {/* Income History Button */}
         <TouchableOpacity
-          style={styles.actionButton}
-          onPress={() => navigation.navigate('IncomeHistory')}
-        >
-          <Text style={styles.buttonText}>View Income History</Text>
-        </TouchableOpacity>
+      style={styles.actionButton}
+      onPress={() => navigation.navigate('IncomeHistory')}
+    >
+      <LinearGradient
+         colors={['#7F00FF', '#E100FF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradientButton} 
+      >
+        <Text style={styles.buttonText}>View Income History</Text>
+      </LinearGradient>
+    </TouchableOpacity>
 
         {/* Token Bonus Section */}
         <View style={styles.card}>
@@ -265,11 +273,18 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   actionButton: {
-    backgroundColor: '#4caf50',
     borderRadius: 10,
     paddingVertical: 15,
     alignItems: 'center',
     marginBottom: 20,
+  },
+  gradientButton: {
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 20, 
+    width: '100%', 
+    justifyContent: 'center', 
+    alignItems: 'center',
   },
 });
 
