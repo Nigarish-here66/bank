@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert,ImageBackground } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Header from '../components/headerblack';
 import BottomNavBar from '../components/bottom';
 import { auth, database } from '../firebase';
 import { ref, onValue } from 'firebase/database';
 import { signOut } from 'firebase/auth';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Account = ({ navigation }) => {
   const [userName, setUserName] = useState('');
@@ -66,11 +67,18 @@ const Account = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollView}>
         {/* Profile Card */}
         <View style={styles.profileCard}>
+        <LinearGradient
+            colors={['#7F00FF', '#E100FF']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.circleGradient}
+          >
           <View style={styles.circle}>
             <Text style={styles.circleText}>
               {userName ? userName.substring(0, 2).toUpperCase() : '?'}
             </Text>
           </View>
+          </LinearGradient>
           <Text style={styles.nameText}>{userName}</Text>
           <Text style={styles.accountNumber}>{accountNumber}</Text>
 
@@ -141,17 +149,24 @@ const styles = StyleSheet.create({
     elevation: 5,
     
   },
-  circle: {
-    backgroundColor: "#00CCAA",
+  circleGradient: {
     borderRadius: 50,
     width: 80,
     height: 80,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 20,
+  },
+  circle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
   },
   circleText: {
     fontSize: 24,
     color: '#FFF',
+    fontWeight: 'bold',
   },
   nameText: {
     fontSize: 24,
@@ -173,6 +188,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: '#E0E0E0',
+    
     borderRadius: 10,
     marginHorizontal: 5,
   },
@@ -182,6 +198,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: '#E0E0E0',
+    
     borderRadius: 10,
     marginHorizontal: 5,
   },

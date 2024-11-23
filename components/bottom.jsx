@@ -2,10 +2,9 @@ import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-// A functional component for the Bottom Navigation Bar.
-// It includes navigation buttons for various screens (Home, Statistics, QR, Notifications, MyAccount).
-// The active screen is highlighted with a different icon color.
+
 const BottomNavBar = ({ activeScreen }) => {
   const navigation = useNavigation();
 
@@ -33,14 +32,21 @@ const BottomNavBar = ({ activeScreen }) => {
 
       {/* Centered QR scan button with a larger size and distinct style */}
       <TouchableOpacity 
-        onPress={() => navigation.navigate('QR')} 
-        style={styles.scanButtonContainer}
-        activeOpacity={0.7}
+      onPress={() => navigation.navigate('QR')} 
+      style={styles.scanButtonContainer}
+      activeOpacity={0.7}
+    >
+      <LinearGradient
+        colors={['#7F00FF', '#E100FF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.scanButtonGradient}
       >
-        <View style={styles.scanButton}>
+        <View style={styles.scanButtonContent}>
           <FontAwesome5 name="qrcode" size={24} color="#FFF" />
         </View>
-      </TouchableOpacity>
+      </LinearGradient>
+    </TouchableOpacity>
 
       <TouchableOpacity 
         onPress={() => navigation.navigate('Notification')} 
@@ -85,18 +91,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: -30,
   },
-  scanButton: {
+  scanButtonGradient: {
     width: 60,
     height: 60,
-    backgroundColor: '#00CCAA',
     borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 6,
-    elevation: 8, // For Android shadow
+    elevation: 8, 
+  },
+  scanButtonContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
   },
 });
 
