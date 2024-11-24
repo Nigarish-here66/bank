@@ -5,77 +5,89 @@ import { Ionicons } from '@expo/vector-icons';
 import Bottom from '../components/bottom';
 import Header from '../components/headerblack';
 
-const Notification = ({navigation}) => {
+const Notification = ({ navigation }) => {
   return (
-    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
-      opacity: 0.9, 
-           }}>
-      {/* Header */}
+    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{ opacity: 0.9 }}>
+      
+      {/* Header Component */}
       <Header
-        title="Notifications"
-        onBackPress={() => navigation.goBack()}
-        
+        title="Notifications" 
+        onBackPress={() => navigation.goBack()} 
       /> 
 
-      {/* Notifications */}
+      {/* Scrollable Notifications Content */}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Today Section */}
+
+        {/* Today's Notifications Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>TODAY</Text>
-          <Text style={styles.markAsRead}>Mark as read</Text>
+          <Text style={styles.sectionTitle}>TODAY</Text> 
+          <Text style={styles.markAsRead}>Mark as read</Text> 
           <View style={styles.notificationCard}>
+
+            {/* Notification Icon */}
             <View style={styles.iconContainer}>
               <Ionicons name="gift-outline" size={24} color="white" />
             </View>
+
+            {/* Notification Text Content */}
             <View style={styles.notificationTextContainer}>
-              <Text style={styles.notificationTitle}>Cashback 50%</Text>
-              <Text style={styles.notificationDescription}>Get 50% cashback for the next top up</Text>
+              <Text style={styles.notificationTitle}>Cashback 50%</Text> 
+              <Text style={styles.notificationDescription}>Get 50% cashback for the next top up</Text> 
               <TouchableOpacity>
+
+                {/* Link to top-up action */}
                 <Text style={styles.topUpLink}>Top up now &gt;</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
 
-        {/* Yesterday Section */}
+        {/* Yesterday's Notifications Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>YESTERDAY</Text>
+          <Text style={styles.sectionTitle}>YESTERDAY</Text> 
           {notifications.yesterday.map((notification, index) => (
+
+            // Map through the yesterday's notifications and display each one
             <View key={index} style={styles.notificationItem}>
               <View style={styles.iconYellow}>
-                <Text style={styles.iconText}>{notification.icon}</Text>
+                <Text style={styles.iconText}>{notification.icon}</Text> 
               </View>
               <View style={styles.notificationText}>
-                <Text style={styles.notificationTitle}>{notification.title}</Text>
-                <Text style={styles.timeText}>{notification.time}</Text>
+                <Text style={styles.notificationTitle}>{notification.title}</Text> 
+                <Text style={styles.timeText}>{notification.time}</Text> 
               </View>
-              <Text style={styles.tag}>{notification.tag}</Text>
+              <Text style={styles.tag}>{notification.tag}</Text> 
             </View>
           ))}
         </View>
 
-        {/* Last 7 Days Section */}
+        {/* Last 7 Days Notifications Section */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>LAST 7 DAYS</Text>
+          <Text style={styles.sectionTitle}>LAST 7 DAYS</Text> 
           {notifications.last7Days.map((notification, index) => (
+
+            // Map through the last 7 days' notifications and display each one
             <View key={index} style={styles.notificationItem}>
               <View style={styles.iconOrange}>
-                <Text style={styles.iconText}>{notification.icon}</Text>
+                <Text style={styles.iconText}>{notification.icon}</Text> 
               </View>
               <View style={styles.notificationText}>
                 <Text style={styles.notificationTitle}>{notification.title}</Text>
-                <Text style={styles.timeText}>{notification.time}</Text>
+                <Text style={styles.timeText}>{notification.time}</Text> 
               </View>
-              <Text style={styles.tag}>{notification.tag}</Text>
+              <Text style={styles.tag}>{notification.tag}</Text> 
             </View>
           ))}
         </View>
       </ScrollView>
+
+      {/* Bottom Navigation Component */}
       <Bottom />
     </ImageBackground>
   );
 };
 
+// Sample notifications data
 const notifications = {
   yesterday: [
     { icon: "💰", title: "Received $50", time: "2:30 PM", tag: "Finance" },

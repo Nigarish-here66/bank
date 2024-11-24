@@ -29,7 +29,8 @@ const GetStarted = () => {
           <Text style={styles.description}>
             Your Wealth, Your Sikka
           </Text>
-        </View>
+      </View>
+      
       {/* Image Section */}
       <View style={styles.img}>
       <Image 

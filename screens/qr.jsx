@@ -8,40 +8,43 @@ import ReusableButton from '../components/button';
 import { ref, push, serverTimestamp } from 'firebase/database';
 import { auth, database } from '../firebase';
 
-export default function QR({navigation}) {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [scanned, setScanned] = useState(false);
-  const [isScanning, setIsScanning] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+export default function QR({ navigation }) {
+  const [hasPermission, setHasPermission] = useState(null); 
+  const [scanned, setScanned] = useState(false); 
+  const [isScanning, setIsScanning] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false); 
 
+  // Request camera permissions on component mount
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === 'granted'); // Update state based on permission status
     };
 
-    getBarCodeScannerPermissions();
+    getBarCodeScannerPermissions(); // Run the permission request function
   }, []);
 
+  // Handle QR code scan results
   const handleBarCodeScanned = async ({ type, data }) => {
-    setScanned(true);
-    setIsLoading(true);
-  
+    setScanned(true); 
+    setIsLoading(true); 
+
     try {
+      // Show an alert indicating that payment is being processed
       Alert.alert('Processing', 'Please wait while we process your payment...');
-  
-      // Simulate processing delay
+
+      // Simulate processing delay (e.g., waiting for a payment API to process)
       await new Promise(resolve => setTimeout(resolve, 1500));
-  
+
       const paymentData = {
-        qrData: data,
-        scanType: type,
-        timestamp: new Date().toISOString(),
-        status: 'processed',
-        amount: Math.floor(Math.random() * 1000)
+        qrData: data, // QR data from the scan
+        scanType: type, // Type of barcode scanned 
+        timestamp: new Date().toISOString(), // Current timestamp
+        status: 'processed', // Status of the payment
+        amount: Math.floor(Math.random() * 1000) // Random amount for demo purposes
       };
-  
-      //  API call
+
+      // Simulate API call to process the payment (POST request)
       const response = await axios.post('https://httpbin.org/post', paymentData, {
         headers: {
           'Content-Type': 'application/json'
@@ -49,26 +52,27 @@ export default function QR({navigation}) {
       });
 
       if (response.status === 200) {
-        // Get current user
-        const currentUser = auth.currentUser;
+        // If the payment API responds successfully, proceed to save data in Firebase
+        const currentUser = auth.currentUser; 
         if (!currentUser) {
-          throw new Error('No user logged in');
+          throw new Error('No user logged in'); 
         }
 
-        // Create reference to user payments in Firebase
+        // Reference to Firebase payments data for the current user
         const userPaymentsRef = ref(database, `users/${currentUser.uid}/payments`);
-        
-        // Prepare data for Firebase
+
+        // Prepare Firebase payment data, including API response and user information
         const firebasePaymentData = {
           ...paymentData,
-          apiResponse: response.data,
-          userId: currentUser.uid,
-          serverTimestamp: serverTimestamp(), 
+          apiResponse: response.data, // Include the API response in the Firebase data
+          userId: currentUser.uid, // Store the user ID
+          serverTimestamp: serverTimestamp(), // Firebase timestamp for when the payment was logged
         };
 
-        // Save to Firebase
+        // Save payment data to Firebase
         await push(userPaymentsRef, firebasePaymentData);
 
+        // Show success alert with payment details
         Alert.alert(
           'Payment Successful!',
           `Amount: $${paymentData.amount}\n` +
@@ -79,29 +83,31 @@ export default function QR({navigation}) {
         throw new Error('Payment processing failed');
       }
     } catch (error) {
+
+      // Error handling and showing alerts based on different errors
       let errorMessage = 'There was an error processing your payment. Please try again.';
-      
-      
+
       if (error.message === 'No user logged in') {
-        errorMessage = 'Please log in to process payments.';
+        errorMessage = 'Please log in to process payments.'; // Specific error message for logged-out users
       } else if (error.response) {
-        errorMessage = `Payment failed: ${error.response.data.message || 'API Error'}`;
+        errorMessage = `Payment failed: ${error.response.data.message || 'API Error'}`; // API failure
       } else if (error.code) {
-        // Handle Firebase error
-        errorMessage = `Database error: ${error.message}`;
+        errorMessage = `Database error: ${error.message}`; // Firebase error
       }
 
+      // Show the error message in an alert
       Alert.alert(
         'Payment Failed',
         errorMessage,
-        [{ text: 'OK', onPress: () => setScanned(false) }]
+        [{ text: 'OK', onPress: () => setScanned(false) }] // Reset scanning status on failure
       );
-      console.error('QR Scanning Error:', error);
+      console.error('QR Scanning Error:', error); // Log the error for debugging
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); 
     }
   };
 
+  // Handle cases where camera permission is still loading
   if (hasPermission === null) {
     return (
       <View style={styles.centeredContainer}>
@@ -110,6 +116,7 @@ export default function QR({navigation}) {
     );
   }
 
+  // Handle cases where camera permission is denied
   if (hasPermission === false) {
     return (
       <View style={styles.centeredContainer}>
@@ -120,25 +127,29 @@ export default function QR({navigation}) {
 
   return (
     <View style={styles.container}>
+
+      {/* Header with a back button */}
       <Header 
         title="Scan To Pay" 
-        onBackPress={() => navigation.goBack()}
-       
+        onBackPress={() => navigation.goBack()} 
       />
 
       <View style={styles.imageContainer}>
         {isScanning ? (
+
+          // QR Code scanner when scanning is active
           <View style={styles.scannerContainer}>
             <BarCodeScanner
-              onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-              style={StyleSheet.absoluteFillObject}
+              onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} // Disable scanning if already scanned
+              style={StyleSheet.absoluteFillObject} 
             />
             {isLoading && (
               <View style={styles.loadingOverlay}>
-                <ActivityIndicator size="large" color="#ffffff" />
+                <ActivityIndicator size="large" color="#ffffff" /> 
                 <Text style={styles.loadingText}>Processing Payment...</Text>
               </View>
             )}
+            {/* Scan frame (visual cue for the scanning area) */}
             <View style={styles.scanFrame} />
           </View>
         ) : (
@@ -148,27 +159,30 @@ export default function QR({navigation}) {
 
       <View style={styles.Content}>
         <View style={styles.textContent}>
-          <Text style={styles.title}>Payment with QR Code</Text>
+          <Text style={styles.title}>Payment with QR Code</Text> 
           <Text style={styles.description}>
             {isScanning 
-              ? 'Hold the QR code inside the frame to scan'
-              : 'Press Start Scanning to begin payment'}
+              ? 'Hold the QR code inside the frame to scan' 
+              : 'Press Start Scanning to begin payment'} {/* Instructions when not scanning */}
           </Text>
           
+          {/* Button to toggle scanning */}
           <ReusableButton
             title={isScanning 
-              ? (scanned ? 'Scan Another Code' : 'Scanning...') 
+              ? (scanned ? 'Scan Another Code' : 'Scanning...') // Button text based on scanning state
               : 'Start Scanning'}
             onPress={() => {
               if (scanned) {
                 setScanned(false);
               } else {
-                setIsScanning(!isScanning);
+                setIsScanning(!isScanning); // Toggle scanning state
               }
             }}
-            disabled={isLoading}
+            disabled={isLoading} 
           />
         </View>
+        
+        {/* Bottom navigation bar */}
         <BottomNavBar navigation={navigation} />
       </View>
     </View>

@@ -6,12 +6,18 @@ import Bottom from "../components/bottom";
 
 const IncomeHistory = ({ navigation }) => {
   return (
-    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
-      opacity: 0.9, 
-           }}>
-      {/* Header */}
+
+    // Main container with a background image
+    <ImageBackground 
+      source={require('../assets/image.png')} 
+      style={styles.container} 
+      imageStyle={{ opacity: 0.9 }} 
+    >
+      {/* Header Component */}
       <HeaderBlack title="Income History" onBackPress={() => navigation.goBack()} />
+
       <ScrollView style={styles.innercontainer}>
+        
         {/* Total Income Section */}
         <View style={styles.incomeContainer}>
           <Text style={styles.incomeAmount}>46,438.02 PKR</Text>
@@ -29,7 +35,6 @@ const IncomeHistory = ({ navigation }) => {
 
           {/* Transactions List */}
           <View>
-            {/* Today’s Transactions */}
             <Text style={styles.subHeader}>Today</Text>
             <TransactionItem
               icon="gift-outline"
@@ -42,7 +47,7 @@ const IncomeHistory = ({ navigation }) => {
               title="Gift"
               date="06-03-2019"
               amount="+500"
-              isSelected
+              isSelected 
             />
             <TransactionItem
               icon="gift-outline"
@@ -98,21 +103,40 @@ const IncomeHistory = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
+
+      {/* Bottom navigation component */}
       <Bottom />
     </ImageBackground>
   );
 };
 
+// Reusable component to render individual transaction items
 const TransactionItem = ({ icon, title, date, amount, isSelected }) => {
   return (
-    <View style={[styles.transactionItem, isSelected && styles.selectedTransaction]}>
-      <View style={[styles.iconContainer, isSelected && { backgroundColor: '#00C3F9' }]}>
+    <View 
+      style={[
+        styles.transactionItem, 
+        isSelected && styles.selectedTransaction 
+      ]}
+    >
+      {/* Icon container with optional styling for selected items */}
+      <View 
+        style={[
+          styles.iconContainer, 
+          isSelected && { backgroundColor: '#00C3F9' } 
+        ]}
+      >
+        {/* Displays the icon */}
         <Ionicons name={icon} size={24} color="white" />
       </View>
+
+      {/* Transaction details (title and date) */}
       <View style={styles.transactionDetails}>
         <Text style={styles.transactionTitle}>{title}</Text>
         <Text style={styles.transactionDate}>{date}</Text>
       </View>
+
+      {/* Displays the transaction amount */}
       <Text style={styles.transactionAmount}>{amount}</Text>
     </View>
   );

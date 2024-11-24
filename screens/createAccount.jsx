@@ -7,42 +7,49 @@ import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth, database } from '../firebase';
 import { ref, set } from 'firebase/database';
 
+
 const CreateAccount = ({ navigation }) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [name, setName] = useState('');
-  const [balance, setBalance] = useState('0');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [balance, setBalance] = useState('0'); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null); 
+  const [confirmPassword, setConfirmPassword] = useState(''); 
+
+  // Generate a random initial balance for the user when the component mounts
   useEffect(() => {
     const randomBalance = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
     setBalance(randomBalance);
   }, []);
 
+  // Function to handle user signup with validation and Firebase integration
   const handleSignup = async () => {
+    // Validate form inputs
     if (!email || !password || !name || !phoneNumber || !confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
-  
+
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
-  
+
     if (password.length < 6) {
       setError('Password must be at least 6 characters long');
       return;
     }
-  
-    setLoading(true);
+
+    setLoading(true); // Start loading spinner
     try {
+      // Create user with email and password in Firebase
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
-  
-      // Save additional user in Database
+
+      // Save additional user data in the Firebase Realtime Database
       await set(ref(database, `users/${uid}`), {
         name: name,
         email: email,
@@ -50,24 +57,30 @@ const CreateAccount = ({ navigation }) => {
         balance: balance,
         createdAt: new Date().toISOString()
       });
-  
+
+      // Sign the user out after successful registration
       await signOut(auth);
+
+      // Navigate to the Login screen
       navigation.navigate('Login');
     } catch (error) {
-      setError(error.message);
+      setError(error.message); // Display Firebase error messages
     } finally {
-      setLoading(false);
+      setLoading(false); // Stop loading spinner
     }
-  }
+  };
 
   return (
     <View style={styles.topContainer}>
+      {/* Navigate to the Login screen */}
       <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('Login')}>
         <Text style={styles.createAccountText}>Sign In</Text>
       </TouchableOpacity>
 
       <View style={styles.container}>
         <Text style={styles.loginText}>Create Account</Text>
+
+        {/* Input fields for account creation */}
         <View style={styles.inputContainer}>
           {/* Name Input Field */}
           <ReusableTextInput
@@ -76,7 +89,6 @@ const CreateAccount = ({ navigation }) => {
             value={name}
             onChangeText={setName}
             keyboardType="default"
-            
           />
 
           {/* Email Input Field */}
@@ -106,7 +118,7 @@ const CreateAccount = ({ navigation }) => {
             onChangeText={setConfirmPassword}
           />
 
-          {/* Phone number Input Field */}
+          {/* Phone Number Input Field */}
           <ReusableTextInput
             placeholder="+92 000 0000000"
             icon="phone"
@@ -116,11 +128,13 @@ const CreateAccount = ({ navigation }) => {
           />
         </View>
 
+        {/* Display error messages, if any */}
         {error && <Text style={styles.errorText}>{error}</Text>}
 
+        {/* Display signup button or loading spinner */}
         <View style={styles.buttonContainer}>
           {loading ? (
-            <ActivityIndicator size="medium" color= '#C711DFFF'/>
+            <ActivityIndicator size="medium" color='#C711DFFF' />
           ) : (
             <ReusableButton
               title="Sign Up"
@@ -136,6 +150,7 @@ const CreateAccount = ({ navigation }) => {
 
 export default CreateAccount;
 
+// Styles for the CreateAccount component
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,

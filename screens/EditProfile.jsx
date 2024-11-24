@@ -8,64 +8,71 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 const EditProfile = ({ navigation }) => {
+  // State to store user data, including name, phone number, and balance
   const [userData, setUserData] = useState({
     name: '',
     phoneNumber: '',
     balance: ''
   });
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); 
+  const [isSaving, setIsSaving] = useState(false); 
 
+  // Fetch user data when the component mounts
   useEffect(() => {
     fetchUserData();
   }, []);
 
+  // Fetch user data from Firebase Realtime Database
   const fetchUserData = async () => {
-    const currentUser = auth.currentUser;
+    const currentUser = auth.currentUser; // Get the currently authenticated user
     if (currentUser) {
-      const userRef = ref(database, `users/${currentUser.uid}`);
+      const userRef = ref(database, `users/${currentUser.uid}`); // Reference to user's data in the database
       onValue(userRef, (snapshot) => {
         if (snapshot.exists()) {
-          const data = snapshot.val();
+          const data = snapshot.val(); // Retrieve user data
           setUserData({
-            name: data.name || '',
+            name: data.name || '', // Default to an empty string if no data exists
             phoneNumber: data.phoneNumber || '',
             balance: data.balance ? data.balance.toString() : '0'
           });
         }
-        setIsLoading(false);
+        setIsLoading(false); // Stop loading once data is retrieved
       });
     }
   };
 
+  // Handle saving updated user profile data
   const handleSave = async () => {
     if (!userData.name.trim()) {
-      Alert.alert('Error', 'Name cannot be empty');
+      Alert.alert('Error', 'Name cannot be empty'); // Alert if the name field is empty
       return;
     }
 
     try {
-      setIsSaving(true);
-      const currentUser = auth.currentUser;
-      const userRef = ref(database, `users/${currentUser.uid}`);
+      setIsSaving(true); 
+      const currentUser = auth.currentUser; // Get the currently authenticated user
+      const userRef = ref(database, `users/${currentUser.uid}`); // Reference to user's data in the database
       
       await update(userRef, {
-        name: userData.name.trim(),
-        phoneNumber: userData.phoneNumber.trim(),
-        balance: parseFloat(userData.balance) || 0
+        name: userData.name.trim(), // Trimmed name
+        phoneNumber: userData.phoneNumber.trim(), // Trimmed phone number
+        balance: parseFloat(userData.balance) || 0 // Parse balance as a number, default to 0
       });
 
+      // Alert the user on successful update
       Alert.alert('Success', 'Profile updated successfully', [
-        { text: 'OK', onPress: () => navigation.goBack() }
+        { text: 'OK', onPress: () => navigation.goBack() } 
       ]);
     } catch (error) {
+      // Alert the user if an error occurs during the save operation
       Alert.alert('Error', 'Failed to update profile');
-      console.error(error);
+      console.error(error); 
     } finally {
-      setIsSaving(false);
+      setIsSaving(false); 
     }
   };
 
+  // Show a loading spinner if data is still being fetched
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
@@ -75,9 +82,12 @@ const EditProfile = ({ navigation }) => {
   }
 
   return (
-    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
-      opacity: 0.9, 
-           }}>
+    <ImageBackground 
+      source={require('../assets/image.png')} 
+      style={styles.container} 
+      imageStyle={{ opacity: 0.9 }} 
+    >
+      {/* Header component with a back button */}
       <Header
         title="Edit Profile"
         onBackPress={() => navigation.goBack()}
@@ -85,7 +95,9 @@ const EditProfile = ({ navigation }) => {
 
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.profileCard}>
-        <LinearGradient
+
+          {/* User profile initials displayed in a circular gradient */}
+          <LinearGradient
             colors={['#7F00FF', '#E100FF']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
@@ -93,76 +105,80 @@ const EditProfile = ({ navigation }) => {
           >
             <View style={styles.circle}>
               <Text style={styles.circleText}>
-                {userData.name ? userData.name.substring(0, 2).toUpperCase() : 'U'}
+                {userData.name ? userData.name.substring(0, 2).toUpperCase() : 'U'} 
               </Text>
             </View>
-        </LinearGradient>
+          </LinearGradient>
 
+          {/* Input field for Name */}
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Name</Text>
             <View style={styles.inputWrapper}>
               <FontAwesome5 name="user" size={16} color="#B0B0B0" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                value={userData.name}
-                onChangeText={(text) => setUserData({ ...userData, name: text })}
+                value={userData.name} 
+                onChangeText={(text) => setUserData({ ...userData, name: text })} // Update name in state
                 placeholder="Enter your name"
                 placeholderTextColor="#B0B0B0"
               />
             </View>
           </View>
 
+          {/* Input field for Phone Number */}
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Phone Number</Text>
             <View style={styles.inputWrapper}>
               <FontAwesome5 name="phone" size={16} color="#B0B0B0" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                value={userData.phoneNumber}
-                onChangeText={(text) => setUserData({ ...userData, phoneNumber: text })}
+                value={userData.phoneNumber} 
+                onChangeText={(text) => setUserData({ ...userData, phoneNumber: text })} // Update phone number in state
                 placeholder="Enter phone number"
                 placeholderTextColor="#B0B0B0"
-                keyboardType="phone-pad"
+                keyboardType="phone-pad" // Use numeric keypad
               />
             </View>
           </View>
 
+          {/* Input field for Balance */}
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Balance</Text>
             <View style={styles.inputWrapper}>
               <FontAwesome5 name="dollar-sign" size={16} color="#B0B0B0" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                value={userData.balance}
-                onChangeText={(text) => setUserData({ ...userData, balance: text })}
+                value={userData.balance} 
+                onChangeText={(text) => setUserData({ ...userData, balance: text })} // Update balance in state
                 placeholder="Enter balance"
                 placeholderTextColor="#B0B0B0"
-                keyboardType="numeric"
+                keyboardType="numeric" // Use numeric keypad
               />
             </View>
           </View>
 
-                  <LinearGradient
-              colors={['#7F00FF', '#E100FF']}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.saveButtonGradient}
+          {/* Save button with gradient styling */}
+          <LinearGradient
+            colors={['#7F00FF', '#E100FF']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.saveButtonGradient}
+          >
+            <TouchableOpacity 
+              style={styles.saveButton} 
+              onPress={handleSave} 
+              disabled={isSaving} // Disable button while saving
             >
-              <TouchableOpacity 
-                style={styles.saveButton} 
-                onPress={handleSave} 
-                disabled={isSaving}
-              >
-                {isSaving ? (
-                  <ActivityIndicator color="#FFF" />
-                ) : (
-                  <>
-                    <FontAwesome5 name="save" size={16} color="#FFF" style={styles.saveIcon} />
-                    <Text style={styles.saveButtonText}>Save Changes</Text>
-                  </>
-                )}
-              </TouchableOpacity>
-            </LinearGradient>
+              {isSaving ? (
+                <ActivityIndicator color="#FFF" /> // Show spinner during save operation
+              ) : (
+                <>
+                  <FontAwesome5 name="save" size={16} color="#FFF" style={styles.saveIcon} />
+                  <Text style={styles.saveButtonText}>Save Changes</Text>
+                </>
+              )}
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       </ScrollView>
     </ImageBackground>

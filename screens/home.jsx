@@ -10,11 +10,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
+
 const Home = ({ navigation }) => {
+  
   const [balance, setBalance] = useState(0);
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(true);
 
+  // Payment options displayed as grid items
   const [paymentOptions, setPaymentOptions] = useState([
     [
       { label: 'Electricity', icon: 'bolt', color: '#8B8000' },
@@ -37,54 +40,53 @@ const Home = ({ navigation }) => {
   ]);
 
   useEffect(() => {
-    // Get current user data
+    // Get current user data from Firebase Realtime Database
     const currentUser = auth.currentUser;
-    
+
     if (currentUser) {
       // Reference to the user's data in the database
       const userRef = ref(database, `users/${currentUser.uid}`);
-      
-      // Set up realtime listener for user data
-      const unsubscribe = onValue(userRef, (snapshot) => {
-        const userData = snapshot.val();
-        if (userData) {
-          setUserName(userData.name || '');
-          setBalance(userData.balance || 0);
-        }
-        setLoading(false);
-      }, (error) => {
-        console.error('Error fetching user data:', error);
-        setLoading(false);
-      });
 
-      // Hardware back button handler
+      // Set up real-time listener for user data
+      const unsubscribe = onValue(
+        userRef,
+        (snapshot) => {
+          const userData = snapshot.val();
+          if (userData) {
+            setUserName(userData.name || ''); // Update user name
+            setBalance(userData.balance || 0); // Update balance
+          }
+          setLoading(false); // Stop loading once data is fetched
+        },
+        (error) => {
+          console.error('Error fetching user data:', error);
+          setLoading(false);
+        }
+      );
+
+      // Back button handler for Android devices
       const backHandler = BackHandler.addEventListener(
         'hardwareBackPress',
         handleBackPress
       );
 
-      // Cleanup function
+      // Session end 
       return () => {
-        unsubscribe(); 
-        backHandler.remove(); // Remove back button function
+        unsubscribe();
+        backHandler.remove();
       };
     }
   }, []);
 
+  // Handles the hardware back button press
   const handleBackPress = () => {
     if (navigation.isFocused()) {
       Alert.alert(
-        "Exit App",
-        "Are you sure you want to exit and signout?",
+        'Exit App',
+        'Are you sure you want to exit and signout?',
         [
-          {
-            text: "No",
-            style: "cancel"
-          },
-          {
-            text: "Yes",
-            onPress: handleSignOut,
-          }
+          { text: 'No', style: 'cancel' },
+          { text: 'Yes', onPress: handleSignOut },
         ]
       );
       return true;
@@ -92,54 +94,50 @@ const Home = ({ navigation }) => {
     return false;
   };
 
+  // Logs out the user and navigates to the splash screen
   const handleSignOut = async () => {
     try {
-      await signOut(auth);
-      navigation.replace('Splash');
+      await signOut(auth); 
+      navigation.replace('Splash'); 
     } catch (error) {
       Alert.alert('Error', 'Failed to sign out. Please try again.');
     }
   };
 
+  // Displays a confirmation dialog for signing out
   const handleSignOutConfirmation = () => {
     Alert.alert(
-      "Sign Out",
-      "Are you sure you want to sign out?",
+      'Sign Out',
+      'Are you sure you want to sign out?',
       [
-        {
-          text: "Cancel",
-          style: "cancel"
-        },
-        {
-          text: "Sign Out",
-          onPress: handleSignOut,
-          style: "destructive"
-        }
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'Sign Out', onPress: handleSignOut, style: 'destructive' },
       ]
     );
   };
 
   return (
-    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
-      opacity: 0.9, 
-           }}>
-      
+    <ImageBackground
+      source={require('../assets/image.png')} 
+      style={styles.container}
+      imageStyle={{ opacity: 0.9 }}
+    >
+      {/* Custom Header */}
       <Header
         title="Home"
-        onBackPress={() => navigation.goBack()}
-        onHelpPress={handleSignOutConfirmation}
+        onBackPress={() => navigation.goBack()} 
+        onHelpPress={handleSignOutConfirmation} // Sign out confirmation
       />
 
       <ScrollView contentContainerStyle={styles.scrollView}>
+        
+        {/* Balance section */}
         <View style={styles.balanceContainer}>
-          <Text style={styles.helloText}>
-            Hello, {loading ? '...' : userName}
-          </Text>
+          <Text style={styles.helloText}>Hello, {loading ? '...' : userName}</Text>
           <Text style={styles.balanceLabel}>Your available balance</Text>
-          <Text style={styles.balanceAmount}>
-            {loading ? '...' : `${balance} PKR`}
-          </Text>
+          <Text style={styles.balanceAmount}>{loading ? '...' : `${balance} PKR`}</Text>
 
+          {/* Action buttons: Transfer, Dashboard, History */}
           <View style={styles.actionButtonsContainer}>
             {[
               { label: 'Transfer', icon: 'exchange-alt', route: 'Scanner' },
@@ -147,13 +145,11 @@ const Home = ({ navigation }) => {
               { label: 'History', icon: 'history', route: 'IncomeHistory' },
             ].map((item, index) => (
               <LinearGradient
+                key={index}
                 colors={['#7F00FF', '#E100FF']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
                 style={styles.actionButtonGradient}
               >
                 <TouchableOpacity
-                  key={item.index}
                   style={styles.actionButtonContent}
                   onPress={() => navigation.navigate(item.route)}
                   activeOpacity={0.7}
@@ -166,10 +162,9 @@ const Home = ({ navigation }) => {
           </View>
         </View>
 
-       
+        {/* Payment options */}
         <View style={styles.paymentListContainer}>
           <Text style={styles.sectionTitle}>Payment List</Text>
-
           {paymentOptions.map((row, rowIndex) => (
             <View key={rowIndex} style={styles.iconRow}>
               {row.map((option, index) => (
@@ -186,6 +181,7 @@ const Home = ({ navigation }) => {
           ))}
         </View>
 
+        {/* Promotions */}
         <View style={styles.promoContainer}>
           <Text style={styles.promoTitle}>Promo & Discount</Text>
           <TouchableOpacity onPress={() => alert('See More Pressed')}>
@@ -200,6 +196,7 @@ const Home = ({ navigation }) => {
         </View>
       </ScrollView>
 
+      {/* Bottom Navigation */}
       <Bottom />
     </ImageBackground>
   );

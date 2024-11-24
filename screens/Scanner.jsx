@@ -9,70 +9,82 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 const SummaryTransaction = ({ navigation }) => {
-  // Constants for transaction details
-  const baseAmount = 15.00;
-  const feeAmount = 2.00;
-  const totalAmount = baseAmount + feeAmount;
-  const transactionDate = "Dec 2, 2020";
-  const merchantName = "Starbucks Coffee";
+ 
+  const baseAmount = 15.00; 
+  const feeAmount = 2.00; 
+  const totalAmount = baseAmount + feeAmount; 
+  const transactionDate = "Dec 2, 2020"; 
+  const merchantName = "Starbucks Coffee"; 
 
+  // Handle the payment process navigation
   const handleProceedToPayment = () => {
     navigation.navigate('Password', {
-      totalAmount: totalAmount,
-      transactionDate: transactionDate,
-      merchantName: merchantName
+      totalAmount: totalAmount, 
+      transactionDate: transactionDate, 
+      merchantName: merchantName 
     });
   };
 
   return (
-    <View  style={styles.container} >
+    <View style={styles.container}>
+
+      {/* Header Component */}
       <Header
         title="Summary Transaction"
-        onBackPress={() => navigation.goBack()}
-       
+        onBackPress={() => navigation.goBack()} 
       />
 
       <View style={styles.contentContainer}>
+
+        {/* Merchant Logo */}
         <Image
           source={require('../assets/starbuck.png')} 
-          style={styles.logo}
+          style={styles.logo} 
         />
 
+        {/* Merchant Name and Transaction Date */}
         <Text style={styles.merchantName}>{merchantName}</Text>
         <Text style={styles.transactionDate}>Payment on {transactionDate}</Text>
 
+        {/* Base Amount */}
         <Text style={styles.amount}>{baseAmount.toFixed(2)} PKR</Text>
 
+        {/* Payment Fee - Styled with Linear Gradient */}
         <LinearGradient
-          colors={['#7F00FF', '#E100FF']}
+          colors={['#7F00FF', '#E100FF']} 
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={styles.paymentFeeContainer}
+          style={styles.paymentFeeContainer} 
         >
           <Text style={styles.paymentFeeText}>
             Payment fee {feeAmount} PKR has been applied
           </Text>
-       </LinearGradient>
+        </LinearGradient>
 
-       <LinearGradient
-          colors={['#7F00FF', '#E100FF']}
+        {/* Total Amount - Styled with Linear Gradient */}
+        <LinearGradient
+          colors={['#7F00FF', '#E100FF']} 
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={styles.totalContainer}
+          style={styles.totalContainer} r
         >
           <Text style={styles.totalText}>Total Amount: {totalAmount.toFixed(2)} PKR</Text>
-          </LinearGradient>
+        </LinearGradient>
       </View>
 
       <View style={styles.Container}>
+
+        {/* Bottom Container with Card Selection and Payment Button */}
         <View style={styles.bottomContainer}>
           <View style={styles.cardSelectionContainer}>
             <Text style={styles.chooseCardText}>Choose Cards</Text>
             <View style={styles.cardContainer}>
+
+              {/* Card Details */}
               <View style={styles.card}>
                 <Image
                   source={require('../assets/sikka.png')} 
-                  style={styles.cardImage}
+                  style={styles.cardImage} 
                 />
                 <View style={styles.cardDetails}>
                   <Text style={styles.cardName}>Wally Virtual Card</Text>
@@ -83,6 +95,7 @@ const SummaryTransaction = ({ navigation }) => {
             </View>
           </View>
 
+          {/* Button to proceed to payment */}
           <View style={styles.buttonContainer}>
             <CustomButton 
               title="Proceed to Pay" 
@@ -90,6 +103,8 @@ const SummaryTransaction = ({ navigation }) => {
             />
           </View>
         </View>
+
+        {/* Bottom Navigation Component */}
         <Bottom />
       </View>
     </View>

@@ -11,7 +11,12 @@ const SetGoals = () => {
   return (
     <View style={styles.container}>
       {/* Top Right 'Create account' */}
-      <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('CreateAccount')}>
+      <TouchableOpacity 
+        style={styles.createAccount} 
+        onPress={() => navigation.navigate('CreateAccount')}
+        accessibilityLabel="Create a new account"
+        accessibilityHint="Navigates to the account creation screen"
+      >
         <Text style={styles.createAccountText}>Create account</Text>
       </TouchableOpacity>
 
@@ -19,6 +24,8 @@ const SetGoals = () => {
       <Image 
         source={require('../assets/running.png')} 
         style={styles.image}
+        accessibilityRole="image"
+        accessibilityLabel="An image of someone running to represent setting goals"
       />
 
       {/* Text Section */}
@@ -36,11 +43,14 @@ const SetGoals = () => {
           title="Login" 
           onPress={() => navigation.navigate('Login')} 
           style={styles.loginButton}
+          accessibilityLabel="Login to your account"
+          accessibilityHint="Navigates to the login screen"
         />
       </View>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

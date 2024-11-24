@@ -7,83 +7,106 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const Login = ({ navigation }) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Check for existing authentication state and navigate to Home if the user is already signed in
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigation.navigate('Home');
+        navigation.navigate('Home'); 
       }
     });
+
+    // Cleanup function to unsubscribe from the auth state listener
     return unsubscribe;
   }, [navigation]);
 
+  // Function to handle user login
   const handleLogin = async () => {
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
     }
-    setLoading(true);
+
+    setLoading(true); // Set loading state to true while login is in progress
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigation.navigate('Home');
+      navigation.navigate('Home'); 
     } catch (error) {
       setError(error.message);
     } finally {
-      setLoading(false);
+      setLoading(false); 
     }
   };
 
   return (
     <View style={styles.topContainer}>
-      {/* "Create account" link */}
-      <TouchableOpacity style={styles.createAccount} onPress={() => navigation.navigate('CreateAccount')}>
+      {/* Link to "Create Account" screen */}
+      <TouchableOpacity 
+        style={styles.createAccount} 
+        onPress={() => navigation.navigate('CreateAccount')}
+      >
         <Text style={styles.createAccountText}>Create account</Text>
       </TouchableOpacity>
 
       <View style={styles.container}>
+        {/* Login Title */}
         <Text style={styles.loginText}>Login</Text>
+
+        {/* Input Fields */}
         <View style={styles.inputContainer}>
+
           {/* Email Input Field */}
           <ReusableTextInput
-            placeholder="jone@deper.one"
-            icon="envelope"
-            iconColor="#00D100"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
+            placeholder="jone@deper.one" 
+            icon="envelope" 
+            iconColor="#00D100" 
+            keyboardType="email-address" 
+            value={email} 
+            onChangeText={setEmail} 
           />
 
           {/* Password Input Field */}
           <ReusableTextInput
-            placeholder="Password"
-            icon="lock"
-            iconColor="#6A6A6A"
-            rightText="FORGOT"
-            rightTextStyle={styles.forgotText}
+            placeholder="Password" 
+            icon="lock" 
+            iconColor="#6A6A6A" 
+            rightText="FORGOT" 
+            rightTextStyle={styles.forgotText} 
             onRightTextPress={() => alert('Forget Password')}
-            value={password}
-            onChangeText={setPassword}
+            value={password} 
+            onChangeText={setPassword} 
           />
         </View>
 
+        {/* Error Message */}
         {error && <Text style={styles.errorText}>{error}</Text>}
 
         {/* Login Button */}
         <View style={styles.buttonContainer}>
           {loading ? (
-            <ActivityIndicator size="medium" color= '#E100FFB2' />
+
+            // Show loading indicator if login is in progress
+            <ActivityIndicator size="medium" color="#E100FFB2" />
           ) : (
-            <ReusableButton title="Login" icon="arrow-right" onPress={handleLogin} />
+              
+            // Reusable login button
+            <ReusableButton 
+              title="Login" 
+              icon="arrow-right" 
+              onPress={handleLogin} 
+            />
           )}
         </View>
       </View>
     </View>
   );
 };
+
 
 export default Login;
 

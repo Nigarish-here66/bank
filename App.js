@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StyleSheet, Text, View } from 'react-native'; 
+import { NavigationContainer } from '@react-navigation/native'; 
+import { createStackNavigator } from '@react-navigation/stack'; 
 
+// Importing all the screens used in the app
 import Dashboard from './screens/Dashboard';
 import TokenPopupScreen from './screens/TokenPopup';
 import Notification from './screens/Notification';
@@ -19,18 +20,21 @@ import QR from './screens/qr';
 import Password from "./screens/password";
 import MyAccount from "./screens/Account";
 import EditProfile from './screens/EditProfile';
+
+// Creating the stack navigator
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer> 
       <Stack.Navigator 
-        initialRouteName="Splash" 
+        initialRouteName="Splash"  
         screenOptions={{ 
           headerShown: false, 
           cardStyle: { backgroundColor: '#fff' } 
         }}
       >
+        {/* Defining all the screens in the navigation stack */}
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="SetGoals" component={SetGoals} />
         <Stack.Screen name="CreateAccount" component={CreateAccount} />
@@ -47,17 +51,16 @@ export default function App() {
         <Stack.Screen name="MyAccount" component={MyAccount} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="TokenPopup" component={TokenPopupScreen} />
-       
-      
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
+// Basic style for the container used in the app
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1, 
+    justifyContent: 'center',  
+    alignItems: 'center',  
   },
 });
