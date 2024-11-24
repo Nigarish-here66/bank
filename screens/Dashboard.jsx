@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MyHeader from '../components/headerblack';
@@ -6,19 +6,18 @@ import Bottom from '../components/bottom';
 import { LinearGradient } from 'expo-linear-gradient';
 import { auth, database } from '../firebase';
 import { ref, onValue } from 'firebase/database';
+
 const Dashboard = ({ navigation }) => {
   const [balance, setBalance] = useState(0);
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // Get current user data
     const currentUser = auth.currentUser;
-    
+
     if (currentUser) {
-      // Reference to the user's data in the database
       const userRef = ref(database, `users/${currentUser.uid}`);
-      
-      // Set up realtime listener for user data
+
       const unsubscribe = onValue(userRef, (snapshot) => {
         const userData = snapshot.val();
         if (userData) {
@@ -31,34 +30,28 @@ const Dashboard = ({ navigation }) => {
         setLoading(false);
       });
 
-     
-
-      // Cleanup function
-      return () => {
-        unsubscribe(); 
-       
-      };
+      return unsubscribe;
     }
   }, []);
+
   return (
-    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
-      opacity: 0.9, 
-           }}>
-      {/* Header */}
+    <ImageBackground
+      source={require('../assets/image.png')}
+      style={styles.container}
+      imageStyle={{ opacity: 0.9 }}
+    >
       <MyHeader
         title="Dashboard"
         onBackPress={() => navigation.goBack()}
-       
       />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Total Balance Section */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Total Balance</Text>
           <View style={styles.balanceContainer}>
-          <Text style={styles.balanceAmount}>
-            {loading ? '...' : `${balance} PKR`}
-          </Text>
+            <Text style={styles.balanceAmount}>
+              {loading ? '...' : `${balance} PKR`}
+            </Text>
             <View style={styles.percentageContainer}>
               <Text style={styles.percentageText}>+4.24%</Text>
             </View>
@@ -75,22 +68,20 @@ const Dashboard = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Income History Button */}
         <TouchableOpacity
-      style={styles.actionButton}
-      onPress={() => navigation.navigate('IncomeHistory')}
-    >
-      <LinearGradient
-         colors={['#7F00FF', '#E100FF']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.gradientButton} 
-      >
-        <Text style={styles.buttonText}>View Income History</Text>
-      </LinearGradient>
-    </TouchableOpacity>
+          style={styles.actionButton}
+          onPress={() => navigation.navigate('IncomeHistory')}
+        >
+          <LinearGradient
+            colors={['#7F00FF', '#E100FF']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.gradientButton}
+          >
+            <Text style={styles.buttonText}>View Income History</Text>
+          </LinearGradient>
+        </TouchableOpacity>
 
-        {/* Token Bonus Section */}
         <View style={styles.card}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Token Bonus</Text>
@@ -107,21 +98,21 @@ const Dashboard = ({ navigation }) => {
             <View style={styles.bonusBoxContainer}>
               <View style={styles.bonusBox}>
                 <Text style={styles.bonusLabel}>Bonus received</Text>
-                <Text style={styles.bonusAmount}>$22.42</Text>
+                <Text style={styles.bonusAmount}>22.42 PKR</Text>
               </View>
               <View style={styles.bonusBox}>
                 <Text style={styles.bonusLabel}>Bonus received</Text>
-                <Text style={styles.bonusAmount}>$22.42</Text>
+                <Text style={styles.bonusAmount}>22.42 PKR</Text>
               </View>
             </View>
           </View>
         </View>
 
-        {/* Action Buttons */}
         <View style={styles.buttonRow}>
           <TouchableOpacity
             style={styles.actionButtonPrimary}
-            onPress={() => navigation.navigate("TokenPopup")}>
+            onPress={() => navigation.navigate("TokenPopup")}
+          >
             <Ionicons name="gift" size={20} color="#fff" />
             <Text style={styles.buttonText}>Get Tokens</Text>
           </TouchableOpacity>
@@ -136,14 +127,14 @@ const Dashboard = ({ navigation }) => {
                   { text: "Confirm", onPress: () => console.log("Tokens borrowed!") }
                 ]
               );
-            }}>
-          <Ionicons name="ios-attach" size={20} color="#fff" />
-          <Text style={styles.buttonText}>Borrow Tokens</Text>
+            }}
+          >
+            <Ionicons name="ios-attach" size={20} color="#fff" />
+            <Text style={styles.buttonText}>Borrow Tokens</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
 
-      {/* Bottom Navigation Bar */}
       <Bottom />
     </ImageBackground>
   );
@@ -319,9 +310,9 @@ const styles = StyleSheet.create({
   gradientButton: {
     borderRadius: 10,
     paddingVertical: 15,
-    paddingHorizontal: 20, 
-    width: '100%', 
-    justifyContent: 'center', 
+    paddingHorizontal: 20,
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });
