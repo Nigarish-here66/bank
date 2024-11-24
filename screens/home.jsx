@@ -58,10 +58,7 @@ const Home = ({ navigation }) => {
       });
 
       // Hardware back button handler
-      const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        handleBackPress
-      );
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
 
       // Cleanup function
       return () => {

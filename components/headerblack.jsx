@@ -1,12 +1,12 @@
-// components/HeaderWhite.js
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet , Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
+// HeaderWhite Component
 const HeaderWhite = ({ 
   title, 
-  onBackPress, 
-  onHelpPress,
+  onBackPress,
+  onHelpPress, 
   textColor = 'black', 
   iconColor = 'black', 
   iconSize = 20 
@@ -14,67 +14,72 @@ const HeaderWhite = ({
   return (
     <View style={styles.container}>
       
-      {/* Back Icon */}
+      {/* Back Icon: Displays an icon or image if onBackPress is provided */}
       {onBackPress ? (
         <TouchableOpacity 
-          onPress={onBackPress} 
+          onPress={onBackPress} // Triggers the back press callback
           style={styles.iconContainer} 
-          accessibilityRole="button" 
-          
+          accessibilityRole="button" // For screen readers
         >
-        <View style={styles.imgPlaceholder}><Image source={require('../assets/sikka.png')} style={styles.image} /></View> 
+          {/* Logo or Icon as the Back Button */}
+          <View style={styles.imgPlaceholder}>
+            <Image source={require('../assets/sikka.png')} style={styles.image} />
+          </View> 
         </TouchableOpacity>
       ) : (
+        
         <View style={styles.iconPlaceholder} />
       )}
 
-      {/* Title */}
+      {/* Title: Positioned in the center */}
       <Text style={[styles.title, { color: textColor }]}>{title}</Text>
 
-      {/* Help Icon */}
+      {/* Help/Logout Icon */}
       {onHelpPress ? (
         <TouchableOpacity 
           onPress={onHelpPress} 
           style={styles.iconContainer} 
           accessibilityRole="button" 
-          accessibilityLabel="Get help"
+          accessibilityLabel="Sign Out" // Accessibility label for assistive devices
         >
-          <FontAwesome5  name="sign-out-alt" size={iconSize} color={iconColor} />
+          {/* FontAwesome icon for the help/logout button */}
+          <FontAwesome5 name="sign-out-alt" size={iconSize} color={iconColor} />
         </TouchableOpacity>
       ) : (
+        
         <View style={styles.iconPlaceholder} />
       )}
     </View>
-    
   );
 };
 
+// Styles for the HeaderWhite component
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
     paddingHorizontal: 0,
-    marginTop: 40,
+    marginTop: 40, 
   },
   iconContainer: {
-    padding: 10,
+    padding: 10, 
   },
   iconPlaceholder: {
-    width: 40, // To maintain spacing and alignment when an icon is absent
+    width: 40, 
   },
   title: {
-    fontSize: 20,
-    fontFamily: 'LilitaOne_400Regular',
-    flex: 1,
-    textAlign: 'center',
+    fontSize: 20, 
+    fontFamily: 'LilitaOne_400Regular', 
+    flex: 1, 
+    textAlign: 'center', 
   },
   imgPlaceholder: {
-    width: 30, // To maintain spacing and alignment when an icon is absent
+    width: 30, 
   },
   image: {
-    width: 60,
-    height: 40,
+    width: 60, 
+    height: 40, 
   },
 });
 
