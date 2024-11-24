@@ -44,7 +44,7 @@ const Home = ({ navigation }) => {
       // Reference to the user's data in the database
       const userRef = ref(database, `users/${currentUser.uid}`);
       
-      // Set up real-time listener for user data
+      // Set up realtime listener for user data
       const unsubscribe = onValue(userRef, (snapshot) => {
         const userData = snapshot.val();
         if (userData) {
@@ -65,8 +65,8 @@ const Home = ({ navigation }) => {
 
       // Cleanup function
       return () => {
-        unsubscribe(); // Remove database listener
-        backHandler.remove(); // Remove back button handler
+        unsubscribe(); 
+        backHandler.remove(); // Remove back button function
       };
     }
   }, []);

@@ -1,11 +1,45 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MyHeader from '../components/headerblack';
 import Bottom from '../components/bottom';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { auth, database } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 const Dashboard = ({ navigation }) => {
+  const [balance, setBalance] = useState(0);
+  const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    // Get current user data
+    const currentUser = auth.currentUser;
+    
+    if (currentUser) {
+      // Reference to the user's data in the database
+      const userRef = ref(database, `users/${currentUser.uid}`);
+      
+      // Set up realtime listener for user data
+      const unsubscribe = onValue(userRef, (snapshot) => {
+        const userData = snapshot.val();
+        if (userData) {
+          setUserName(userData.name || '');
+          setBalance(userData.balance || 0);
+        }
+        setLoading(false);
+      }, (error) => {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+      });
+
+     
+
+      // Cleanup function
+      return () => {
+        unsubscribe(); 
+       
+      };
+    }
+  }, []);
   return (
     <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
       opacity: 0.9, 
@@ -22,7 +56,9 @@ const Dashboard = ({ navigation }) => {
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Total Balance</Text>
           <View style={styles.balanceContainer}>
-            <Text style={styles.balanceAmount}>425.97 USD</Text>
+          <Text style={styles.balanceAmount}>
+            {loading ? '...' : `${balance} PKR`}
+          </Text>
             <View style={styles.percentageContainer}>
               <Text style={styles.percentageText}>+4.24%</Text>
             </View>
@@ -30,11 +66,11 @@ const Dashboard = ({ navigation }) => {
           <View style={styles.detailsRow}>
             <View style={styles.detailItem}>
               <Text style={styles.detailLabel}>Positions</Text>
-              <Text style={styles.detailValue}>1950.00 USD</Text>
+              <Text style={styles.detailValue}>1950.00 PKR</Text>
             </View>
             <View style={styles.detailItem}>
               <Text style={styles.detailLabel}>Cash</Text>
-              <Text style={styles.detailValue}>250.00 USD</Text>
+              <Text style={styles.detailValue}>250.00 PKR</Text>
             </View>
           </View>
         </View>

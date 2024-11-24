@@ -15,23 +15,33 @@ const CreateAccount = ({ navigation }) => {
   const [balance, setBalance] = useState('0');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [confirmPassword, setConfirmPassword] = useState('');
   useEffect(() => {
     const randomBalance = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
     setBalance(randomBalance);
   }, []);
 
   const handleSignup = async () => {
-    if (!email || !password || !name || !phoneNumber) {
+    if (!email || !password || !name || !phoneNumber || !confirmPassword) {
       setError('Please fill in all fields');
       return;
     }
+  
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+  
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long');
+      return;
+    }
+  
     setLoading(true);
     try {
-      
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
-
+  
       // Save additional user in Database
       await set(ref(database, `users/${uid}`), {
         name: name,
@@ -40,10 +50,8 @@ const CreateAccount = ({ navigation }) => {
         balance: balance,
         createdAt: new Date().toISOString()
       });
-
-      // Sign out immediately to prevent auto-navigation
+  
       await signOut(auth);
-      // Navigate to login page
       navigation.navigate('Login');
     } catch (error) {
       setError(error.message);
@@ -87,6 +95,15 @@ const CreateAccount = ({ navigation }) => {
             secureTextEntry={true}
             value={password}
             onChangeText={setPassword}
+          />
+
+          {/* Confirm Password Input Field */}
+          <ReusableTextInput
+            placeholder="Confirm Password"
+            icon="lock"
+            secureTextEntry={true}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
           />
 
           {/* Phone number Input Field */}
