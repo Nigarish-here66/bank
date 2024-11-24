@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16, 
     lineHeight: 21, 
-    fontFamily: 'LilitaOne_400Regular'
+    fontFamily: 'LilitaOne_400Regular',
     letterSpacing: 0.25, 
   },
 });
