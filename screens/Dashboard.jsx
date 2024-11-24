@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import MyHeader from '../components/headerblack'; 
-import Bottom from '../components/bottom'; 
-import { LinearGradient } from 'expo-linear-gradient'; 
-import { auth, database } from '../firebase'; 
-import { ref, onValue } from 'firebase/database'; // Firebase Realtime Database methods
-
+import MyHeader from '../components/headerblack';
+import Bottom from '../components/bottom';
+import { LinearGradient } from 'expo-linear-gradient';
+import { auth, database } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 const Dashboard = ({ navigation }) => {
   
   const [balance, setBalance] = useState(0);
@@ -14,60 +13,55 @@ const Dashboard = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch the current logged-in user
+    // Get current user data
     const currentUser = auth.currentUser;
 
     if (currentUser) {
-      // Reference to the user's data in Firebase Realtime Database
+      // Reference to the user's data in the database
       const userRef = ref(database, `users/${currentUser.uid}`);
-
-      // Set up a real-time listener for user data
-      const unsubscribe = onValue(
-        userRef,
-        (snapshot) => {
-          const userData = snapshot.val();
-          if (userData) {
-            // Set the user's name and balance from fetched data
-            setUserName(userData.name || '');
-            setBalance(userData.balance || 0);
-          }
-          // Stop loading once data is fetched
-          setLoading(false);
-        },
-        (error) => {
-          console.error('Error fetching user data:', error);
-          setLoading(false); // Stop loading even if there's an error
+      
+      // Set up realtime listener for user data
+      const unsubscribe = onValue(userRef, (snapshot) => {
+        const userData = snapshot.val();
+        if (userData) {
+          setUserName(userData.name || '');
+          setBalance(userData.balance || 0);
         }
-      );
+        setLoading(false);
+      }, (error) => {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+      });
 
-      // Clean up the listener when the component unmounts
+     
+
+      // Cleanup function
       return () => {
-        unsubscribe();
+        unsubscribe(); 
+       
       };
     }
   }, []);
 
   return (
-    <ImageBackground
-      source={require('../assets/image.png')} 
-      style={styles.container}
-      imageStyle={{ opacity: 0.9 }} 
-    >
-      {/* Header Component */}
+    <ImageBackground source={require('../assets/image.png')} style={styles.container} imageStyle={{
+      opacity: 0.9, 
+           }}>
+      {/* Header */}
       <MyHeader
-        title="Dashboard" 
-        onBackPress={() => navigation.goBack()} 
+        title="Dashboard"
+        onBackPress={() => navigation.goBack()}
+       
       />
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
-
         {/* Total Balance Section */}
         <View style={styles.card}>
           <Text style={styles.sectionTitle}>Total Balance</Text>
           <View style={styles.balanceContainer}>
-            <Text style={styles.balanceAmount}>
-              {loading ? '...' : `${balance} PKR`} {/* Show balance or loading state */}
-            </Text>
+          <Text style={styles.balanceAmount}>
+            {loading ? '...' : `${balance} PKR`}
+          </Text>
             <View style={styles.percentageContainer}>
               <Text style={styles.percentageText}>+4.24%</Text> 
             </View>
@@ -86,22 +80,21 @@ const Dashboard = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Button to View Income History */}
+        {/* Income History Button */}
         <TouchableOpacity
-          style={styles.actionButton}
-          onPress={() => navigation.navigate('IncomeHistory')} 
-        >
-          <LinearGradient
-            colors={['#7F00FF', '#E100FF']} 
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.gradientButton}
-          >
-            <Text style={styles.buttonText}>View Income History</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+      style={styles.actionButton}
+      onPress={() => navigation.navigate('IncomeHistory')}
+    >
+      <LinearGradient
+         colors={['#7F00FF', '#E100FF']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradientButton} 
+      >
+        <Text style={styles.buttonText}>View Income History</Text>
+      </LinearGradient>
+    </TouchableOpacity>
 
-        {/* Token Bonus Section */}
         <View style={styles.card}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Token Bonus</Text>
@@ -122,23 +115,21 @@ const Dashboard = ({ navigation }) => {
             <View style={styles.bonusBoxContainer}>
               <View style={styles.bonusBox}>
                 <Text style={styles.bonusLabel}>Bonus received</Text>
-                <Text style={styles.bonusAmount}>$22.42</Text>
+                <Text style={styles.bonusAmount}>22.42 PKR</Text>
               </View>
               <View style={styles.bonusBox}>
                 <Text style={styles.bonusLabel}>Bonus received</Text>
-                <Text style={styles.bonusAmount}>$22.42</Text>
+                <Text style={styles.bonusAmount}>22.42 PKR</Text>
               </View>
             </View>
           </View>
         </View>
 
-        {/* Action Buttons */}
         <View style={styles.buttonRow}>
           {/* Get Tokens Button */}
           <TouchableOpacity
             style={styles.actionButtonPrimary}
-            onPress={() => navigation.navigate('TokenPopup')}
-          >
+            onPress={() => navigation.navigate("TokenPopup")}>
             <Ionicons name="gift" size={20} color="#fff" />
             <Text style={styles.buttonText}>Get Tokens</Text>
           </TouchableOpacity>
@@ -163,7 +154,6 @@ const Dashboard = ({ navigation }) => {
         </View>
       </ScrollView>
 
-      {/* Bottom Navigation Bar */}
       <Bottom />
     </ImageBackground>
   );
@@ -340,9 +330,9 @@ const styles = StyleSheet.create({
   gradientButton: {
     borderRadius: 10,
     paddingVertical: 15,
-    paddingHorizontal: 20, 
-    width: '100%', 
-    justifyContent: 'center', 
+    paddingHorizontal: 20,
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

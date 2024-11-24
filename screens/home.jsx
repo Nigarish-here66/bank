@@ -64,7 +64,7 @@ const Home = ({ navigation }) => {
         }
       );
 
-      // Back button handler for Android devices
+      // Hardware back button handler
       const backHandler = BackHandler.addEventListener(
         'hardwareBackPress',
         handleBackPress
