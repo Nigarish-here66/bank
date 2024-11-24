@@ -107,11 +107,11 @@ const Dashboard = ({ navigation }) => {
             <View style={styles.bonusBoxContainer}>
               <View style={styles.bonusBox}>
                 <Text style={styles.bonusLabel}>Bonus received</Text>
-                <Text style={styles.bonusAmount}>$22.42</Text>
+                <Text style={styles.bonusAmount}>22.42 PKR</Text>
               </View>
               <View style={styles.bonusBox}>
                 <Text style={styles.bonusLabel}>Bonus received</Text>
-                <Text style={styles.bonusAmount}>$22.42</Text>
+                <Text style={styles.bonusAmount}>22.42 PKR</Text>
               </View>
             </View>
           </View>
