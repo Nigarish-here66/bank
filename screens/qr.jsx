@@ -75,7 +75,7 @@ export default function QR({ navigation }) {
         // Show success alert with payment details
         Alert.alert(
           'Payment Successful!',
-          `Amount: $${paymentData.amount}\n` +
+          `Amount: ${paymentData.amount}PKR\n` +
           `QR Content: ${data}\n` +
           `Time: ${new Date().toLocaleTimeString()}`
         );
@@ -93,8 +93,8 @@ export default function QR({ navigation }) {
         errorMessage = `Payment failed: ${error.response.data.message || 'API Error'}`; // API failure
       } else if (error.code) {
         errorMessage = `Database error: ${error.message}`; // Firebase error
-      }
-
+      } 
+      
       // Show the error message in an alert
       Alert.alert(
         'Payment Failed',

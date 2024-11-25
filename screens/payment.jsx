@@ -9,8 +9,8 @@ export default function Payment({navigation}) {
     <View style={styles.Outercontainer}>
       <Header title="Payment Receipt" 
       onBackPress={() => navigation.goBack()}
-      
       />
+      
 <View style={styles.container}>
       <View style={styles.Innercontainer}>
 

@@ -7,7 +7,6 @@ const HeaderWhite = ({
   title, 
   onBackPress, 
   onHelpPress, 
-   
   textColor = '#FFF', 
   iconColor = '#FFF', 
   iconSize = 20 
