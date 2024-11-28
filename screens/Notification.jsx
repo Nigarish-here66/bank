@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity ,ImageBackground} from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; 
 import Bottom from '../components/bottom';
-import Header from '../components/headerblack';
+import Header from '../components/headerblack'; 
 
 const Notification = ({ navigation }) => {
   return (
