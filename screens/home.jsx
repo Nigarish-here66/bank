@@ -200,7 +200,7 @@ const Home = ({ navigation }) => {
       <Bottom />
     </ImageBackground>
   );
-};
+}; 
 
 
 const styles = StyleSheet.create({
