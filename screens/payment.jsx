@@ -9,8 +9,8 @@ export default function Payment({navigation}) {
     <View style={styles.Outercontainer}>
       <Header title="Payment Receipt" 
       onBackPress={() => navigation.goBack()}
-      
       />
+      
 <View style={styles.container}>
       <View style={styles.Innercontainer}>
 
@@ -47,7 +47,7 @@ export default function Payment({navigation}) {
 const styles = StyleSheet.create({
 container: {
   flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'white', 
     marginTop: 40,
     alignItems: 'center',
     borderTopLeftRadius: 30,

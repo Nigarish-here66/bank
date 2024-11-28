@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-  },
+  }, 
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',

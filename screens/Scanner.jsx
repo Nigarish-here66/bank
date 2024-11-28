@@ -113,7 +113,7 @@ const SummaryTransaction = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, 
     backgroundColor: '#0D0B1E',
   },
   contentContainer: {

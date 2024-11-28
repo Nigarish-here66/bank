@@ -4,7 +4,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { auth, database } from '../firebase';
 import { ref, onValue, update } from 'firebase/database';
 import Header from '../components/headerblack';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient'; 
 
 
 const EditProfile = ({ navigation }) => {

@@ -55,7 +55,7 @@ const SetGoals = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0D0B1E', 
+    backgroundColor: '#0D0B1E',  
     paddingHorizontal: 20,
     marginTop: 40,
     borderTopLeftRadius: 30,

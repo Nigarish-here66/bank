@@ -5,7 +5,7 @@ import MyHeader from '../components/headerblack';
 import Bottom from '../components/bottom';
 import { LinearGradient } from 'expo-linear-gradient';
 import { auth, database } from '../firebase';
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue } from 'firebase/database'; 
 const Dashboard = ({ navigation }) => {
   
   const [balance, setBalance] = useState(0);

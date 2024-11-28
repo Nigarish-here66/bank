@@ -15,7 +15,7 @@ const GetStarted = () => {
      
     });
   
-    if (!fontsLoaded) {
+    if (!fontsLoaded) { 
       return <View><Text>Loading...</Text></View>;
     }
   return (
