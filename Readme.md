@@ -1,4 +1,4 @@
-### Project Titale: **Bank Record System (SIKKA)**
+### Project Titale: **SIKKA - A SMART BANKING APP**
 
 ### Group Members:
                   Name               SAP_ID
@@ -7,7 +7,7 @@
 
 **Project Description:**
 
-**SIKKA: A Bank Record Management System**  
+**SIKKA - A SMART BANKING APP**  
 
 SIKKA is a modern web application designed to streamline bank record management with a focus on user-friendly interfaces and seamless functionality. 
 Built using **React.js**, **JavaScript**, and **CSS**, SIKKA leverages the robust backend capabilities of **Firebase API** to ensure a secure and efficient data handling system.
