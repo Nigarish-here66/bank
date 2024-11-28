@@ -47,7 +47,7 @@ export default function Payment({navigation}) {
 const styles = StyleSheet.create({
 container: {
   flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'white', 
     marginTop: 40,
     alignItems: 'center',
     borderTopLeftRadius: 30,
