@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import ReusableTextInput from '../components/inputfield';
 import ReusableButton from '../components/button';
@@ -6,56 +6,41 @@ import { ActivityIndicator } from 'react-native';
 import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth, database } from '../firebase';
 import { ref, set } from 'firebase/database';
-
+import { Formik } from 'formik';
+import * as Yup from 'yup'; // For validation
 
 const CreateAccount = ({ navigation }) => {
+  // Validation schema using Yup
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required'),
+    email: Yup.string().email('Invalid email format').required('Email is required'),
+    phoneNumber: Yup.string().required('Phone number is required'),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Confirm password is required'),
+  });
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [name, setName] = useState('');
-  const [balance, setBalance] = useState('0'); 
-  const [loading, setLoading] = useState(false); 
-  const [error, setError] = useState(null); 
-  const [confirmPassword, setConfirmPassword] = useState(''); 
+  // Function to handle user signup with Firebase integration
+  const handleSignup = async (values, { setSubmitting, setFieldError }) => {
+    const { name, email, password, phoneNumber } = values;
 
-  // Generate a random initial balance for the user when the component mounts
-  useEffect(() => {
-    const randomBalance = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
-    setBalance(randomBalance);
-  }, []);
-
-  // Function to handle user signup with validation and Firebase integration
-  const handleSignup = async () => {
-    // Validate form inputs
-    if (!email || !password || !name || !phoneNumber || !confirmPassword) {
-      setError('Please fill in all fields');
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters long');
-      return;
-    }
-
-    setLoading(true); // Start loading spinner
     try {
-      // Create user with email and password in Firebase
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
 
-      // Save additional user data in the Firebase Realtime Database
+      // Generate a random balance
+      const randomBalance = (Math.random() * (2000 - 1000) + 1000).toFixed(2);
+
+      // Save additional user data in Firebase Realtime Database
       await set(ref(database, `users/${uid}`), {
         name: name,
         email: email,
         phoneNumber: phoneNumber,
-        balance: balance,
-        createdAt: new Date().toISOString()
+        balance: randomBalance,
+        createdAt: new Date().toISOString(),
       });
 
       // Sign the user out after successful registration
@@ -64,9 +49,9 @@ const CreateAccount = ({ navigation }) => {
       // Navigate to the Login screen
       navigation.navigate('Login');
     } catch (error) {
-      setError(error.message); // Display Firebase error messages
+      setFieldError('general', error.message); // Display Firebase error messages
     } finally {
-      setLoading(false); // Stop loading spinner
+      setSubmitting(false); // Stop the form submission spinner
     }
   };
 
@@ -80,69 +65,113 @@ const CreateAccount = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.loginText}>Create Account</Text>
 
-        {/* Input fields for account creation */}
-        <View style={styles.inputContainer}>
-          {/* Name Input Field */}
-          <ReusableTextInput
-            placeholder="Full Name"
-            icon="user"
-            value={name}
-            onChangeText={setName}
-            keyboardType="default"
-          />
+        {/* Formik form */}
+        <Formik
+          initialValues={{
+            name: '',
+            email: '',
+            phoneNumber: '',
+            password: '',
+            confirmPassword: '',
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSignup}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            isSubmitting,
+          }) => (
+            <>
+              <View style={styles.inputContainer}>
+                {/* Name Input Field */}
+                <ReusableTextInput
+                  placeholder="Full Name"
+                  icon="user"
+                  value={values.name}
+                  onChangeText={handleChange('name')}
+                  onBlur={handleBlur('name')}
+                  keyboardType="default"
+                />
+                {touched.name && errors.name && (
+                  <Text style={styles.errorText}>{errors.name}</Text>
+                )}
 
-          {/* Email Input Field */}
-          <ReusableTextInput
-            placeholder="jone@deper.one"
-            icon="envelope"
-            keyboardType="email-address"
-            value={email}
-            onChangeText={setEmail}
-          />
+                {/* Email Input Field */}
+                <ReusableTextInput
+                  placeholder="jone@deper.one"
+                  icon="envelope"
+                  keyboardType="email-address"
+                  value={values.email}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                />
+                {touched.email && errors.email && (
+                  <Text style={styles.errorText}>{errors.email}</Text>
+                )}
 
-          {/* Password Input Field */}
-          <ReusableTextInput
-            placeholder="Password"
-            icon="lock"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
-          />
+                {/* Password Input Field */}
+                <ReusableTextInput
+                  placeholder="Password"
+                  icon="lock"
+                  secureTextEntry={true}
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={handleBlur('password')}
+                />
+                {touched.password && errors.password && (
+                  <Text style={styles.errorText}>{errors.password}</Text>
+                )}
 
-          {/* Confirm Password Input Field */}
-          <ReusableTextInput
-            placeholder="Confirm Password"
-            icon="lock"
-            secureTextEntry={true}
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-          />
+                {/* Confirm Password Input Field */}
+                <ReusableTextInput
+                  placeholder="Confirm Password"
+                  icon="lock"
+                  secureTextEntry={true}
+                  value={values.confirmPassword}
+                  onChangeText={handleChange('confirmPassword')}
+                  onBlur={handleBlur('confirmPassword')}
+                />
+                {touched.confirmPassword && errors.confirmPassword && (
+                  <Text style={styles.errorText}>{errors.confirmPassword}</Text>
+                )}
 
-          {/* Phone Number Input Field */}
-          <ReusableTextInput
-            placeholder="+92 000 0000000"
-            icon="phone"
-            keyboardType="phone-pad"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-          />
-        </View>
+                {/* Phone Number Input Field */}
+                <ReusableTextInput
+                  placeholder="+92 000 0000000"
+                  icon="phone"
+                  keyboardType="phone-pad"
+                  value={values.phoneNumber}
+                  onChangeText={handleChange('phoneNumber')}
+                  onBlur={handleBlur('phoneNumber')}
+                />
+                {touched.phoneNumber && errors.phoneNumber && (
+                  <Text style={styles.errorText}>{errors.phoneNumber}</Text>
+                )}
+              </View>
 
-        {/* Display error messages, if any */}
-        {error && <Text style={styles.errorText}>{error}</Text>}
+              {/* Display general error messages */}
+              {errors.general && <Text style={styles.errorText}>{errors.general}</Text>}
 
-        {/* Display signup button or loading spinner */}
-        <View style={styles.buttonContainer}>
-          {loading ? (
-            <ActivityIndicator size="medium" color='#C711DFFF' />
-          ) : (
-            <ReusableButton
-              title="Sign Up"
-              icon="arrow-right"
-              onPress={handleSignup}
-            />
+              {/* Display signup button or loading spinner */}
+              <View style={styles.buttonContainer}>
+                {isSubmitting ? (
+                  <ActivityIndicator size="medium" color="#C711DFFF" />
+                ) : (
+                  <ReusableButton
+                    title="Sign Up"
+                    icon="arrow-right"
+                    onPress={handleSubmit}
+                  />
+                )}
+              </View>
+            </>
           )}
-        </View>
+        </Formik>
       </View>
     </View>
   );
@@ -167,33 +196,27 @@ const styles = StyleSheet.create({
   loginText: {
     fontSize: 24,
     fontFamily: 'LilitaOne_400Regular',
-    color:  '#C711DFFF',
+    color: '#C711DFFF',
   },
   createAccount: {
     top: 50,
     alignItems: 'flex-end',
   },
   createAccountText: {
-    color:  '#C711DFFF',
+    color: '#C711DFFF',
     fontSize: 16,
     fontFamily: 'LilitaOne_400Regular',
   },
   inputContainer: {
     marginTop: 40,
   },
-  forgotText: {
-    color: '#4A90E2',
+  errorText: {
+    color: 'red',
     fontSize: 14,
-    fontFamily: 'LilitaOne_400Regular',
+    marginBottom: 10,
   },
   buttonContainer: {
     marginTop: 30,
     alignItems: 'center',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 14,
-    fontFamily: 'LilitaOne_400Regular',
-    marginBottom: 10,
   },
 });
