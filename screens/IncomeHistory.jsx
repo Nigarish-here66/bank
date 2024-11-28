@@ -10,7 +10,7 @@ const IncomeHistory = ({ navigation }) => {
     // Main container with a background image
     <ImageBackground 
       source={require('../assets/image.png')} 
-      style={styles.container} 
+      style={styles.container}  
       imageStyle={{ opacity: 0.9 }} 
     >
       {/* Header Component */}
