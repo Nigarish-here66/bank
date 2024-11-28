@@ -179,7 +179,7 @@ export default function QR({ navigation }) {
               }
             }}
             disabled={isLoading} 
-          />
+          /> 
         </View>
         
         {/* Bottom navigation bar */}
