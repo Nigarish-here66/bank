@@ -6,7 +6,7 @@ import BottomNavBar from '../components/bottom';
 import { auth, database } from '../firebase'; 
 import { ref, onValue } from 'firebase/database';
 import { signOut } from 'firebase/auth'; 
-import { LinearGradient } from 'expo-linear-gradient'; 
+import { LinearGradient } from 'expo-linear-gradient';  
 
 const Account = ({ navigation }) => {
   // State for storing user's name and account number
