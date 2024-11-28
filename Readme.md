@@ -21,4 +21,4 @@ Built using **React.js**, **JavaScript**, and **CSS**, SIKKA leverages the robus
 ### Purpose:
 The primary goal of SIKKA is to provide a well-organized and functional platform for managing banking records efficiently while delivering an exceptional user experience.  
 
-This project combines modern **web development technologies** and best practices to showcase innovation in banking solutions.
+This project demonstrates expertise in **mobile-focused development technologies** by combining modern frameworks and backend solutions to create a seamless, efficient banking application.
