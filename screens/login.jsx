@@ -40,7 +40,7 @@ const Login = ({ navigation }) => {
     }
   };
 
-  return (
+  return ( 
     <View style={styles.topContainer}>
       {/* Link to "Create Account" screen */}
       <TouchableOpacity
