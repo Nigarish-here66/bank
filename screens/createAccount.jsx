@@ -7,7 +7,7 @@ import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth, database } from '../firebase';
 import { ref, set } from 'firebase/database';
 import { Formik } from 'formik';
-import * as Yup from 'yup'; // For validation
+import * as Yup from 'yup'; // For validation 
 
 const CreateAccount = ({ navigation }) => {
   // Validation schema using Yup
