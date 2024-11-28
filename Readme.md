@@ -5,7 +5,7 @@
               Nagarash Fateh          44815
               Manahil Habib           47876
 
-**Project Description:**
+### **Project Description:**
 
 **SIKKA - A SMART BANKING APP**  
 
